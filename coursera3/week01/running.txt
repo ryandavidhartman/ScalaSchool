@@ -1,0 +1,32 @@
+import scala.annotation.tailrec
+import scala.collection.parallel.mutable._
+
+def power(n:Int, p: Double): Int = {
+Math.pow(Math.abs(n),p).toInt
+}
+
+
+def sumSegment(a: Array[Int], p: Double, s:Int, t: Int): Int = {
+  @tailrec
+  def helper(acc: Int, i:Int): Int = {
+    if(i >= t) acc else helper(acc+power(a(i),p), i+1)
+  }
+  helper(0,s)
+}
+
+def pNorm(a: Array[Int], p:Double): Int =
+  power(sumSegment(a, p, 0, a.length), 1/p)
+
+
+def sumSegment2(a: Array[Int], p: Double, s:Int, t: Int): Int = {
+  a.slice(s,t).fold(0)(_ + power(_,p))
+}
+
+def pNorm2(a: Array[Int], p:Double): Int =
+  power(sumSegment2(a, p, 0, a.length), 1/p)
+
+def pNorm3(a: Array[Int], p:Double): Int = {
+  val m = (a.length/2).toInt
+  val segs = ParArray[Int](sumSegment2(a,p,0,m),sumSegment(a,p,m,a.length))
+  power(segs.sum, 1/p)
+}

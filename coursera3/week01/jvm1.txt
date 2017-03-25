@@ -1,0 +1,52 @@
+class HelloThread extends Thread{
+  override def run() {
+    println("Hello ")
+    println("World!")
+  }
+}
+
+def main(){
+  val t = new HelloThread()
+  val s = new HelloThread()
+
+  t.start()
+  s.start()
+  t.join()
+  s.join()
+}
+
+var uidCount = 0L
+
+// this is not atomic
+def getUniqueId(): Long = {
+  uidCount = uidCount + 1
+  uidCount
+}
+
+def startThread() = {
+  val t = new Thread {
+    override def run() {
+      val uids = for(i <- 0 until 10) yield getUniqueId()
+      println(uids)
+    }
+  }
+  t.start()
+  t
+}
+
+val myMonitor = new AnyRef()
+def getUniqueIdAtomically(): Long = myMonitor.synchronized {
+  uidCount = uidCount + 1
+  uidCount
+}
+
+def startThreadAtomic() = {
+  val t = new Thread {
+    override def run() {
+      val uids = for(i <- 0 until 10) yield getUniqueIdAtomically()
+      println(uids)
+    }
+  }
+  t.start()
+  t
+}
