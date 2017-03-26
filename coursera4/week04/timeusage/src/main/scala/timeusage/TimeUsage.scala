@@ -34,8 +34,8 @@ object TimeUsage {
     val (primaryNeedsColumns, workColumns, otherColumns) = classifiedColumns(columns)
     val summaryDf = timeUsageSummary(primaryNeedsColumns, workColumns, otherColumns, initDf)
     //summaryDf.show(20)
-    val finalDf = timeUsageGrouped(summaryDf)
-   // finalDf.show()
+    val finalDf = timeUsageGroupedSql(summaryDf)
+    finalDf.show()
   }
 
   /** @return The read DataFrame along with its column names. */
@@ -184,7 +184,11 @@ object TimeUsage {
     * Finally, the resulting DataFrame should be sorted by working status, sex and age.
     */
   def timeUsageGrouped(summed: DataFrame): DataFrame = {
-    ???
+   // summed.groupBy($"working",$"sex", $"age").avg("primaryNeeds","work", "other").orderBy("working", "sex", "age")
+    summed.groupBy($"working",$"sex", $"age").agg(
+      round(avg("primaryNeeds"), 1).as("primaryNeeds"),
+      round(avg("work"), 1).as("work"),
+      round(avg("other"), 1).as("other")).orderBy("working", "sex", "age")
   }
 
   /**
@@ -201,7 +205,12 @@ object TimeUsage {
     * @param viewName Name of the SQL view to use
     */
   def timeUsageGroupedSqlQuery(viewName: String): String =
-    ???
+    s"""
+       |SELECT working, sex, age, round(avg(primaryNeeds), 1) as primaryNeeds, round(avg(work), 1) as work, round(avg(other), 1) as other
+       |FROM $viewName
+       |GROUP BY working, sex, age
+       |ORDER By working, sex, age
+     """.stripMargin
 
   /**
     * @return A `Dataset[TimeUsageRow]` from the “untyped” `DataFrame`
