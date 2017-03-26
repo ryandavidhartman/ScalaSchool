@@ -11,5 +11,5 @@ dist
 .project
 .settings
 .DS_Store
-.dat
-.csv
+*.dat
+*.csv
