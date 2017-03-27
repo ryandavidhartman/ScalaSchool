@@ -34,8 +34,12 @@ object TimeUsage {
     val (primaryNeedsColumns, workColumns, otherColumns) = classifiedColumns(columns)
     val summaryDf = timeUsageSummary(primaryNeedsColumns, workColumns, otherColumns, initDf)
     //summaryDf.show(20)
-    val finalDf = timeUsageGroupedSql(summaryDf)
-    finalDf.show()
+
+    val reg = timeUsageGrouped(summaryDf)
+
+    val finalDf = timeUsageGroupedTyped(timeUsageSummaryTyped(summaryDf))
+    reg.show()
+    //finalDf.show()
   }
 
   /** @return The read DataFrame along with its column names. */
@@ -219,8 +223,16 @@ object TimeUsage {
     * Hint: you should use the `getAs` method of `Row` to look up columns and
     * cast them at the same time.
     */
-  def timeUsageSummaryTyped(timeUsageSummaryDf: DataFrame): Dataset[TimeUsageRow] =
-    ???
+  def timeUsageSummaryTyped(timeUsageSummaryDf: DataFrame): Dataset[TimeUsageRow] = {
+
+    timeUsageSummaryDf.map{r => TimeUsageRow(working = r.getAs[String]("working"),
+    sex = r.getAs[String]("sex"),
+    age = r.getAs[String]("age"),
+    primaryNeeds = r.getAs[Double]("primaryNeeds"),
+    work = r.getAs[Double]("work"),
+    other = r.getAs[Double]("other"))
+    }
+  }
 
   /**
     * @return Same as `timeUsageGrouped`, but using the typed API when possible
@@ -235,7 +247,13 @@ object TimeUsage {
     */
   def timeUsageGroupedTyped(summed: Dataset[TimeUsageRow]): Dataset[TimeUsageRow] = {
     import org.apache.spark.sql.expressions.scalalang.typed
-    ???
+
+    summed.groupByKey(r => (r.working, r.sex, r.age)).agg(
+      round(typed.avg[TimeUsageRow](_.primaryNeeds), 1).as[Double],
+      round(typed.avg[TimeUsageRow](_.work), 1).as[Double],
+      round(typed.avg[TimeUsageRow](_.other), 1).as[Double])
+    .map{case ((w, s, a), pn, working, o) => TimeUsageRow(w, s, a, pn, working, o)}
+    .orderBy("working", "sex", "age")
   }
 }
 
