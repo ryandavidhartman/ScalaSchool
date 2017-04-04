@@ -11,8 +11,7 @@ import org.apache.spark.rdd.RDD
 object Extraction {
 
   import SparkSessionWrapper._
-
-  val NO_DATA:Double = -999.99
+  import Constants._
 
   /**
     * @param year             Year number
@@ -22,11 +21,13 @@ object Extraction {
     */
   def locateTemperatures(year: Int, stationsFile: String, temperaturesFile: String): Iterable[(LocalDate, Location, Double)] = {
     val stationsFilePath = fsPath(stationsFile)
-    val stationsRdd:RDD[Station] = convertRawRddToStationsRdd(spark.sparkContext.textFile(stationsFilePath))
+    val stationsRdd:RDD[(String, Location)] = convertRawRddToStationsRdd(spark.sparkContext.textFile(stationsFilePath)).filter{case (id, loc) => loc.lat != NO_DATA && loc.lon != NO_DATA}.persist
 
     val temperaturesFilePath = fsPath(temperaturesFile)
-    val temperaturesRdd = spark.sparkContext.textFile(temperaturesFilePath)
-    ???
+    val temperaturesRdd:RDD[(String, (LocalDate, Double))] = convertRawRddtoTemperaturesRdd(spark.sparkContext.textFile(temperaturesFilePath), year).persist()
+
+    stationsRdd.join(temperaturesRdd).map{ case (string, (loc, (date, temp))) => (date, loc, temp)}.collect()
+
   }
 
   def fsPath(resource: String): String =
@@ -41,22 +42,33 @@ object Extraction {
     ???
   }
 
-  def convertRawRddToStationsRdd(lines: RDD[String]): RDD[Station] = {
+  def convertRawRddToStationsRdd(lines: RDD[String]): RDD[(String, Location)] = {
     lines.map(line => {
       line.split(",") match {
-        case a if (a.length == 4) => Station(id = s"""${a(0)}-${a(1)}""", latitude = safeToDouble(a(2)), longitude = safeToDouble(a(3)))
-        case a if (a.length == 3) => Station(id = s"""${a(0)}-""",        latitude = safeToDouble(a(1)), longitude = safeToDouble(a(2)))
-        case a if (a.length == 2) => Station(id = s"""${a(0)}-${a(1)}""")
-        case a if (a.length == 1) => Station(id = s"""${a(0)}-""")
+        case a if (a.length == 4) => (s"""${a(0)}-${a(1)}""", Location(safeToDouble(a(2)), safeToDouble(a(3))))
+        case a if (a.length == 3) => (s"""${a(0)}-""",        Location(safeToDouble(a(1)), safeToDouble(a(2))))
+        case a if (a.length == 2) => (s"""${a(0)}-${a(1)}""", Location(NO_DATA, NO_DATA))
+        case a if (a.length == 1) => (s"""${a(0)}-""", Location(NO_DATA, NO_DATA))
+        case _ => throw new Exception("line: " + line)
+      }
+    })
+  }
+
+  def convertRawRddtoTemperaturesRdd(lines: RDD[String], year: Int): RDD[(String, (LocalDate, Double))] = {
+
+    lines.map(line => {
+      line.split(",")  match {
+        case a if (a.length == 5) => (s"""${a(0)}-${a(1)}""", (LocalDate.of(year, a(2).toInt, a(3).toInt), toCelsius(a(4))))
+        case a if (a.length == 4) => (s"""${a(0)}-""",        (LocalDate.of(year, a(1).toInt, a(2).toInt), toCelsius(a(3))))
         case _ => throw new Exception("line: " + line)
       }
     })
   }
 
   private def safeToDouble(v: String): Double = if(!v.isEmpty) v.toDouble else NO_DATA
+  private def toCelsius(f: String): Double = (f.toDouble - 32)/ 1.8
 
-  case class Station(id: String, latitude: Double = NO_DATA, longitude: Double = NO_DATA)
-  case class Temperature(id: String, month: Int, day: Int, temp: Double)
+
 
 }
 
