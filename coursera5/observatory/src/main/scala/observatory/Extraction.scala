@@ -39,7 +39,8 @@ object Extraction {
     * @return A sequence containing, for each location, the average temperature over the year.
     */
   def locationYearlyAverageRecords(records: Iterable[(LocalDate, Location, Double)]): Iterable[(Location, Double)] = {
-    ???
+    val locationAndTemps:RDD[(Location, (Double, Int))] = spark.sparkContext.parallelize(records.map{case (_, l, t) => (l,(t,1))}.toList)
+    locationAndTemps.reduceByKey{case ((t1, c1), (t2, c2)) => (t1+t2, c1+c2)}.mapValues{case (t,c) => t/c}.collect()
   }
 
   def convertRawRddToStationsRdd(lines: RDD[String]): RDD[(String, Location)] = {
