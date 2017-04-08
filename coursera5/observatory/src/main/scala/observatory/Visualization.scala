@@ -20,17 +20,16 @@ object Visualization {
     */
   def predictTemperature(temperatures: Iterable[(Location, Double)], location: Location): Double = {
 
+    val  temps = temperatures.toList
 
-    val tempRdd  = spark.sparkContext.parallelize(temperatures.toList).cache()
-    val foundLocationTemp = tempRdd.lookup(location)
-    if(foundLocationTemp.headOption.isDefined) {
-      foundLocationTemp.head
-    } else {
-      //val sum = tempRdd.map{case (l,_) => 1.0/distanceRaised(l, location, 2)}.sum
-      //val weightedTemp = tempRdd.map{case (l,t) => t/distanceRaised(l, location, 2)}.sum
-
-      val bob = tempRdd.map{case (l,t) => (l,t,1.0/distanceRaised(l,location,2))}.map{case (x,y,z) => (y*z,z)}.reduce( (x,y) => (x._1 + y._1, x._2 + y._2))
-      bob._1/bob._2
+    val locationInList = temps.find{case (l:Location,t) => l.lat == location.lat && l.lon == location.lon}
+    if(locationInList.isDefined) {
+      locationInList.get._2
+    }
+    else
+    {
+      val tempsAndWeights = temps.map{case (l,t) => (l,t,1.0/distanceRaised(l,location,2))}.map{case (x,y,z) => (y*z,z)}.reduce( (x,y) => (x._1 + y._1, x._2 + y._2))
+      tempsAndWeights._1/tempsAndWeights._2
     }
   }
 
@@ -68,8 +67,24 @@ object Visualization {
     * @return A 360×180 image where each pixel shows the predicted temperature at its location
     */
   def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)]): Image = {
-    ???
+
+    val pixelArray = scala.collection.mutable.ArrayBuffer[Pixel]()
+
+    for(y <- (0 until 180)) {
+      for(x <- (0 until 360)) {
+        val location = pixelPositionToLocation(x,y)
+        val color = interpolateColor(colors, predictTemperature(temperatures, location))
+        val pixel = Pixel(color.red, color.green, color.blue, 255);
+        pixelArray += pixel
+      }
+    }
+
+    Image(360,180, pixelArray.toArray)
   }
+
+
+  def pixelPositionToLocation(x:Int, y:Int): Location = Location(lat = 90.0-y, lon = x -180.0)
+  def locationToPixelPosition(location:Location): (Int, Int) = (round(location.lon + 180).toInt, round(90 - location.lat).toInt)
 
   def distance(loc1: Location, loc2: Location)={
 
