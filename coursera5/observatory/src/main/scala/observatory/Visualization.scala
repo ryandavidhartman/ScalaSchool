@@ -17,7 +17,6 @@ object Visualization {
     */
   def predictTemperature(temperatures: Iterable[(Location, Double)], location: Location): Double = {
 
-    ???
     val  temps = temperatures.toList
 
     val locationInList = temps.find{case (l:Location,t) => l.lat == location.lat && l.lon == location.lon}
@@ -39,7 +38,7 @@ object Visualization {
     * @return The color that corresponds to `value`, according to the color scale defined by `points`
     */
   def interpolateColor(points: Iterable[(Double, Color)], value: Double): Color = {
-    ???
+
     val colors = points.toList.sortBy(_._1)
 
     if(value <= colors.head._1) {
@@ -66,7 +65,6 @@ object Visualization {
     * @return A 360×180 image where each pixel shows the predicted temperature at its location
     */
   def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)]): Image = {
-    ???
 
     val pixelArray = scala.collection.mutable.ArrayBuffer[Pixel]()
 

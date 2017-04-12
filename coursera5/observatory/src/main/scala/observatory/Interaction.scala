@@ -22,6 +22,13 @@ object Interaction {
     Location(lat, lon)
   }
 
+  def latLonToTile(lat: Double, lon: Double, zoom: Int): (Int, Int) = {
+    val x = ((lon + 180.0) / 360.0 * (1<<zoom)).toInt
+    val y = ((1 - log(tan(toRadians(lat)) + 1 / cos(toRadians(lat))) / Pi) / 2.0 * (1<<zoom)).toInt
+
+    (x,y)
+  }
+
   /**
     * @param temperatures Known temperatures
     * @param colors Color scale
@@ -35,14 +42,14 @@ object Interaction {
 
     for(y_iter <- (0 until 256)) {
       for(x_iter <- (0 until 256)) {
-        val location = tileLocation(zoom, (x+x_iter), (y-y_iter))
+        val location = tileLocation(zoom+8, x_iter, y_iter)
         val color = interpolateColor(colors, predictTemperature(temperatures, location))
         val pixel = Pixel(color.red, color.green, color.blue, 127);
         pixelArray += pixel
       }
     }
 
-    Image(360,180, pixelArray.toArray)
+    Image(256,256, pixelArray.toArray)
   }
 
 
