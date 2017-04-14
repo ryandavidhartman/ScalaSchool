@@ -36,40 +36,43 @@ class InteractionTest extends FunSuite with Checkers {
     (-60.0, Color(0,     0,   0))
   )
 
+
+
   test("tiles image zoom 0 should work") {
     val image = tile(locAndTemps, colors, 0, 0, 0)
     assert(image.height == 256)
     assert(image.width === 256)
-    //image.output(new java.io.File("/Users/ryan.hartman/Desktop/map0.png"))
+    image.output(new java.io.File("/Users/ryan.hartman/Desktop/map0.png"))
   }
 
   test("tiles zoom 1 should work at 0 0") {
     val image = tile(locAndTemps, colors, 1, 0, 0)
     assert(image.height == 256)
     assert(image.width === 256)
-   // image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-0-0.png"))
+    image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-0-0.png"))
   }
 
   test("tiles zoom 1 should work at 1 0") {
     val image = tile(locAndTemps, colors, 1, 1, 0)
     assert(image.height == 256)
     assert(image.width === 256)
-    //image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-1-0.png"))
+    image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-1-0.png"))
   }
 
   test("tiles zoom 1 should work at 0 1") {
     val image = tile(locAndTemps, colors, 1, 0, 1)
     assert(image.height == 256)
     assert(image.width === 256)
-    //image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-0-1.png"))
+    image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-0-1.png"))
   }
 
   test("tiles zoom 1 should work at 1 1") {
     val image = tile(locAndTemps, colors, 1, 1, 1)
     assert(image.height == 256)
     assert(image.width === 256)
-   // image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-1-1.png"))
+    image.output(new java.io.File("/Users/ryan.hartman/Desktop/map1-1-1.png"))
   }
+
 
   test("figure out tiles for lat 0.0 and lon 0.0") {
     val (x0, y0) = latLonToTile(0.0, 0.0, 0)
@@ -94,5 +97,15 @@ class InteractionTest extends FunSuite with Checkers {
     assert(y8 === 128)
   }
 
+  test("generate tiles") {
+    def gen[T](year: Int, zoom: Int, x: Int, y: Int, date:T): Unit = {
+      System.out.println(s"zoom: $zoom x:$x y:$y")
+    }
+
+    val yearlyData: Iterable[(Int, Any)] = List((1932, null), (1997, null), (1924, null))
+
+      generateTiles(yearlyData, gen)
+
+    }
 
 }

@@ -40,18 +40,9 @@ object Interaction {
   def tile(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)], zoom: Int, x: Int, y: Int): Image = {
     val pixelArray = scala.collection.mutable.ArrayBuffer[Pixel]()
 
-    val upper_Left = tileLocation(zoom, x, y)
-    val delta_lat  = if(zoom == 0 || zoom == 1)
-      170.1022/(256*(1+zoom))
-    else {
-      (upper_Left.lat - tileLocation(zoom, x, y+1).lat)/256
-    }
-
-    val delta_long = 360.0/(256*(1<<zoom))
-
     for(y_iter <- (0 until 256)) {
       for(x_iter <- (0 until 256)) {
-        val location = Location(lat = upper_Left.lat + delta_lat*y_iter, lon = upper_Left.lon + delta_long*x_iter)
+        val  location = tileLocation(zoom+8, x_iter+x*256, y_iter+y*256)
         val color = interpolateColor(colors, predictTemperature(temperatures, location))
         val pixel = Pixel(color.red, color.green, color.blue, 127);
         pixelArray += pixel
@@ -74,17 +65,14 @@ object Interaction {
     generateImage: (Int, Int, Int, Int, Data) => Unit): Unit = {
 
     def generateTilesForYear(year:Int, data: Data): Unit = {
-      for(zoom <- (0 to 3))
-        for(x <- (0 until (1<<zoom)))
-          for(y <- (0 until (1<<zoom)))
-            {
-              generateImage(year, zoom, x, y, data)
-            }
-
-      yearlyData.foreach{ case (year, data) => generateTilesForYear(year, data)}
+      for (zoom <- (0 to 3))
+        for (x <- (0 until (1 << zoom)))
+          for (y <- (0 until (1 << zoom))) {
+            generateImage(year, zoom, x, y, data)
+          }
     }
+
+    yearlyData.foreach{ case (year, data) => generateTilesForYear(year = year, data = data) }
   }
-
-
 
 }
