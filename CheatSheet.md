@@ -461,11 +461,11 @@ is equivalent to
 
 
 ## Attribution
-This cheat sheet originated from the [https://www.coursera.org/learn/progfun1/home/welcome](Functional Programming Principles in Scala) forum, credits to Laurent Poulain.
+This cheat sheet originated from the [Functional Programming Principles in Scala](https://www.coursera.org/learn/progfun1/home/welcome) forum, credits to Laurent Poulain.
 I copied it and changed or added a few things.
  
 You can submit a pull request directly from there without checking out the git repository to your local machine.
 
-- Fork the repository [https://github.com/ryandavidhartman/ScalaSchool](https://github.com/ryandavidhartman/ScalaSchool) and check it out locally.
+- Fork the repository [ScalaSchool](https://github.com/ryandavidhartman/ScalaSchool) and check it out locally.
 - To preview your changes, you need [jekyll](http://jekyllrb.com/). Navigate to your checkout and invoke `jekyll serve`, then open the page [http://localhost:4000/CheatSheet.html](http://localhost:4000/CheatSheet.html).
 
