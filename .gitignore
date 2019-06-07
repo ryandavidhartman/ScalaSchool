@@ -1,4 +1,5 @@
 .idea/
+_site/
 logs
 project/project
 project/target
