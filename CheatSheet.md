@@ -1,7 +1,5 @@
----
-layout: page
-title: Scala Cheat Sheet
----
+# Scala School Cheat Sheet
+
 
 ## Evaluation Rules
 
