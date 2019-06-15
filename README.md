@@ -8,4 +8,4 @@
 * [Scala training from 47 Degrees](https://www.scala-exercises.org/)
 
 ## Cheat Sheet
-[List of basic Scala concepts](./CheatSheet.md)
+[List of basic Scala concepts](https://github.com/ryandavidhartman/ScalaSchool/wiki/ScalaCheatSheet)
