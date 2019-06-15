@@ -3,6 +3,7 @@ layout: page
 title: Read Me
 ---
 
+
 ## Scala Resources:
 * [A Tour of Scala: Tutorial introducing the main concepts of Scala](https://docs.scala-lang.org/tour/tour-of-scala.html)
 * [Scala-Lang.org: Scala's main page](https://www.scala-lang.org/)
@@ -16,6 +17,8 @@ title: Read Me
 [List of basic Scala concepts](./CheatSheet.md)
 
 
+<!--
+
 <script language="javascript">
 var x = document.links.length;
 for (i = 0; i < x; i++) {
@@ -24,3 +27,5 @@ for (i = 0; i < x; i++) {
   document.links[i].setAttribute('href', thisHREF);
 }
 </script>
+
+-->
