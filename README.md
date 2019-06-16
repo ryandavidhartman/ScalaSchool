@@ -7,5 +7,10 @@
 * [A Scala tutorial from Twitter](http://twitter.github.io/scala_school/)
 * [Scala training from 47 Degrees](https://www.scala-exercises.org/)
 
+## Online tools:
+* [Scastie](https://scastie.scala-lang.org/)
+* [Scala Fiddle](https://scalafiddle.io/)
+* [Scala Meta AST Explorer](https://astexplorer.net/#/gist/ec56167ffafb20cbd8d68f24a37043a9/677e43f3adb93db8513dbe4e2c868dd4f78df4b3)
+
 ## Cheat Sheet
 [List of basic Scala concepts](https://github.com/ryandavidhartman/ScalaSchool/wiki/ScalaCheatSheet)
