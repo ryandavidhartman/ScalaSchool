@@ -1,14 +1,14 @@
-#Welcome to Scala School
+# Welcome to Scala School
 
 ## Eventually we'll cover:
 
+* immutable data structures 
 * first-class and higher-order functions
 * map (and flatMap and filter) reduce/fold etc
 * currying
 * function composition
 * monads
 * lazy evaluation
-* immutable data structures
 
 ## We won't cover:
 * monoids, functors applicatives
@@ -68,9 +68,14 @@ val result = if (a > 0) {
 } else {
   -1
 }
-
 ```
 
+## Immutable Data Structures
+
+Using a language that favors expressions over statements, allows us to write pure functions (i.e. without side effects) and this naturally leads us to favor immutable data structors.
+
+By using values over variables, along with pure functions, enables "referential transparency" which we'll see as the course progresses how this will let us write code that is easier to read and debug.
+ 
 
 
 
