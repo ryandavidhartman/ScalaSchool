@@ -16,16 +16,25 @@
 * category theory
 * Monads are Monoids in the category of endofuctors.  Wee!
 
+## What is the goal of Scala?
+While designing Scala, Prof. Odersky sought to marry the object-oriented programming (OOP) and functional progamming (FP) paradigms. Informally, a programming paradigm refers to a certain style or technique for solving problems using programming.
 
-## So what is functional programming?
+### Object-oriented programming has three principles with their own features:
 
-### From the wikipedia
-In functional code, the output value of a function depends only on the arguments that are passed to the function, so calling a function f twice with the same value for an argument x produces the same result f(x) each time.
+* Encapsulation: This principle is primarily concerned with access restriction. Access restriction prohibits one object from accessing the state or values of another object. Encapsulation can also allow for a name to carry different definitions/behaviors when used in separate contexts.
+* Inheritance: Broadly, this principle allows for one object to acquire (or inherit) the properties of another object.
+* Polymorphism: This principle refers to the same message resulting in different responses from different objects. When given the same message, two objects might retain an abstract similarity but with different details. 
 
-Eliminating side effects, i.e., changes in state that do not depend on the function inputs, can make it much easier to understand and predict the behavior of a program, which is one of the key motivations for the development of functional programming.
+### So what is functional programming?
 
-"pure functions" -> Referential Transparency enabled and the evolution mode talked about in the lectures 
+As for functional programming, we have the following aspects according to Prof. Odersky:
 
+* The absence of mutable variables and assignments. Here, mutation refers to changing some feature of an object while its identity remains the same. So if I say x = 5 and then reassign the value of x by saying x = ‘kombucha', I’ve changed the value of x while preserving its identity.
+* A strong focus on implementing business logic using function composition
+* Functions are first-class citizens. That is, functions 
+ 1. may be defined anywhere, even inside other functions
+ 2. may be passed as parameters and may be returned as results
+ 3. there exist a set of operators to create functions.
 
 ### Compare this to imperative programming
 
