@@ -31,10 +31,10 @@ As for functional programming, we have the following aspects according to Prof. 
 
 * The absence of mutable variables and assignments. Here, mutation refers to changing some feature of an object while its identity remains the same. So if I say x = 5 and then reassign the value of x by saying x = ‘kombucha', I’ve changed the value of x while preserving its identity.
 * A strong focus on implementing business logic using function composition
-* Functions are first-class citizens. That is, functions 
- 1. may be defined anywhere, even inside other functions
- 2. may be passed as parameters and may be returned as results
- 3. there exist a set of operators to create functions.
+* Functions are first-class citizens. That is, functions:
+    1. may be defined anywhere, even inside other functions
+    2. may be passed as parameters and may be returned as results
+    3. there exist a set of operators to create functions.
 
 ### Compare this to imperative programming
 
