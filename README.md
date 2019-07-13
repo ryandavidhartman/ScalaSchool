@@ -19,4 +19,4 @@
 * [Scala Meta AST Explorer](https://astexplorer.net/#/gist/ec56167ffafb20cbd8d68f24a37043a9/677e43f3adb93db8513dbe4e2c868dd4f78df4b3)
 
 ## Cheat Sheet
-[List of basic Scala concepts](https://github.com/ryandavidhartman/ScalaSchool/wiki/ScalaCheatSheet)
+[List of basic Scala concepts](https://github.com/ryandavidhartman/ScalaSchool/wiki)
