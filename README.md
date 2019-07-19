@@ -7,6 +7,7 @@
 * [Scala Overview on StackOverflow: A list of useful questions sorted by topic](http://stackoverflow.com/tags/scala/info)
 * [A Scala tutorial from Twitter](http://twitter.github.io/scala_school/)
 * [Scala training from 47 Degrees](https://www.scala-exercises.org/)
+* [Scala training from Data Flair](https://data-flair.training/blogs/scala-tutorial/)
 
 ## Scala Books
 * [Programming in Scala book (my personal recommendation for an intro to Scala)](https://people.cs.ksu.edu/~schmidt/705a/Scala/Programming-in-Scala.pdf)
