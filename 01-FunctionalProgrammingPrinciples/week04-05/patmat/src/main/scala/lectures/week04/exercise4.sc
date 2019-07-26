@@ -1,5 +1,5 @@
-import week4._
-object exercise4 {
+import week04._
+
   //eval(Sum(Num(1),Num(2)) = 3
 
   /*
@@ -20,6 +20,3 @@ object exercise4 {
   test2.show
   var test3 = Sum(test1, test2)
   test3.show
-
-
-}

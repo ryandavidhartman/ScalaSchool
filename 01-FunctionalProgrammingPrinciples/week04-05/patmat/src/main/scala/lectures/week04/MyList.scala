@@ -1,4 +1,4 @@
-package week4
+package week04
 import java.util.NoSuchElementException
 
 trait MyList[+T] {
