@@ -93,14 +93,14 @@ object Lists {
     @tailrec
     def maxHelper(acc: Int, nums: List[Int]): Int = nums match {
       case Nil => acc
-      case y :: ys  => maxHelper(math.max(y, acc), ys)
+      case y :: ys => maxHelper(math.max(y, acc), ys)
     }
 
-    if (xs.isEmpty)
-      throw new NoSuchElementException()
-    else
-      maxHelper(xs.head, xs.tail)
-  } */
+    xs match {
+      case Nil => throw new NoSuchElementException()
+      case ys => maxHelper(ys.head, ys.tail)
+    }
+  }*/
 
   // Final answer, this is pretty close to the actual definition
   def max(xs: List[Int]): Int = xs.max  //.reduce((currentMax,element) => Math.max(currentMax,element))
