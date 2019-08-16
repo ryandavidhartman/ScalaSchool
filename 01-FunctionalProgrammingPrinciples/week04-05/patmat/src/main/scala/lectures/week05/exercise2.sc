@@ -1,4 +1,4 @@
-object exercise2 {
+
 
   def msort(xs:List[Int]): List[Int] = {
     val n = xs.length/2
@@ -47,5 +47,3 @@ object exercise2 {
 
   val test = List(2,232,23,1,-1)
   msort(test)
-
-}

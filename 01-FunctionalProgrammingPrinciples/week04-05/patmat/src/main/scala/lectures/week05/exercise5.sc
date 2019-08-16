@@ -1,6 +1,5 @@
 import  week5._
 
-object exercise5 {
 
   def mySum1(xs: List[Int]): Int = xs match {
     case Nil => 0
@@ -28,6 +27,3 @@ object exercise5 {
   ryan3 myLength
 
   myEmpty.myLength()
-
-
-}
