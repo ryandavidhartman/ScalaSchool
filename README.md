@@ -8,9 +8,15 @@ The Scala IDE for Eclipse, Intellij IDEA or another IDE of your choice.
 Please follow the instructions on this page carefully.
 
 ### Installing the JDK
-Linux
-Ubuntu, Debian: To install the JDK using apt-get, execute the following command in a terminal sudo apt-get install openjdk-8-jdk
-Fedora, Oracle, Red Had: To install the JDK using yum, execute the following command in a terminal su -c "yum install java-1.8.0-openjdk-devel"
+
+#### Linux
+
+Ubuntu, Debian:
+To install the JDK using apt-get, execute the following command in a terminal sudo apt-get install openjdk-8-jdk
+
+Fedora, Oracle, Red Had: 
+To install the JDK using yum, execute the following command in a terminal su -c "yum install java-1.8.0-openjdk-devel"
+
 Manual Installation: To install the JDK manually on a Linux system, follow these steps:
 
 1. Download the .tar.gz archive from the Oracle website
@@ -24,12 +30,12 @@ If you are using another shell, add that line in the corresponding configuration
 
 Verify your setup: Open a new terminal (to apply the changed ~/.bashrc in case you did the manual installation) and type java -version. If you have problems installing the JDK, ask for help on the forums.
 
-Mac OS X
+#### Mac OS X
 Mac OS X either comes with a pre-installed JDK, or installs it automatically.
 
 To verify your JDK installation, open the Terminal application in /Applications/Utilities/ and type java -version. If the JDK is not yet installed, the system will ask you if you would like to download and install it. Make sure you install Java 1.8.
 
-Windows
+#### Windows
 Download the JDK installer for Windows from the Oracle website.
 Run the installer.
 Add the bin directory of the installed JDK to the PATH environment variable, as described here.
