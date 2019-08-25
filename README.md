@@ -12,7 +12,9 @@ Linux
 Ubuntu, Debian: To install the JDK using apt-get, execute the following command in a terminal sudo apt-get install openjdk-8-jdk
 Fedora, Oracle, Red Had: To install the JDK using yum, execute the following command in a terminal su -c "yum install java-1.8.0-openjdk-devel"
 Manual Installation: To install the JDK manually on a Linux system, follow these steps:
-Download the .tar.gz archive from the Oracle website
+
+1. Download the .tar.gz archive from the Oracle website
+
 2. Unpack the downloaded archive to a directory of your choice
 
 3. Add the bin/ directory of the extracted JDK to the PATH environment variable. Open the file ~/.bashrc in an editor (create it if it doesn't exist) and add the following line:
