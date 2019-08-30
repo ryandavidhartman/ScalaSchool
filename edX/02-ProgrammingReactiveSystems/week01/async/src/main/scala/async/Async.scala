@@ -13,8 +13,8 @@ object Async {
     * In case the given `Future` value failed, this method
     * should return a failed `Future` with the same error.
     */
-  def transformSuccess(eventuallyX: Future[Int]): Future[Boolean] =
-    ???
+  def transformSuccess(eventuallyX: Future[Int]): Future[Boolean] = eventuallyX map (_ % 2 == 0)
+
 
   /**
     * Transforms a failed asynchronous `Int` computation into a
@@ -23,8 +23,9 @@ object Async {
     * In case the given `Future` value was successful, this method
     * should return a successful `Future` with the same value.
     */
-  def recoverFailure(eventuallyX: Future[Int]): Future[Int] =
-    ???
+  def recoverFailure(eventuallyX: Future[Int]): Future[Int] = eventuallyX recover {
+    case NonFatal(_) => -1
+  }
 
   /**
     * Perform two asynchronous computation, one after the other. `makeAsyncComputation2`
@@ -38,8 +39,10 @@ object Async {
   def sequenceComputations[A, B](
     makeAsyncComputation1: () => Future[A],
     makeAsyncComputation2: () => Future[B]
-  ): Future[(A, B)] =
-    ???
+  ): Future[(A, B)] = for {
+    a <- makeAsyncComputation1()
+    b <- makeAsyncComputation2()
+  } yield (a,b)
 
   /**
     * Concurrently perform two asynchronous computations and pair their successful
@@ -50,8 +53,7 @@ object Async {
   def concurrentComputations[A, B](
     makeAsyncComputation1: () => Future[A],
     makeAsyncComputation2: () => Future[B]
-  ): Future[(A, B)] =
-    ???
+  ): Future[(A, B)] = makeAsyncComputation1().zip(makeAsyncComputation2())
 
   /**
     * Attempt to perform an asynchronous computation.
@@ -60,7 +62,11 @@ object Async {
     * are eventually performed.
     */
   def insist[A](makeAsyncComputation: () => Future[A], maxAttempts: Int): Future[A] =
-    ???
+    makeAsyncComputation().recoverWith{
+      case NonFatal(_) => maxAttempts match {
+        case n if n > 1 => insist(makeAsyncComputation, n-1)
+      }
+    }
 
   /**
     * Dummy example of a callback-based API
@@ -81,7 +87,26 @@ object Async {
     * @return A `FutureBasedApi` that forwards calls to `computeIntAsync` to the `callbackBasedApi`
     *         and returns its result in a `Future` value
     */
-  def futurize(callbackBasedApi: CallbackBasedApi): FutureBasedApi =
-    ???
+
+  /*
+  step 1 solution
+
+    def futurize(callbackBasedApi: CallbackBasedApi): FutureBasedApi = new FutureBasedApi {
+    def computeIntAsync():Future[Int] = {
+      val promise = Promise[Int]()
+
+      callbackBasedApi.computeIntAsync(value => promise.complete(value))
+      promise.future
+    }
+  }
+   */
+
+
+
+  def futurize(callbackBasedApi: CallbackBasedApi): FutureBasedApi = () => {
+    val promise = Promise[Int]()
+    callbackBasedApi.computeIntAsync(value => promise.complete(value))
+    promise.future
+  }
 
 }
