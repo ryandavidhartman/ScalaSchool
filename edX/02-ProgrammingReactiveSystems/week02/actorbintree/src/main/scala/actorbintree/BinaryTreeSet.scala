@@ -107,7 +107,8 @@ class BinaryTreeNode(val elem: Int, initiallyRemoved: Boolean) extends Actor wit
   /** Handles `Operation` messages and `CopyTo` requests. */
   val normal: Receive = {
     insert orElse
-    contains orElse {
+    contains orElse
+    remove orElse {
       case op => throw new RuntimeException(s"unknown operation $op")
     }
   }
@@ -139,6 +140,21 @@ class BinaryTreeNode(val elem: Int, initiallyRemoved: Boolean) extends Actor wit
           subtrees(next) ! Contains(requester, id, e)
         else
           requester ! ContainsResult(id = id, result = false)
+      }
+  }
+
+  def remove: Receive = {
+    case Remove(requester, id, e) =>
+      log.debug("Remove request from requester: {} id: {} elem: {}", requester, id, e)
+      if (e == elem) {
+        removed = true
+        requester ! OperationFinished(id = id)
+      } else {
+        val next = getNextPosition(e)
+        if (subtrees.isDefinedAt(next))
+          subtrees(next) ! Remove(requester, id, e)
+        else
+          requester ! OperationFinished(id = id)
       }
   }
 
