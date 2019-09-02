@@ -50,7 +50,7 @@ object BinaryTreeSet {
 }
 
 
-class BinaryTreeSet extends Actor {
+class BinaryTreeSet extends Actor with ActorLogging {
   import BinaryTreeSet._
   import BinaryTreeNode._
 
@@ -66,7 +66,9 @@ class BinaryTreeSet extends Actor {
 
   // optional
   /** Accepts `Operation` and `GC` messages. */
-  val normal: Receive = { case _ => ??? }
+  val normal: Receive = {
+    case operation: Operation => root forward operation
+  }
 
   // optional
   /** Handles messages while garbage collection is performed.
@@ -89,19 +91,56 @@ object BinaryTreeNode {
   def props(elem: Int, initiallyRemoved: Boolean) = Props(classOf[BinaryTreeNode],  elem, initiallyRemoved)
 }
 
-class BinaryTreeNode(val elem: Int, initiallyRemoved: Boolean) extends Actor {
+class BinaryTreeNode(val elem: Int, initiallyRemoved: Boolean) extends Actor with ActorLogging {
   import BinaryTreeNode._
   import BinaryTreeSet._
 
   var subtrees: Map[Position, ActorRef] = Map[Position, ActorRef]()
   var removed: Boolean = initiallyRemoved
 
+  def getNextPosition(e: Int):Position = if (e < elem) Left else Right
+
   // optional
   def receive: Receive = normal
 
   // optional
   /** Handles `Operation` messages and `CopyTo` requests. */
-  val normal: Receive = { case _ => ??? }
+  val normal: Receive = {
+    insert orElse
+    contains orElse {
+      case op => throw new RuntimeException(s"unknown operation $op")
+    }
+  }
+
+  def insert: Receive = {
+    case Insert(requester, id, e) =>
+      log.debug("Insert request from requester: {} id: {} elem: {}", requester, id, e)
+      if (e == elem) {
+        if (removed) removed = false
+        requester ! OperationFinished(id)
+      } else {
+        val next = getNextPosition(e)
+        if (subtrees.isDefinedAt(next)) subtrees(next) ! Insert(requester, id, e)
+        else {
+          subtrees += (next -> context.actorOf(props(e, initiallyRemoved = false)))
+          requester ! OperationFinished(id)
+        }
+      }
+  }
+
+  def contains: Receive = {
+    case Contains(requester, id, e) =>
+      log.debug("Contains request from requester: {} id: {} elem: {}", requester, id, e)
+      if (e == elem) {
+        requester ! ContainsResult(id = id, result = !removed)
+      } else {
+        val next = getNextPosition(e)
+        if (subtrees.isDefinedAt(next))
+          subtrees(next) ! Contains(requester, id, e)
+        else
+          requester ! ContainsResult(id = id, result = false)
+      }
+  }
 
   // optional
   /** `expected` is the set of ActorRefs whose replies we are waiting for,
