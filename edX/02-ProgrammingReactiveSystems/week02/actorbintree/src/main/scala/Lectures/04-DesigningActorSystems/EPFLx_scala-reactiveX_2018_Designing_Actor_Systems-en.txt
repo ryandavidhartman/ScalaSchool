@@ -1,0 +1,543 @@
+We have seen what actors are. And how messages are passed between them?
+But, how does one go about actually writing actor systems?
+This is what we will look at in the following.
+Encounter a few other useful things to use in the Akka toolbox.
+When starting to design an actor application, it is
+helpful to visualize first a room full of people.
+And you have all these people at your disposal.
+you have your task, which you need to solve?
+And, what you need to figure out in the process
+is, how to divide the task into sub-tasks, and sub-sub-tasks?
+So that every person knows what to do.
+And there is not too much to do for any one of them.
+Since actors have fairly low overhead, you can create many of them.
+So, consider this group of people to be
+of very large size, for all practical purposes.
+And you know from organizing, like party, or anything where people collaborate on.
+It is important to keep an eye on who will have to
+talk to whom and how much they will have to talk, in order
+to fulfil their tasks?
+It is important to optimize their communication paths in actor system.
+Just as it is in a human organization.
+There is one aspect of this comparison between, actors and people.
+which does not quite hold. And that is, that actors in contrast of
+people are easily spawned and terminated. You can create as many
+of them as you want in the process of solving your problem.
+And they can be short lived, just unlike people.
+As you go about, defining the tasks of certain actors in your
+system and their role they play and the other actors they collaborate with.
+Draw a diagram and mark down their communication lines
+between the actors and how they relate to each other.
+I will demonstrate this process now on a simple project.
+The problem which we want to solve, is to write an application.
+Which, given a URL.
+It will go to the web, retrieve the document, check for
+links in it, and follow the links and repeat the process.
+After a certain maximum depth of course, otherwise it would be boundless.
+And all links encountered
+in the process, shall eventually be returned
+to the one requesting, that this be done.
+How would you solve this with a bunch of people?
+There will be one actor.
+Which we call receptionist. And this one, is responsible.
+For accepting incoming requests.
+These will come from, some external client.
+This receptionist is a person who will
+just have the responsibility of accepting your request.
+noting down that it shall be done.
+Noting who was the client?
+And then, telling someone else to do the real job.
+When traversing the web,
+we will encounter many links. And there might even be cycles.
+So, when we see a link which we have already visited, we
+need to stop there, because otherwise we run in an endless loop.
+It is best that we assign one person to the task of one such traversal.
+Because that person will remember, what has already been visited and what not?
+Translating that into an actor.
+Let's call it controller.
+This controller will need help.
+Because it's main job is to remember what was visited and what still needs visiting.
+But, it would be better if we had someone
+else to do the actual visiting of the link.
+And to extract the information which we want.
+So, let's put in another actor, which we call getter.
+Getter is a rather simple one.
+It will just go look at one URL, retrieve the document, extract the
+links which are in there, and then tell the controller what it found.
+The controller can then spawn other getters to visit the new links and so on.
+To recap, let us now put in the messages which will be exchanged to achieve this.
+The client
+sends a get request for a URL. The
+receptionist will create a controller. And send it a,
+check, for a given URL with
+a certain depth. Because we do not want
+to do this in a boundless fashion. The controller
+will then, will then tell the getter. To
+retrieve, what is at
+that URL. And the getter,
+will then reply. With possibly
+multiple links. And then finally,
+a done message.
+So that the controller knows that this getter
+has exhausted all which was found at that URL.
+All links which are found in the process, should be treated
+as quickly as possible and they can also be retrieved in parallel.
+So there will be multiple getters. Which perform the subsequent
+checking of the links in parallel. The controller will have to
+keep track of which URL was encountered at which search depth.
+So let us say this comes down at depth one and the links come back at depth one.
+But when they are checked by the next getter they will be at depth two.
+And so on.
+It is best to keep this state travelling with the message.
+So that this request contains the depth and the responses contain the depth.
+Freeing the controller from having to remember all of this.
+Once the depth is exhausted, and all getters have sent their done messages.
+The final result is communicated to the receptionist.
+The receptionist was the one who kept track of which client
+requested which URL, and it will send back the appropriate response.
+To the client.
+This is the whole process, which we will implement in the following?
+What we will do, requires the use of some web client.
+I will be using the async-http-client library.
+As given in this artifact here.
+Then, we need to write a getter for processing the body which was retrieved.
+Then we step up and able to write the controller,
+which takes care of the getters and all links encountered.
+And finally, we will think about the
+receptionist and how that manages the controller?
+Let us start with the most simple example, which is
+also given at the top of the documentation for AsyncHTTPClient.
+First, we create an instance of this class, and store it away.
+This client is able to perform multiple requests and it will catch connections to
+servers being quite efficient. The client will be used by the get method.
+We give a URL as a string, and we expect back, the body again as a string.
+So, we call client, prepare get for the URL.
+Execute, this gives us back a future, but not a scalar future.
+When which we call get.
+And this will wait until the response is there.
+So we have the response here to deal with.
+Then we check the restart,
+return status code.
+If it is not an error code, then we look at the first 128 kilobytes of the body.
+And give that back. Otherwise, we reply with a bad status.
+And they reply in a synchronous method like this one.
+of a bad result is done by throwing an exeception as we know.
+This looks very simple,
+but it is also problematic. The problem is precisely here.
+Here we block until the web server has replied, and given
+us the whole body and we have stored it in memory.
+If we, for example, use this method, from an actor, then this actor will be blocked.
+It will not be able to execute anything else, until this finishes.
+Which means that during this time the actor is
+deaf to other requests.
+For example, we will not be able to send it's a request to cancel the operation.
+The other problem is that blocking in this fashion wastes one thread.
+On our machine, and in the virtual machine you can have a
+few thousand threads, but for sure you cannot have millions of them.
+And you can have millions of actors.
+So there is a mismatch, and we should always think
+that we should not waste threads, because they are a finite resource.
+How do we fix this?
+Well, we still use the same client.
+And, as the name implies, it is an AsyncHttpClient, so
+it is capable of performing the operations in a non-blocking fashion.
+First, we do the same thing, but we stop at the execute.
+This gives us back a future.
+We want to adapt this into a scalar feature, so
+we construct a promise as you have seen two weeks ago.
+The feature returned by acing HTTP client is not a Java YouTube concurrent feature.
+It has some added functionality, namely that you can add a listener.
+When this future is completed, this listener, which we register runnable on,
+will be run. So, this gets executed.
+So, when we call f.get in this code, it will
+not block, because we know that it has been completed.
+Running this runnable will need an executer.
+Because it is a task which is to be run asynchronously.
+And that is a common theme, that, theme that you will need,
+a thread pull in the end on which to execute these tasks.
+In the
+end, we need to return a future. And you get the future from the promise
+by saying p.future. AsyncHttpClient is
+a java library, using java and its own futures.
+So what we have done here, is an essence.
+A mapping, from, the listenable future of AsyncHttpClient to scalar futures.
+I have included this here to demonstrate a common pattern.
+If you have an event based source for something.
+And you want to wait for a single-shot event like in this case.
+It is best to wrap things in a future, and expose that as an API.
+Then if someone needs a synchronous version, they
+can still await if they really need to.
+But, being asynchronous as the default is
+good for reactive applications.
+That was the main lesson to be learned here.
+The reactive application needs to be
+non-blocking and event-driven from top to bottom.
+If there is one blocking piece in it, it
+will infect all other code which tries to call it.
+Therefore, watch out, and try to use asynchronous libraries where possible.
+Now that we have the ability to read documents from the
+web, the next step is to extract the links from it.
+To illustrate the process, I've sketched a small HTML document here.
+With head and body sketched out.
+And yet, we have one link in here.
+Finding the link targets in this document proceeds in two steps.
+The first one is to find all the anchor tags in it.
+Which is done by the regular expression given up here.
+We use it to find all matches in the body.
+And we iterate over all of the ones we find.
+The anchor corresponds to what we have found here.
+The regular expression has a capturing group here.
+Which matches the attributes of the anchor tag.
+And we can get them in here, by using the subgroups method.
+which will give us a list of all captured
+groups, there will be exactly one in this case.
+And we match it with the second regular expression.
+The goal of this one is
+to extract precisely, this part of the string which we are interested in.
+It could be either with double quotes or with, surround
+with single quotes, or it could be a bare string.
+Since the findAllMatchIn method here returns an iterator, and we transform the
+contents of it into steps, to a string. We will return an iterator
+of strings from the Find Links method.
+After these preparations we can get ready to write our first Actor.
+The getter will receive a URL string, and a depth, which is an integer.
+And in this case we pass them with a constructor.
+Because the getter will be a single shop
+actor and terminate after it has done its job.
+Within it, we first
+need to ask the web client to get the URL for us.
+This will return a future, as we have programmed.
+What we then want to do, when this future completes?
+We want to tell the actor about it, so that it can act on this new information.
+In case we get a success, which contains the
+body stream, we send that body to the actor.
+If it is a failure,
+we send the failure also but wrapped is a status failure.
+This operation is so common that Akka contains a
+pattern for it, which you can import as Akka.pattern.pipe.
+And then, it simplifies to this.
+As you have also seen with the combinators on collections, for example, we
+can get rid of the points and the parenthesis in this expression as well,
+to make it look like this.
+This reads quite naturally, WebClient get url pipeTo self.
+We have seen that the actors context is the machine which makes it run.
+And in particular, there is a dispatcher in it, which
+is capable of executing the mailbox when it is not empty.
+We can get this by saying context.dispatcher.
+And make it implicitly available here.
+Since both
+get, and pipe to, need a way to run their tasks.
+Get needs an executor, and pipe to needs an execution context.
+The actors dispatcher implements both interfaces.
+But due to a design deficiency in Akka, which will
+be fixed in the future release this class is currently necessary.
+Now that we have arranged for the data to arrive at the actor.
+We need to write down it's behaviour, which will happen in this case.
+If we get a string, which is the body, then we use our find links method.
+To get an iterator of all the links.
+And for each of those links. We send them in a message.
+Context has another nice method,
+which is called parent.
+Remember, that every actor was created by exactly
+one other actor, and that is its parent.
+We can access it like so, which gives us an actor ref.
+Then we send the message, to check the new link
+we've found at the depth, which we have been told.
+Once we have communicated all the links back to our parent, we stop.
+Which means sending the parent a done message, and stopping ourselves.
+In case of a failure, we just send the done right away and stop.
+What we have learned here, is that actors are run
+by a dispatcher, which is potentially shared among multiple actors.
+And this dispatcher is also capable of running futures.
+The next actor which will, we'll be writing, is the controller.
+And in that one, we would like to log the progress which is made.
+Logging is also something which is handled by Akka.
+There are many flavors to solve this particular problem.
+And many frameworks out there. The, the solution which we chose.
+is specific to actors in the sense that
+it is focusing on not blocking the entity which wants to do the logging.
+The obvious way to achieve this is not to perform any
+I/O like writing to the disk or to the network directly.
+But to pass that off as a task to a dedicated actor.
+Because we know that sending to an actor is a non-blocking operation.
+You can set the overall log level with
+the setting akka.loglevel. I put it to debug in this example.
+You can conveniently use the logging, by extending the actor
+trait with actor logging, which will give a log method.
+that returns the logger for this actor.
+The source information provided by this logger will contain the actors name.
+So there you have a case, why it
+is very important that you properly name your actors?
+Here we simply log a debug statement that we recieved a certian message given here.
+There is a very simple syntax using this pair of
+braces to denote something which needs to be put in.
+Without further adieu, we will look at what the controller now does.
+Remember, the job of it was to accept the check messages, for certain URL's.
+And, once everything is done, to send back the overall result.
+The result needs to be collected somewhere.
+And this is the cache here, which is a set of
+strings and the strings will be the links which were visited.
+Whenever a check request arrives, we log it at debug level to see the progress.
+Then, if the cache already contains the URL we don't need to do anything about it.
+Or if the maximum depth is zero, we don't need to do anything about it.
+But otherwise, we need to create a new getter, tell it
+about the URL to fetch, and decreasing the depth by one.
+This is created using actorOf, which gives back the ActorRef.
+And we need to keep track of all the children we have created.
+This is kept in the second set named
+children up here, which is a set of ActorRef's.
+Finally this URL will have been visited, so we add it to the cache.
+The getter which we have just created
+will go to the web client, ask it, retrieve the document, get back the links.
+And will send other check requests at depth minus
+one because that's what we told it to do?
+And at some point it will be finished and then it will send a Getter.Done.
+At this point, we remove it from the children set.
+And once no getter is running anymore, we know that
+the whole process is finished. So we tell our parent the result.
+The result is just the set of links which we have encountered here.
+At this point, it is important to note that we are sharing the cache here.
+If we would have used a var cache with a mutable set instead,
+then sending that to the parent, could have disastrous effects.
+For example, this controller might be used
+to process another query, keeping the cache.
+Would be a valid use case, but then the result which had been sent back
+to the parent, points to the same set, which is mutated by this actor.
+And then the other actor will be confused, as to
+what the contents of the set are. It is much better to prefer using
+variables here, which point to immutable data structures.
+This way they can safely be shared as is done here.
+And that is the third point, which we have
+encountered on our journey, the third lesson we learned.
+The controller and getter which we have written so far, play
+well together as long as the web client always yields a result.
+But what if for example, a web server takes
+really long to respond or does not respond ever?
+For this we need to forsee a time out.
+A simple possibility is to use another
+function of the actors context, the capability to
+set or receive time out.
+This receive time out is a timer which
+is reset, restarted after the processing of each message.
+So whether we get a check Or a Getter.Done, or even this receive timeout,
+once we have processed it, the receive
+timeout will be reset again to ten seconds.
+When it expires, we get,
+namely, this ReceiveTimeout object here, and in this
+case We tell our our children to abort.
+Of course we need to code this functionality in the Getter as well.
+That we can see here.
+We add a new case, case abort in which we just stop.
+In order to support services like the ReceiveTimeout, Akka includes
+a basic scheduler.
+The focus of this scheduler implementation is on supporting a very high frequency
+of scheduled tasks, but also very frequent cancellation of these.
+The flip side of this is that it is not terribly precise.
+It's main use is to schedule the sending of a
+message to an actor at a future point in time which
+is the first variant given here.
+The object which is returned from scheduleOnce is a cancellable,
+which can, which you can use to cancel the task.
+But be aware that there might be a
+race condition between the task firing and you cancelling.
+So it is possible to receive the message
+in the target actor after cancel has been called.
+This is usually not very problematic
+because often it is the Akka itself which
+schedules the message it wants to receive later,
+and then the Akka can just store away the knowledge that it has canceled the task.
+And can then ignore the message should it arrive nonetheless.
+There are 2 other variants, this one more for Scala and this one
+more for Java, for running an arbitrary block of code after the delay.
+But these 2 methods should be used with care.
+We could have implemented a timeout in a different fashion,
+for example, if we wanted to have a timeout which fires
+ten seconds after the controller starts, and not ten seconds after
+the last message was processed, then we might use the scheduler.
+The context gives you access also to the whole system.
+The system is the container in which all actors run, and it contains many services
+among others also the scheduler, and you can ask it to
+schedule once, in ten seconds, that this block of code runs.
+Now we say, that after these ten seconds, we
+want to tell all children that they shall abort.
+What is the problem you see with this code?
+Is it that it does not compile, or is it not thread-safe, or will
+the scheduled code simply not run?
+Concurrently with the actor processing the next message, and both of these codes
+then, the actor, and this lock, access the shared variable children,
+and they try to modify it, or try to read from it,
+and that could have unpredictable results if there is no proper synchronization.
+And the trick was that actors encapsulate their
+states such that no synchronization is needed.
+This is a plain bar and we don't take any locks.
+It would be nice if the compiler could tell us about this
+problem and give us an error that we did something wrong here.
+That is unfortunately not yet available.
+Or it would be nice if the actor could somehow magically know
+that this code shall not be executed by the scheduler and refuse
+to run it, but that also is impossible to realize.
+So, this is why you need to manually make sure that
+this problem is not one which you invite into your code.
+So how do we do this properly?
+This is why I emphasize most the first variant of the schedule
+once method, which takes, besides the delay, an actor ref and the message.
+And the scheduler then makes sure that the message is delivered, after the delay
+has elapsed to the actor ref, and we get it here in the behavior.
+Here we can safely access the actor's state,
+and in this case, tell all children to abort.
+Similar issues can occur if you mix futures and actors.
+As an example we have here a simple cache actor, which when it gets a
+request to get a URL, you can look into its cache, which is a variable here.
+And if it finds something, it will reply with the element in there.
+Otherwise, it will have to go to the Web and actually cache the document.
+As we remember,
+WebClient get url returns a future which we can
+use for each one to act when the body
+has been received, and in this, that case we
+just update the cache and reply to the sender.
+The first problem is exactly like in the scheduler case, this access.
+to the cache, which happens from outside of the actor's
+scope, namely in the scope of the callback on the future.
+And if the actor runs at the same time, then
+both may access the cache variable, and there might be clashes.
+And once we get it here, we can safely update the cache and reply to the client.
+But this actor contains another problem.
+The transformation described by the map operation on the future,
+runs the code which you give it, in the future.
+And that means that, the sender will be accessed.
+In the future.
+This is problematic, because sender is giving
+you the actor
+[UNKNOWN]
+which corresponds to the actor, which has sent the message, which is currently
+being processed, but when that future runs
+the actor might do something completely different.
+Therefore, we must cache the sender in a local value, and when
+you reference this local value in here, then the closure which is formed
+by this function literal will contain the value itself and not the recipe
+of how to obtain it, so it will not call a sender method.
+So the fourth thing we learned is that we should
+make sure that we do not refer to actors state from
+code which is running asynchronously.
+For example using the scheduler or in future combinators.
+The last actor that we need to create is the receptionist.
+In this implementation the receptionist always will accept requests but
+it will make sure that only one web traversal is running at any given time.
+Thus, the receptions can be in two states.
+It can either be idle waiting for the next command.
+Or a command can also already be running.
+When waiting, when we get a request, we need
+to start the traversal, and switch to the running state.
+In the running state, when we get a request, we cannot execute
+it immediately, so we append it to some queue And keep running.
+When we get back a result from the controller,
+we need to shift that back to the client.
+And then run the next job if there is one.
+If there is none, then we go back to the waiting state.
+In our formulation of the two behaviors, we will need helper methods.
+And the first one is, run next, whose job it is to pick the next job and run it.
+Here a job is a
+[UNKNOWN]
+of a client, ActorRef which has sent the
+request, and the url which shall be visited.
+When the job queue is empty then there is nothing for
+us to do and we go back to the waiting state.
+Otherwise we need to instantiate a new controller, send it the work
+which is to check this given url at the head of the queue.
+And here I hard-coded the depth of the search to two.
+And here we are in the running state with this queue.
+As always, it is a good idea to name actors,
+and these are controllers, so we name them C something, but
+there is one condition you may remember that actor names need
+to be unique, so we cannot call them all just controllers.
+To facilitate that, there is a variable request number, which gets
+implemented every time we execute runnext.
+That means that during each run of this method, this nuimber will be unique.
+This number could also be used for example for statistics purposes so
+that you can ask the receptionist how many requests it has already processed.
+The second helper method is used to enqueue a job.
+Given a queue which is
+a vector of jobs and a new job, we simply check if the queue has a certain size.
+We limit it to 3 here then we immediately
+reply with a failure and stay in the current state.
+Otherwise we append it.
+Now we can plug all things together, to show the 2 behaviors in their full
+glory. First waiting, once we get a URL to check
+will become runNext, off a queue with this one job in it.
+Eventually, the controller which was spawned in here will send back a result
+of links. We look at the queue.head to find the job,
+extract the client, and send the result with the links and the job.url back to it.
+Then we stop the controller because we will want
+to use a new one for the next request.
+The next request
+is obtained by using runNext with the tail of the queue.
+This might be empty, then we would go back to the waiting
+state, or there might be something left, and then we stay here.
+If in the running state, a Get request is received, then
+we simply enqueue the Job and stay running as we said.
+During our journey of designing an act, actor system we have
+learned how to do that but we have also encountered the following.
+Valuable lessons.
+First of all, a reactive application needs to
+be non-blocking and event driven from top to bottom.
+Meaning that you should strive for the
+use of only asynchronous libraries where possible.
+The simplest
+libraries often have use for an executor or thread pull, and we have seen
+that the dispatcher, which runs actors, is very useful also in that regard.
+The third point was to always prefer immutable
+data structures because they can be safely shared.
+And there is no problem sending them across thread boundaries.
+The fourth point was
+to always prefer context.become to model different states of actors, and
+to keep the data local to the behavior where that makes sense.
+I have shown you some examples of where a deviation might be useful.
+If in doubt always code both ways and compare them, and choose the one which is
+more readable, more clear or more concise. And also consult with your colleagues
+who will have to maintain that code.
+And the fifth and very important lesson is To not leak the actor's internal state,
+to code which runs asynchronously, because that breaks the actor moral encapsulation.
+We have assembled all the pieces for our program.
+Now, we also want to see it in action.
+For that, I have created a main actor.
+As you have seen before, which will run it.
+The first thing we'll do is to create a receptionist.
+And then it will send a request to
+this receptionist to check a well-known website for leaks.
+The reply will be received here.
+It can either be a positive, in which case we take
+the set of links, convert it to a linear structure from a
+setm Sort that one, and convert it to a string by saying
+results for this URL and then on each line is one link.
+If we get the failed result, we print failed
+to fetch.
+Finally, we want the application to terminate if
+no more messages are received after 10 seconds.
+In that case, we get ReceiveTimeout and stop the program.
+It should be noted that the async http client in here Has some
+resources which it needs to shut down for the JVM to properly terminate.
+I have created a RAM configuration
+as before using the main class aka domain and if we run it,
+we will see the output.
+Results for http://www.google.com We see a number of links were found.
+The search depth was two, if you remember correctly.
+So first, it was going to that, I can tell you, I tried it.
+This gives you a redirect to google.com/ and then some very complicated cookies.
+And if you follow that one, you get the actual search page, which you
+see in your browser when you open it, and that contains all of links,
+some international links I have a German set browser, and I'm currently
+in Switzerland, so you see here all of what is on, on the front page of Google.
+Now let us try to give the receptionist a bit more work.
+You may recall that we limited the queue it
+keeps to the depth of three, meaning it will
+start processing the first request and it will queue
+these three and it should fail on the fourth one.
+Running it again, we see the first failure, here, fourth request
+was rejected, then we see the result for the first one, which we already know,
+and after that We have the results for slash one, two and three.
+These are URLs on which there is nothing to find on Google
+so they turn up just link which we gave initially as visited.
+This program is of course no proper link checker, you
+would have to augment the functionality especially in the getter.
+to make it right, but I'm sure this conserve is a
+good starting point if you would ever choose to implement one.

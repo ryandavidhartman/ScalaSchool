@@ -1,0 +1,185 @@
+Now it is high time that we go in media space and look at what actors really are.
+Actors represent objects and the actor model
+describes how these objects interact, and this is
+all inspired by how we humans organize
+and it especially respects the laws of physics.
+What do I mean by this?
+Let us say that we have a person here
+without a watch who wants to know the current time.
+Over here, is another person.
+With a watch.
+Now the first person will ask the question, what is the time?
+
+And the second person might just answer, it's 12:43.
+This is a simple exchange between two humans and we all have done
+something like that before so I hope everybody can relate to this example.
+But there's more than is visible at the surface.
+First of all we take note that, we
+transmit information by speaking and hearing the words.
+That means the first person sends a message to the second person.
+The second person then thinks a little bit,
+looks at the watch and replies with another message,
+traveling back, on waves of sound.
+The two fundamental qualities here are, first of all, it is based purely on
+messages, and second, messages take time to travel from one object to the other.
+It is helpful to think of actors not
+as these abstract objects on which you call methods.
+But instead to visualize them just like persons
+who talk with each other.
+One thing also to note is that when we humans talk, we
+do not reach into each other's brains, for example, by mind reading.
+we rely only on messages, and that is a very fundamental part of actors.
+More formally, an actor as defined by Hewitt,
+Bishop, and Steiger is an object with an identity.
+We know that from the second week of this course.
+And it has also a behavior, which we also
+already have encountered, and it only interacts using message passing.
+Which is still compatible with the normal
+object definition, what is special about actors is
+that their message passing is always asynchronous.
+Let me illustrate what that means using another small drawing.
+We have an actor here, let's call it Actor A.
+And this wants to send a message to actor B.
+Actor A will send the message and then it can
+just continue doing whatever it wants to do after that, without
+having to wait for the message to travel to B And
+it will be processed by B, especially the processing happens in
+a different context, at a different, later time as
+determined by the system where the actors run in.
+This is the most important property of actors.
+For this, we use the actor traits in Akka. The actor type, defines one abstract
+method which is called receive and this receive returns something of type receive.
+Receive is a partial function from Any to Unit and
+it describes the response of the actor to a message.
+Any message could come in, hence Any, and the actor
+can do a lot of things, but in the end,
+it does not return anything to its caller, because the
+caller is long gone due to the asynchronous message passing.
+We implement the Actor trait here in a simple class called Counter.
+This one has one Field count and it has a behavior.
+It must implement the receive method in the
+Actor trait and that must return a partial function.
+That's the partial function literal here with one
+case statement and it matches the incoming message.
+So if we get a message with
+a string incr then we want to increment the counter.
+Which we do here, on the right. This object is a pretty boring actor,
+actually, because we can only send it the string and we never get any answer back.
+And we cannot determine what the counter actually is.
+Therefore this object does not exhibit stateful behavior.
+If we want to make it stateful we want to enable other
+actors to find out about what the value of the counter is.
+And therefore actors can send messages to addresses they know.
+Addresses in Akka are modeled by the ActorRef Type.
+So, the addition here is, we add another case, and if we get a tuple
+with the string get, and something with type ActorRef, which we call
+customer, then we can send to the customer, the count
+as a message.
+This is the exclamation mark operator which is used
+to send messages and it is pronounced tell in Akka.
+So customer tell count.
+In order to understand what is really happening behind the
+scenes let me show you more parts of the actor trait.
+Each actor knows its own address.
+It's an ActorRef called self. And it is implicitly available.
+ActorRef is an abstract clause which has a method called tell or exclamation mark.
+And if you use the exclamation mark that is
+the nice Scala syntax, tell is more for Java.
+This takes an implicit argument.
+The implicit argument of of type ActorRef is picked up from the surroundings.
+So if you use the tell operator within an Actor it will implicitly
+pick up the sender as being the self reference of that actor.
+Within the receiving Actor, this value is available as sender, which gives back
+the actor ref, which has sent the message which is currently being processed.
+Passing the sender reference along with the message to the receiving
+actor needs to be done explicitly in other actor implementations like erlang.
+But since it is such a common pattern, we devoted this
+one name in the actor to this purpose and do it automatically.
+Using this new power we can make the counter actor look a bit nicer so we just
+use the messages here and the sender is
+automatically picked up to which the reply is sent.
+An actor can do more things than just send messages.
+It can create other actors, and it can change its behavior.
+To access these functions, we need to know about the actor's context.
+The actor type itself only has the receive method,
+so it only describes the behavior of the actor.
+The execution machinery is provided by the actor context.
+Here you see
+an excerpt of the methods available on the actor context.
+These two are called become and unbecome.
+Each actor has a stack of behaviors and the top most one is always the acted one.
+The default mode of become is to replace the top of the stack with a new behavior
+but you can also use it to push an un-become to pop the top behavior.
+You have access
+to the context within the actor by just saying context.
+Now let's see this in action.
+We can reformulate our counter actor into one which does not have a bar.
+It will be a stateful object without a, explicit variable.
+First, we need to define a method, which gives us a behavior.
+This method takes an argument, what the state of the counter currently is.
+We start out with the counter at zero, the behavior counter of zero.
+If we get an incr message here, we change our behavior
+to be that of a counter of n plus 1.
+N first is 0 so it will be a counter 1.
+Within this counter behavior, at anytime we can get a
+get request, where we just reply with the current counters value.
+You can see here that this looks a bit
+like a tail-recursive function, because we call it inside
+itself, but it is asynchronous, because context.become evaluates what
+is given here only when the next message is processed.
+This is functionally equivalent to the previous version
+of the counter, but it has some advantages.
+First of all, there is only one place where the state is
+changed, and that is the call to become, and this is very explicit.
+The other is that the state is scoped to the current behavior, so
+there is no variable which we can leave somewhere in an unknown state.
+We always have the current state here.
+The last thing, one can fundamentally do with actors, is to create and stop them.
+The actor context has methods for that.
+First, actor of, which takes props, that is a description on how
+to create an actor, and a name, and it returns an ActorRef.
+Also, each actor can stop other actors.
+One thing to note here is that actors are always created by actors.
+This means that they naturally form a hierarchy because
+an actor is created by exactly one other actor.
+We will see that hierarchy and another one in the following weeks.
+And another thing to note is that stop here is often applied to
+the self reference, which means that the actor decides that it wants to terminate.
+Let us try this all out in a runnable application.
+Of course an application is also modeled as an actor in this model.
+So we call it main.
+This is an actor, and it uses context actorOf to
+create a counter.
+We can say, Props Counter to create
+an actor which does not take constructor arguments.
+And as all good things.
+It needs a name, we name it counter in this case.
+Then we send messages to this counter, in this case we
+send it incr three times and then we send it get.
+Remember that sending
+with the tel operator within an actor will pick up the self reference as the sender.
+And since the counter will reply, we will receive it in this actor.
+Here in our behavior, we receive the count, which is of type int.
+We will print it out and then stop ourselves.
+I have loaded the counter actor code into Eclipse.
+Adding the appropriate input of the actor trait
+and with the implementation that you have already seen.
+The same for the main class which needs the props in addition.
+In order to run this we need to tell Eclipse how to
+run actor applications because it currently does not know about that yet.
+So we create a run configuration.
+I have one prepared here.
+It uses the main class akka.Main which
+expects as its first argument, the class name,
+the full class name of the actor class which is to be instantitated.
+Then, if we run this.
+We will see that the count was three. This printout was done by this
+line, so we, we received the count from the counter
+actor, and we received three because we incremented the counter three times.
+We could, for example, delete one of those lines.
+And run the program again.
+And then the count is two.
+Now we have seen all the basic things that actors can do.
+When they receive a message, they can send messages, create actors.
+And they can change their behavior for the next message,
+and this all, this is the actor model of computation.

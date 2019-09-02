@@ -1,0 +1,214 @@
+Welcome to the Actor part of the Reactive Programming course.
+This week we will learn about the Actor model.
+That means what Actors are, how they interact, what they can
+do, and in general, how you can structure your computations using Actors.
+Last week, we saw what reactive streams can do for us.
+How data flow in them from producers to consumers.
+How they are transformed, filtered, how streams
+can be merged.
+But it all goes more or less in one direction.
+Actors give you more freedom than that.
+Because they can collaborate and communicate just like we humans do.
+In particular we will talk about how actors can create other actors.
+How they change their behavior over on time, how they exchange messages.
+And in the end, we will conclude with a lesson about how to test
+Actor systems.
+So that you are well equipped to solve the exercises.
+Before we dive into what Actors are, let us first take a
+look at why we want to investigate them, and where they came from.
+The Actor formalism was first published by Hewitt, Bishop, and Steiger in 1973.
+And what they wanted to achieve is to create a model
+in which they can formulate the
+programs for their artificial intelligence research.
+One of Hewitt's students published his Ph.D thesis in 1986.
+Gul Agha formulated Actor languages, so how to write down Actor
+programs, how to reason about them.
+He described communication patterns between Actors, and
+how to use them to solve real problems.
+In the same year, Ericsson started
+developing a programming language named Erlang.
+This is a purely functional programming language,
+whose concurrency model is based on Actors.
+And which was then subsequently used in commercial products.
+In 1995, Ericsson presented their new telecommunications platform.
+Which was highly successful.
+It quoted a reliability of 9 9ths, which means that
+there was only about 30 miliseconds of downtime per year.
+This robustness and resilience was made possible by the Actor model.
+Inspired by the success of Ericsson's Erlang, Philipp Haller
+added Actors to the Scala standard library in 2006.
+Jonas Bonér was then influenced by Erlang, as well
+as the Scala Actors to create Akka in 2009.
+Akka is a active framework on the JVM with Java and Scala
+APIs making the Actor model available to a wide range of developers.
+Actors are applicable in a wide range of problems.
+And we will see that in the following sessions.
+But we, before we go there, let me first show
+you a few problems which motivate our use of Actors.
+In the past, programs just got faster by using the next generation of CPUs.
+This was due to an ever increasing core frequency.
+But this came to a halt around the year 2005.
+Since then, CPUs are not getting faster, they're getting wider.
+This means that instead of making one execution core more
+powerful, multiple such cores are incorporated
+within one chip, accessing shared memory.
+And in some of these, the cores are even virtualized such
+that one physical execution core can host multiple logical execution threads.
+There are different ways to benefit from these wider CPUs.
+The first one is that you can run multiple programs
+in parallel on the same computer.
+This is called multi-tasking, and has been done since the first versions of Unix.
+But
+if you have a single program which you need to execute faster, and
+you have no choice but to run parts of the same program in parallel.
+And this is called multi-threading.
+In order to achieve multithreading, your program must be
+written in a different way than the traditional sequential form.
+The difference between running separate programs in parallel, and using threads
+of the same program in parallel, is
+that these threads collaborate on a common task.
+And if you think about a group of people
+doing something together, they will need to synchronize their actions.
+Otherwise they step on each others toes.
+The same can happen in a multi-threaded program.
+There are a new class of bugs and problems which await you there.
+And this
+is the reason why programs need to be
+formulated differently in order to be ready for multi-threading.
+In order to understand what that means, let us take a look at
+the good old bank account which was introduced by Martin a few weeks back.
+This is the class.
+I just copied it.
+It contains a field for the balance, and it has two methods to deposit some amount,
+and to withdraw some amount.
+Now let us look at the withdraw method in detail.
+I have marked out here, specifically the places where
+the balance is read, and where it is written to.
+So let us take a look at what happens,
+if two threads run this code at the same time.
+I am making little table here.
+Let's say this is thread 1, and this is thread 2.
+They are executed by different CPUs, so can run really and parallel.
+They enter the method with an amount.
+Let us say that thread 1 wants to withdraw 50 Swiss francs for example.
+And thread 2 wants to withdraw 40.
+The first thing they will both do is read the current balance.
+In both cases, let us say the balance is right now 80, so they will both see 80.
+Then both will enter the if statement, the check.
+Is the amount positive? Yes it is.
+And are there actually sufficient funds in the account?
+Yes there are.
+So both will continue. They will calculate the new balance.
+The new balance in the first thread will be 30, and in the second will be
+40. The next thing the threads will do is they
+will write back the new balance, into the balance field of the bank account, object.
+The first thread will write 30, and the second will write 40.
+This is clearly in conflict, because only one of the writes can win in the end.
+The one which comes last, will overwrite the one which came earlier.
+This is the first problem which we see here.
+It is that one of the updates to the balance is actually lost.
+The other problem is that the invariant of the bank account is violated.
+In that we have withdrawn 50 and 40 Swiss francs which is 90
+in sum, and the balance was only 80, which should not have been possible.
+One of the threads should have failed.
+And that, that did not happen is the other problem with this code.
+Now what can we do to fix this problem? We need to add synchronization.
+When multiple threads
+are working with the same data, they need to synchronize their actions.
+Because otherwise they would be prone to step on each other's toes.
+What we need to do is to make sure that when
+one thread is working with the data, the others keep out.
+Like you put a don't disturb sign on your hotel door.
+So let's say in this example we're looking at the balance,
+as the data to be protected. And what we need to do
+[SOUND]
+is to put a fence around it, so that when one thread is working with the data, say
+thread 1. That this one has exclusive access to it.
+Which means threat 2 here, if it tries to access the data, it will
+actually be denied access at this time. And it has to wait
+until threat 1 is finished with it. This way, the balance will be protected.
+And all modifications done on it are done
+in a consistent fashion, one after the other.
+We also say serialized.
+The primary tools for achieving this kind of synchronization are lock or mutex.
+Which is basically the same concept as shown just previously.
+Or a semaphore where the difference is that multiple but
+only a defined number of threads can enter this region.
+In Scala, every object has an associated lock.
+Which you can access by calling the synchronized method on it.
+And it accepts a code lock which will be executed in this protected region.
+How do we apply this to the bank account to make it synchronized?
+Well, we have the withdraw method here.
+And if we put all of it inside
+of a synchronized block, then reading the balance here.
+Performing the check and writing it back, will all be done as one atomic action.
+Which cannot be disturbed by another thread executing withdraw,
+at the same time. That other thread will have to wait.
+But why do we have synchronized also here on the deposit method?
+The deposit method also modifies the balance.
+And if it was not synchronized, then it could modify it without protection.
+And once the withdrawal writes the balance back here, it would
+override the override the update performed by deposit at the same time.
+This is to illustrate that
+all accesses to balance need to be synchronized, and not
+just the one which we have proven to be problematic.
+Now, let us try to transfer some money from one bank account to another.
+What we need to do is to synchronize
+both objects, such that they're in a consistent state.
+Because otherwise, someone reading the balance of
+the accounts could find the money in flight.
+We withdraw from one account. We deposit later into another one.
+During this time, the money is basically nowhere.
+And if the invariant which needs to be enforced, is that the sum
+of from and to needs to be the same, this will be violated.
+Hence, we need to synchronize.
+So first we take the lock on the from account.
+Then we take the lock on
+the to account.
+Now we are safe that no other thread can modify these two accounts, but we can.
+One property of locks in Scala is that they are reentrant, meaning
+that the same thread can take it twice or any number of times.
+it's just a protection against other threads.
+There is a problem with this code, in
+that it introduces the possibility of a deadlock.
+Let us say that one thread wants to transfer
+from account A to account B in one thread.
+And another thread tries to transfer in the opposite direction.
+If both start at the same time, they take the first
+lock, this one on account A, this one on account B.
+Then they go on to take the other lock.
+This one will not succeed in taking the lock, because
+it was already taken by the other thread for account B.
+The same is true for account A in the other thread.
+This means that none of the threads can
+make progress, they will both be stuck forever.
+Because there is no chance that either of
+them will yield the lock they already have.
+This is called a deadlock.
+There are solutions for this deadlock.
+For example, to always take the locks in the same order.
+You need to define an ordering for accounts and so on.
+and then you could potentially solve this.
+You will find that there are most of the time solutions of that kind,
+but they will aggregate and make your code much more complicated over time.
+And in this
+case, it is simple, because both are bank accounts.
+But what if you want objects to collaborate which do not come
+from the same code base, for example, in which you cannot modify?
+In that sense, it would be much better
+if our objects would not require blocking synchronization.
+Because blocking is what really makes the deadlock happen.
+Because one thread gets blocked on the lock.
+The other problem with blocking, is that it is bad for CPU utilization.
+If there are other threads to run, then the operating system will run them.
+But otherwise, the CPU will be idle.
+And, waking it up, or getting a thread back to run
+when some other thread has interrupted it, takes a lot of time.
+So your program will run slower if you use blocking.
+Another problem with blocking objects
+is that synchronous communication couples sender and receiver, quite strongly.
+Because the sender needs to wait until the receiver is ready.
+So if I call a bank account which is synchronized,
+that bank account will block me until it is ready.
+Non-blocking objects are exactly what Actors are.
+And we will see that in the next lecture.

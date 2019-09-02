@@ -43,7 +43,7 @@ object BinaryTreeSet {
     * `result` is true if and only if the element is present in the tree.
     */
   case class ContainsResult(id: Int, result: Boolean) extends OperationReply
-  
+
   /** Message to signal successful completion of an insert or remove operation. */
   case class OperationFinished(id: Int) extends OperationReply
 
@@ -56,13 +56,13 @@ class BinaryTreeSet extends Actor {
 
   def createRoot: ActorRef = context.actorOf(BinaryTreeNode.props(0, initiallyRemoved = true))
 
-  var root = createRoot
+  var root: ActorRef = createRoot
 
   // optional
-  var pendingQueue = Queue.empty[Operation]
+  var pendingQueue: Queue[Operation] = Queue.empty[Operation]
 
   // optional
-  def receive = normal
+  def receive: Receive = normal
 
   // optional
   /** Accepts `Operation` and `GC` messages. */
@@ -93,11 +93,11 @@ class BinaryTreeNode(val elem: Int, initiallyRemoved: Boolean) extends Actor {
   import BinaryTreeNode._
   import BinaryTreeSet._
 
-  var subtrees = Map[Position, ActorRef]()
-  var removed = initiallyRemoved
+  var subtrees: Map[Position, ActorRef] = Map[Position, ActorRef]()
+  var removed: Boolean = initiallyRemoved
 
   // optional
-  def receive = normal
+  def receive: Receive = normal
 
   // optional
   /** Handles `Operation` messages and `CopyTo` requests. */

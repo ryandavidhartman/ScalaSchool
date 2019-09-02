@@ -1,0 +1,353 @@
+Actors live and breathe in messages.
+So now we will take a look at how exactly messages are exchanged between them.
+The most important property of actors is, that access
+to their state is only possible by exchanging messages.
+There's no way to directly access the current behavior of an actor.
+Messages can be sent to known addresses, and in Akka those are typed as ActorRef.
+Every actor knows its own address, which is
+very useful when sending messages to other actors and telling them where to
+reply to, but it can also be useful to send a message to self.
+The second possibility is creating an actor, which
+will return the address of the new actor.
+Most notably it will only return the address,
+so the ActorRef, and not the actor instance.
+It is not possible to call methods
+on this newly created actor, besides sending messages.
+The third way is that addresses can be sent between actors within messages.
+The most prominent example of this is the automatic capturing of the sender in Akka.
+The other important part of how actors
+work is that they are completely, independently executed.
+Every actor performs its calculations completely locally,
+they are not shared directly with other actors.
+The only way to share them is by sending messages.
+There is no notion of a global synchronization between
+the steps actors do because they all run fully concurrently.
+And message parsing is the only way in which they
+interact and the way messages are sent is completely one way.
+When an actor sends a message to another it continues on its way and
+is completely oblivious to whether the other
+actor will receive or process the message.
+It does not wait for its completion.
+This means that actors are completely incapsulated and
+isolated from each other.
+One could also say that actors are
+the most encapsulated form of object orientation.
+We have seen how actors interact, as seen from the outside.
+On the inside, an actor is effectively single-threaded.
+It will receive its messages, one after the other.
+And, for each, it will invoke its behavior, possibly
+change the behavior for the next message and move on.
+But, it is important to note that processing one message is the
+atomic unit of execution.
+Everything an actor does while processing a message cannot be interrupted
+or interleaved with processing another message; they are strictly sequential.
+This, has the same benefits of making all methods synchronized, as
+shown in the first part of this lecture, but without the
+disadvantage of blocking.
+Blocking is replaced by simply enqueueing messages, for later execution.
+Now let us apply these principles to the, our well-known bank account example.
+This bank account will, of course, be an actor and it will receive messages.
+It is good practice to declare all the possible message types expected
+by the actor, and also returned and reply, in its companion object.
+We have therefore here, the object bank
+account, and in that, we have case classes.
+One for depositing some amount, I'm using big integer here,
+to avoid problems with overflow, just because someone might
+have more than two billion Swiss Francs in one account.
+And of course we need the amount to deposit to be positive.
+Require is a library function which will simply
+throw an exception if the condition does not hold.
+This means that a deposit object which
+has been instantiated will always have a positive
+amount in it.
+The same for withdrawals we have another case class, which gives the amount.
+And then, our actor will have to respond to requests so
+that we can detect that it actually has performed the work.
+And for that we have the positive, Done, and negative Failed reply.
+Now let us look at the actor itself.
+First, of course, we extend the Actor traits.
+Then we import all these message types, which we have defined.
+And the actor starts out with a balance of zero.
+Then it will handle messages as they are received.
+We can receive a deposit, in this case, we increase the balance by the amount.
+And reply with a positive acknowledgement.
+If a withdraw message arrives, we need to check
+that there is actually sufficient funds in the account.
+If that is the case, then we deduct the amount from the balance, and send
+back a positive reply, in all other cases we reply with a failure.
+This actor is equivalent to the bank account object defined earlier,
+but including synchronization, because the code
+in here will be completely serialized.
+One message entering this behavior cannot interfere with another
+one because the other one will be forced to wait its turn in the processing.
+That is the very convenient,
+the most convenient feature of actors when working with them.
+In order to transfer money between these
+accounts we need several actors to collaborate.
+And actors collaborate basically in the same way that humans do.
+Let me first make a small detour here,
+let us say we have an account Which we call Alice, here.
+And we'll have another account, which we call Bob.
+Now we want to transfer money.
+We could include the code to perform the transfer in
+the bank account itself, but that would mix up the logic.
+The bank account should not have to know how exactly a transfer is done.
+This is why we introduce another actor,
+let's call him Tom. Who will be our model of the activity to
+transfer some money. Tom will first send a message to Alice to
+withdraw the money from Alice and Alice
+will eventually reply, hopefully with a success.
+In case of failure, Tom will just abort the transaction.
+Then Tom will send to Bob,
+a deposit.
+And eventually Bob will reply, yes all is done.
+And at that point the transfer has completed, the transaction has been done
+and Tom can shut itself down, possibly informing whoever wanted to know about it.
+How does this look like in code?
+Well, we need another actor, we call it WireTransfer, and
+this one will also accept some messages, again, in the companion object we have the
+Transfer case class, from is a bank account, but we only know the address.
+To is an address to another bank account and
+amount is the amount of money which shall be transferred.
+This actor also can signal success and failure and it is good to keep the message
+set used by one actor local to it
+and to keep different actors separate from each other.
+Transferring money proceeds in several steps as we have seen in the picture.
+First of all, when we create a WireTransfer
+actor it will start out with an initial behavior.
+It accepts only message type Transfer. And this Transfer
+tells it from whom, to whom, how much shall be transferred.
+So the from actor gets a message to withdraw amount and
+then this actor changes its behavior to await the
+result of this withdraw activity and as
+you suspend its execution.
+It will not consume any CPU resources it will
+not run unless a message is actually sent to it.
+The behavior which we install for the second step, awaitWithdraw, needs to know
+the account to which the money shall be transfered, which amount that was.
+And also who sent the transfer command to send back the acknowledgement at the end.
+The behavior in the second step is defined here.
+We await the result of the withdraw operation and the, a bank account
+might reply with a done, in which we, in which case we proceed.
+We send a deposit to the recipient account, and then we change behavior
+to await the result of that operation. If the withdrawal from
+the originating account actually failed, which means that there were insufficient
+funds, then we need to tell the client which requested the transfer.
+And we need to stop this transaction.
+In the last step, if the withdrawal was successful, we await
+the BankAccount.Done, from the account which was supposed to receive the deposit.
+Once we get it, we confirm that the transaction has been successful.
+To the or, original client.
+And stop this transaction.
+Perhaps it is instructive to see this all in action.
+I have again, put the code which was presented so far into an Eclipse project.
+Here we see the bank account with well-known messages.
+And here we have the actor itself, and I've added a debugging feature here.
+I've said LoggingReceive around the behavior.
+We will see what that
+means shortly, it is imported here from the Akka event package.
+Similarly, we have the wire transfer actor
+which has also been treated in the
+same way with logging receives in all behaviors.
+The last part is an actual main program which runs all of this.
+Again, this is an actor like in the last example.
+And we create two accounts, account A and
+account B, both bank accounts with different names.
+Then we send to account A a deposit of 100 Swiss Francs, for example, and
+in the initial behavior, we await confirmation
+from this bank account that the deposit has
+been received. Then we start a transfer of 50 Swiss
+Francs. Transfer is a method which first creates a
+transaction actor, this WireTransfer called transfer, then it
+sends to this transaction the command to Transfer from account A
+to account B, the given amount. And then it changes the behavior of this
+actor to wait for the confirmation.
+Once it is received, we declare success and stop the program.
+Again, I have prepared a run configuration for this
+with the akka Main class.
+And as argument, the main class the, the actor class to be run.
+I have set here a debug option,
+Dakka actor debug receive equals on, this activates
+all the logging receive blocks, so that they
+tell us when which message is being processed.
+It is done so at log level debug.
+Now running it,
+produces a lot of output.
+Here we can follow the progress of the program.
+First, the account receives the deposit of
+100, then the application receives the confirmation.
+Next we instantiate the transfer and tell it to transfer from account A
+to account B, amount 50.
+Account A will then receive the withdraw message and
+reply to the transfer with the successful acknowledgement.
+Then Account B will receive the deposit, and again, reply successfully.
+At the end, we receive a Done message. At which point the application terminates.
+If we now try to transfer more than that's in the account
+and run again,
+we will see less output. First, again, we deposit 100, and that was
+successful, then the transfer starts, withdraw 150, which fails.
+Then we see received unhandled message failed, and nothing more happens.
+This is because in this behavior here, we do not handle this case, and we do not
+stop the application. So I will quickly insert
+this case and when re-running it we
+see again that it, now it receives the
+handled message failed and it terminates
+the application.
+To recap what we have done, we have modeled accounts as actors
+which were Alice and Bob, account A and B, in our sample.
+We have modeled the activity of transferring money
+from one account to the other as an actor.
+Which was named Tom here, and then we saw how the messages flow, to complete the
+task which are supposed to be done. Actors interact only using messages,
+as we have seen.
+But messages can also be viewed like letters.
+We have seen that actors interact only by sending messages.
+But sending messages is something which requires one more thought.
+Whenever you send it, you can never be completely sure that
+it will be received as all communication is always a little
+bit unreliable.
+The same is true for synchronous method calls.
+Which are also messages in a sense, because for example,
+the computer might crash while trying to invoke a method.
+You could say then that the message was not delivered.
+if you invoke network transfers for example, send messages across
+a TCP/IP connection, then obviously, the chances
+of messages being lost is higher, but
+nevertheless, you need to always deal with
+the fact that communication is inherently unreliable.
+This is something we know from daily life, so we can also employ the protocols.
+Which we have developed.
+Say we have a person here, and this person wants this other person over here,
+to perform a certain task. Let's just say it says,
+something like please do.
+Whatever it is that shall be done.
+What we typically do is, we do not race
+past the other person's office and shout in, please do.
+Because then we don't know whether the command was actually heard.
+What we typically do is we wait for a confirmation.
+Now the other person, which was listening, was hearing that this person said, please
+do, might respond okay.
+This gives confirmation that the message was actually
+delivered and then both can happily go away.
+But what happens if, for example, a big noise occurs.
+That shadows this okay phrase, so this person doesn't hear it.
+Well, we humans are pretty adaptive, so this one will ask
+have you heard?
+And this can go on until the process is complete.
+We can take this as inspiration for how to construct actor systems, which perform
+tasks reliably, although the communication they employ is unreliable to begin with.
+Successful delivery of messages requires that eventually, we will succeed.
+In the example with the two persons it requires that both are perseverent enough
+to come back to the process and
+keep talking until the confirmation is conveyed.
+In more formal terms.
+Delivery of a message requires the eventual
+availability of a communication channel and of the recipient.
+We can classify the kind of effort we go
+to and the resulting delivery guarantees in three ways.
+The first one is if you just send a
+message once, then it will either arrive or not.
+Hence, it will be delivered zero or one times.
+This is called at-most-once delivery.
+If we keep resending a message until we receive an acknowledgement.
+That means, we will resend it until it has
+been processed, so it will be received at least once.
+But up to an infinite number of times.
+Because the acknowledgement itself might be lost.
+And we will keep resending
+it until that is also successful. If we keep state at the
+receiver, to make sure that only the first received message is
+processed, then you can ensure that the message is processed exactly once.
+This is the most costly of the three options.
+The first option can be done without keeping any state in sender or receiver.
+The second choice requires that the sender needs to keep the
+message to buffer it, in order to be able to resend.
+And the third choice, additionally requires the receiver to
+keep track of which messages have already been processed.
+The good thing about messages is that making them explicitly,
+supports reliability quite well. First of all, messages can be persistent.
+You can take a copy of a message and store it in some persistent storage.
+You can not do the same thing with a local method
+invocation for example because that is an ephemeral act you have one
+object invoking a method and the context in which this happens might go away.
+A message on the other hand from one sender
+to one receiver is something which you can persist.
+If you include a unique relation ID in the message, you can enable the exactly
+once semantics by allowing the recipient to
+find out whether it has already received this,
+this unique message.
+And finally, delivery can be retried until successful.
+If the messages were persisted then retries
+can even be restarted after a catastrophic failure.
+For example, if all the computers were down due to a power outage.
+Then once the power comes back up, delivery can restart.
+But one thing to note, it is not
+enough to deliver a message to a recipient.
+If you do not get a reply from that recipient,
+you can never be sure whether it has processed it.
+That means, that all of these semantics discussed
+only work if you include a business level acknowledgement.
+That means that the actor which shall process the message
+actually needs to say, I have gone this specific task.
+It is not enough for the framer to say,
+I have put this task into the recipient's mailbox.
+How do we apply these principles in our bank account transfer example?
+We can make the wire transfer reliable by logging all
+its activities to persistant storage so that it has a memory.
+Then each transfer needs to have a unique ID by which it can be
+identified in the Withdraw message and in the Deposit message so that
+the bank account actors do not perform Withdraw or
+Deposit more than once if resends should be necessary.
+And for that, they need to store these IDs with their state.
+The details of how to do this, I leave as an exercise for the viewer.
+The last topic in this section, is about message ordering.
+When you send multiple messages in your system.
+In which order do the actors process them?
+An example. Let us say,
+we have an actor Alice and as usual, accompanied by Bob
+and Charlie.
+As, Alice sends a message to Charlie.
+So far so good.
+But if in the same, at the same message processing turn,
+Alice also sends a message to Bob, which one gets processed first?
+You don't know.
+Conceptually they are processed completely concurrently.
+You cannot tell in which order they are processed.
+Now, if this message to Bob would contain a reference to Charlie,
+so an actor refer it, then Bob, might, in response to this message, also send a
+message to Charlie, but since we do not know in which order they are processed,
+this message from Bob to Charlie might actually arrive before the one from Alice.
+In the original actor
+model, those were all the rules.
+Message ordering is not prescribed by the model.
+In Akka, there is one addition.
+If Alice sends another message to Charlie, then the message
+of, the order of these two messages, will be the same at the
+receiving side as on the sending side. Either of these messages
+could be lost, of course.
+But they will not be delivered out of order.
+There are other, more sophisticated systems.
+for example, the e programming language.
+Where causality goes a bit further. So if Alice sends a message to Charlie.
+Then in Alice's view, Charlie has already
+processed the message for all intents and purposes.
+So if it sends Charlie's reference to Bob, then if Bob subsequently
+sends to Charlie, this should not be able to arrive before the message from Alice.
+This guarantee is rather expensive to realize but
+E has also a different focus than Akka.
+The philosophy of Akka is to provide the minimum level of guarantee which make
+the programmer's life easy but still allow
+our implementation to be very fast and efficient.
+Therefore we chose not to implement the full causality,
+just the ordering between a single sender and receiver pair.
+In summary, actors are fully encapsulated, independent agents
+of computation, which run fully isolated from each other.
+And the only way they interact is by passing messages.
+Making message parsing explicit also exposes the possibility of message loss.
+But it also allows you to explicitly treat reliability in your programming model.
+Lastly, the order in which messages are processed is mostly undefined,
+but we have seen how to deal with that in our wire transfer actor, if you have one
+actor which coordinates a certain session between other actors.
+Then this one dictates the order
+in which
+things happen.
