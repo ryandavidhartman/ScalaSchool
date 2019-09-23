@@ -1,4 +1,4 @@
-package reactive
+/*package reactive
 
 import akka.testkit.TestKit
 import akka.actor.ActorSystem
@@ -13,6 +13,7 @@ import akka.actor.Props
 import akka.actor.Actor
 import akka.actor.ActorRef
 import akka.actor.Terminated
+import reactive.WebClient.BadStatus
 
 import scala.concurrent.duration.Duration
 
@@ -85,3 +86,4 @@ class GetterSpec extends TestKit(ActorSystem("GetterSpec"))
   }
 
 }
+*/

@@ -1,4 +1,4 @@
-package reactive
+/*package reactive
 
 import akka.testkit.TestKit
 import akka.testkit.ImplicitSender
@@ -21,14 +21,14 @@ object ReceptionistSpec {
 
   def fakeReceptionist: Props =
     Props(new Receptionist {
-      override def controllerProps = Props[FakeController]
+      def controllerProps: Props = Props[FakeController]
     })
 
 }
 
 class ReceptionistSpec extends TestKit(ActorSystem("ReceptionistSpec"))
   with WordSpecLike with BeforeAndAfterAll with ImplicitSender {
-  
+
   import ReceptionistSpec._
   import Receptionist._
 
@@ -48,10 +48,13 @@ class ReceptionistSpec extends TestKit(ActorSystem("ReceptionistSpec"))
     "reject request flood" in {
       val receptionist = system.actorOf(fakeReceptionist, "rejectFlood")
       for (i <- 1 to 5) receptionist ! Get(s"myURL$i")
-      expectMsg(Failed("myURL5", "queue overflow"))
+      expectMsg(Failed("myURL5"))
       for (i <- 1 to 4) expectMsg(Result(s"myURL$i", Set(s"myURL$i")))
     }
 
   }
 
 }
+
+
+ */
