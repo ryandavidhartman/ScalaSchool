@@ -18,8 +18,8 @@ object Getter {
 class Getter(url: String, depth: Int) extends Actor {
 
   import Getter._
-
-  implicit val executor: Executor with ExecutionContext = context.dispatcher.asInstanceOf[Executor with ExecutionContext]
+  import context.dispatcher
+  //implicit val executor: Executor with ExecutionContext = context.dispatcher//.asInstanceOf[Executor with ExecutionContext]
 
   WebClient get url pipeTo self
 
@@ -36,6 +36,8 @@ class Getter(url: String, depth: Int) extends Actor {
   which is also equivalent to
   val future = WebClient.get(url)
   future.pipeTo(self)
+
+  WebClient.get(url).pipeTo(self)
 
    */
 

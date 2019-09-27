@@ -47,16 +47,16 @@ class BadCache2 extends Actor {
 
   override def receive: Receive = {
     case Get(url) =>
-      if(cache contains url )
+      if (cache contains url)
         sender ! cache(url)
       else
         WebClient get url map { r => Result(sender, url, r) } pipeTo self
     case Result(client, url, body) =>
       cache += url -> body
-      sender ! body
+      client ! body
   }
 
-  /*But this actor contains another problem.
+  /*But this actor -^ contains another problem.
 The transformation described by the map operation on the future,
 runs the code which you give it, in the future.
 And that means that, the sender will be accessed.
@@ -66,4 +66,24 @@ you the actor which corresponds to the actor, which has sent the message, which 
 being processed, but when that future runs
 the actor might do something completely different*/
 
+  class GoodCache extends Actor {
+    var cache = Map.empty[String, String]
+
+    implicit val executor: Executor with ExecutionContext = context.dispatcher.asInstanceOf[Executor with ExecutionContext]
+
+
+    override def receive: Receive = {
+      case Get(url) =>
+        if (cache contains url) {
+          sender ! cache(url)
+        }
+        else {
+          val client = sender //Calculate the actor ref of the sender BEFORE the future fires!  This is safe!
+          WebClient get url map { r => Result(client, url, r) } pipeTo self
+        }
+      case Result(client, url, body) =>
+        cache += url -> body
+        client ! body
+    }
+  }
 }
