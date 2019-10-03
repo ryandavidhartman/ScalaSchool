@@ -39,6 +39,8 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   // the current set of replicators
   var replicators = Set.empty[ActorRef]
 
+  var expectedSeq:Long = -1
+
   override def preStart(): Unit = arbiter ! Join
 
 
@@ -50,10 +52,10 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   /* TODO Behavior for  the leader role. */
   val leader: Receive = {
     case Insert(key: String, value: String, id: Long) =>
-      kv += (key -> value)
+      insertKey(key, value)
       sender ! OperationAck(id)
     case Remove(key: String, id: Long) =>
-      kv -= key
+      removeKey(key)
       sender ! OperationAck(id)
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
@@ -61,7 +63,32 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
   /* TODO Behavior for the replica role. */
   val replica: Receive = {
-    case _ =>
+    case Get(key: String, id: Long) =>
+      sender ! GetResult(key, kv.get(key), id)
+    case Snapshot(key, valueOption, seq) =>
+      handleSnapshotSeq(seq, key, valueOption)
+      ackSnapshotIfNecessary(seq, key, sender)
+  }
+
+  private def handleSnapshotSeq(seq: Long, key:String, valueOption: Option[String]): Unit =
+    if(seq == (expectedSeq+1)) {
+      expectedSeq += 1
+      valueOption match {
+        case Some(v) => insertKey(key, v)
+        case None => removeKey(key)
+      }
+    }
+
+  private def ackSnapshotIfNecessary(seq: Long, key: String, sender: ActorRef): Unit = {
+    if(seq <= expectedSeq)
+      sender ! SnapshotAck(key, seq)
+  }
+
+  private def insertKey(key:String, value:String): Unit = {
+    kv += (key -> value)
+  }
+  private def removeKey(key: String): Unit = {
+    kv -= key
   }
 
 }

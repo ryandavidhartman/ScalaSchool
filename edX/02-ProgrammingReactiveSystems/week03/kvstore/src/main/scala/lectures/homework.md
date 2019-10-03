@@ -21,3 +21,26 @@ Implement the primary replica role so that it correctly responds to the KV proto
    - A Get operation results in a GetResult(key, valueOption, id) message to be sent back to the sender of the lookup request where the id field matches the value in the id field of the corresponding Get message. The valueOption field should contain None if the key is not present in the replica or Some(value) if a value is currently assigned to the given key in that replica.
 
 **All replies sent by the Replica shall have that Replica as their sender**.
+
+## Step 2
+Implement the secondary replica role so that it correctly responds to the read-only part of the KV protocol and accepts the replication protocol, without considering persistence.
+
+### The Replication Protocol
+Apart from providing the KV protocol for external clients, you must implement another protocol involving the primary and secondary replicas and some newly introduced helper nodes. The KV store will use this protocol to synchronize its state between nodes.
+
+When a new replica joins the system, the primary receives a new Replicas message and must allocate a new actor of type Replicator for the new replica; when a replica leaves the system its corresponding Replicator must be terminated. The role of this Replicator actor is to accept update events, and propagate the changes to its corresponding replica (i.e. there is exactly one Replicator per secondary replica). Also, notice that at creation time of the Replicator, the primary must forward update events for every key-value pair it currently holds to this Replicator.
+
+Your task for this protocol will be to provide an Actor representing a Replicator. Its declaration is:
+
+```scala
+class Replicator(val replica: ActorRef) extends Actor
+```
+
+The replication protocol includes two pairs of messages.
+
+1. Is used by the replica actor which requests replication of an update:
+   - Replicate(key, valueOption, id) is sent to the Replicator to initiate the replication of the given update to the key; in case of an Insert operation the valueOption will be Some(value) while in case of a Remove operation it will be None. The sender of the Replicate message shall be the Replica itself.
+   - Replicated(key, id) is sent as a reply to the corresponding Replicate message once replication of that update has been successfully completed (see SnapshotAck). The sender of the Replicated message shall be the Replicator.
+1. Is used by the replicator when communicating with its partner replica:
+   - Snapshot(key, valueOption, seq) is sent by the Replicator to the appropriate secondary replica to indicate a new state of the given key. valueOption has the same meaning as for Replicate messages. The sender of the Snapshot message shall be the Replicator.
+
