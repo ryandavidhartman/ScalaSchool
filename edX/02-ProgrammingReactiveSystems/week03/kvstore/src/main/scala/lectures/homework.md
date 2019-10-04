@@ -25,6 +25,10 @@ Implement the primary replica role so that it correctly responds to the KV proto
 ## Step 2
 Implement the secondary replica role so that it correctly responds to the read-only part of the KV protocol and accepts the replication protocol, without considering persistence.
 
+## Step 3
+
+Implement the replicator so that it correctly mediates between replication requests, snapshots and acknowledgements
+
 ### The Replication Protocol
 Apart from providing the KV protocol for external clients, you must implement another protocol involving the primary and secondary replicas and some newly introduced helper nodes. The KV store will use this protocol to synchronize its state between nodes.
 

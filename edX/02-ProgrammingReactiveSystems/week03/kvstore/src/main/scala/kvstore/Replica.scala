@@ -1,8 +1,10 @@
 package kvstore
 
-import akka.actor.{ OneForOneStrategy, PoisonPill, Props, SupervisorStrategy, Terminated, ActorRef, Actor }
+import akka.actor.{Actor, ActorRef, OneForOneStrategy, PoisonPill, Props, SupervisorStrategy, Terminated}
 import kvstore.Arbiter._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.{ask, pipe}
+import akka.stream.Supervision.Stop
+
 import scala.concurrent.duration._
 import akka.util.Timeout
 
@@ -59,6 +61,25 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       sender ! OperationAck(id)
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
+    case Replicas(latestReplicas) =>
+      val currentSecondaries = secondaries.keySet
+      val addedSecondaries = latestReplicas -- currentSecondaries
+      val removedSecondaries = currentSecondaries -- latestReplicas
+
+      // Handle new replicas
+      addedSecondaries.foreach{ addedSecondary =>
+        val replicator = context.actorOf(Replicator.props(addedSecondary))
+        replicators += replicator
+        secondaries += (addedSecondary -> replicator)
+      }
+
+     // Handle removed replicas
+    removedSecondaries.foreach{ removedSecondary =>
+      val replicator = secondaries(removedSecondary)
+      replicator ! Stop
+      secondaries -= removedSecondary
+      replicators -= replicator
+    }
   }
 
   /* TODO Behavior for the replica role. */
