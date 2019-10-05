@@ -8,6 +8,8 @@ import akka.stream.Supervision.Stop
 import scala.concurrent.duration._
 import akka.util.Timeout
 
+import scala.Tuple2
+
 object Replica {
   sealed trait Operation {
     def key: String
@@ -41,9 +43,16 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   // the current set of replicators
   var replicators = Set.empty[ActorRef]
 
-  var expectedSeq:Long = -1
+  var expectedSeq:Long = 0
 
-  override def preStart(): Unit = arbiter ! Join
+  val persistence: ActorRef = context.actorOf(persistenceProps)
+  // map from sequence number to pair of sender (i.e. replicator)
+  var persistenceAcks = Map.empty[Long, (ActorRef, Persist)]
+
+  override def preStart(): Unit = {
+    arbiter ! Join
+    context.system.scheduler.schedule(0 milliseconds, 100 milliseconds)(resendPersistMsgs)
+  }
 
 
   def receive = {
@@ -87,29 +96,36 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
     case Snapshot(key, valueOption, seq) =>
-      handleSnapshotSeq(seq, key, valueOption)
-      ackSnapshotIfNecessary(seq, key, sender)
+      handleSnapshotSeq(seq, key, valueOption, sender)
+    case Persisted(key, seq) =>
+      persistenceAcks.get(seq).foreach(_._1 ! SnapshotAck(key, seq))
+      persistenceAcks -= seq
   }
 
-  private def handleSnapshotSeq(seq: Long, key:String, valueOption: Option[String]): Unit =
-    if(seq == (expectedSeq+1)) {
+  private def handleSnapshotSeq(seq: Long, key:String, valueOption: Option[String], sender:ActorRef): Unit =
+    if(seq == expectedSeq) {
+      val persistMsg = Persist(key, valueOption, seq)
+      persistence !  persistMsg
+      persistenceAcks += seq -> Tuple2(sender, persistMsg)
       expectedSeq += 1
       valueOption match {
         case Some(v) => insertKey(key, v)
         case None => removeKey(key)
       }
+    } else if (seq < expectedSeq) {
+      sender ! SnapshotAck(key, seq)
     }
 
-  private def ackSnapshotIfNecessary(seq: Long, key: String, sender: ActorRef): Unit = {
-    if(seq <= expectedSeq)
-      sender ! SnapshotAck(key, seq)
-  }
 
   private def insertKey(key:String, value:String): Unit = {
     kv += (key -> value)
   }
   private def removeKey(key: String): Unit = {
     kv -= key
+  }
+
+  private def resendPersistMsgs():Unit = persistenceAcks.foreach {
+    case (_, (_, msg)) => persistence ! msg
   }
 
 }

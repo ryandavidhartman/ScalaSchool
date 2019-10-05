@@ -48,3 +48,15 @@ The replication protocol includes two pairs of messages.
 1. Is used by the replicator when communicating with its partner replica:
    - Snapshot(key, valueOption, seq) is sent by the Replicator to the appropriate secondary replica to indicate a new state of the given key. valueOption has the same meaning as for Replicate messages. The sender of the Snapshot message shall be the Replicator.
 
+## Step 4
+Implement the use of persistence at the secondary replicas.
+
+Each replica will have to submit incoming updates to the local Persistence actor and wait for its acknowledgement before confirming the update to the requester. In case of the primary, the requester is a client which sent an Insert or Remove request and the confirmation is an OperationAck, whereas in the case of a secondary the requester is a Replicator sending a Snapshot and expecting a SnapshotAck back.
+
+The used message types are:
+
+* Persist(key, valueOption, id) is sent to the Persistence actor to request the given state to be persisted (with the same field description as for the Replicate message above).
+* Persisted(key, id) is sent by the Persistence actor as reply in case the corresponding request was successful; no reply is sent otherwise. The reply is sent to the sender of the Persist message and the sender of the Persisted message will be the Persistence Actor.
+
+
+
