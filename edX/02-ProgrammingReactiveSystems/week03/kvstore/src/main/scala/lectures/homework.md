@@ -58,5 +58,6 @@ The used message types are:
 * Persist(key, valueOption, id) is sent to the Persistence actor to request the given state to be persisted (with the same field description as for the Replicate message above).
 * Persisted(key, id) is sent by the Persistence actor as reply in case the corresponding request was successful; no reply is sent otherwise. The reply is sent to the sender of the Persist message and the sender of the Persisted message will be the Persistence Actor.
 
-
+## Step 5
+Implement the use of persistence and replication at the primary replica.
 
