@@ -1,12 +1,14 @@
 package kvstore
 
-import akka.actor.{Actor, ActorRef, OneForOneStrategy, PoisonPill, Props, SupervisorStrategy, Terminated}
+import akka.actor.{Actor, ActorRef, Kill, OneForOneStrategy, PoisonPill, Props, SupervisorStrategy, Terminated}
 import kvstore.Arbiter._
 import akka.pattern.{ask, pipe}
 import akka.stream.Supervision.Stop
 
 import scala.concurrent.duration._
 import akka.util.Timeout
+import kvstore.Persistence.Persist
+import kvstore.Replicator.Replicate
 
 import scala.Tuple2
 
@@ -25,6 +27,10 @@ object Replica {
   case class GetResult(key: String, valueOption: Option[String], id: Long) extends OperationReply
 
   def props(arbiter: ActorRef, persistenceProps: Props): Props = Props(new Replica(arbiter, persistenceProps))
+
+  val MAX_RETRIES = 11
+  case class PersistInfo(persist: Persist, caller: ActorRef, retries: Int = 0)
+  case class ReplicateInfo(replicate: Replicate, caller: ActorRef, replicator: ActorRef, retries: Int = 0)
 }
 
 class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
@@ -42,16 +48,18 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   var secondaries = Map.empty[ActorRef, ActorRef]
   // the current set of replicators
   var replicators = Set.empty[ActorRef]
+  var replicationId = 0L
+  var replicationAcks = Map.empty[Long, ReplicateInfo]
 
   var expectedSeq:Long = 0
 
   val persistence: ActorRef = context.actorOf(persistenceProps)
-  // map from sequence number to pair of sender (i.e. replicator)
-  var persistenceAcks = Map.empty[Long, (ActorRef, Persist)]
+  var persistenceAcks = Map.empty[Long, PersistInfo]
+
 
   override def preStart(): Unit = {
     arbiter ! Join
-    context.system.scheduler.schedule(0 milliseconds, 100 milliseconds)(resendPersistMsgs)
+    context.system.scheduler.schedule(0 milliseconds, 100 milliseconds)(resendUnAcknowledgedMsgs())
   }
 
 
@@ -63,32 +71,66 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   /* TODO Behavior for  the leader role. */
   val leader: Receive = {
     case Insert(key: String, value: String, id: Long) =>
-      insertKey(key, value)
-      sender ! OperationAck(id)
+      kv += (key -> value)
+      val persistMsg = Persist(key, Option(value), id)
+      persistence !  persistMsg
+      persistenceAcks += id -> PersistInfo(persistMsg, sender)
+      replicators.foreach{ r =>
+        // ryan replicationId += 1
+        val replicateMsg = Replicate(key, Some(value), id)
+        replicationAcks += id -> ReplicateInfo(replicateMsg, sender, r)
+        println(s"waiting on n: ${replicationAcks.toList.length} replication acks")
+        r ! replicateMsg
+
+      }
     case Remove(key: String, id: Long) =>
-      removeKey(key)
-      sender ! OperationAck(id)
+      kv -= key
+      val persistMsg = Persist(key, None, id)
+      persistence !  persistMsg
+      persistenceAcks += id -> PersistInfo(persistMsg, sender)
+      replicators.foreach{ r =>
+        // ryan ryan replicationId += 1
+        val replicateMsg = Replicate(key, None, id)
+        replicationAcks += id -> ReplicateInfo(replicateMsg, sender, r)
+        r ! replicateMsg
+      }
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
     case Replicas(latestReplicas) =>
+      val latestSecondaries = latestReplicas - self
       val currentSecondaries = secondaries.keySet
-      val addedSecondaries = latestReplicas -- currentSecondaries
-      val removedSecondaries = currentSecondaries -- latestReplicas
+      val addedSecondaries = latestSecondaries -- currentSecondaries
+      val removedSecondaries = currentSecondaries -- latestSecondaries
 
       // Handle new replicas
       addedSecondaries.foreach{ addedSecondary =>
         val replicator = context.actorOf(Replicator.props(addedSecondary))
         replicators += replicator
         secondaries += (addedSecondary -> replicator)
-      }
+        kv.foreach{ kv =>
+          replicationId +=1
+          val replicateMsg = Replicate(kv._1, Some(kv._2), replicationId)
+          replicator ! replicateMsg
+          replicationAcks += replicationId -> ReplicateInfo(replicateMsg, self, replicator)
+        }
 
-     // Handle removed replicas
+      }
+      // Handle removed replicas
     removedSecondaries.foreach{ removedSecondary =>
       val replicator = secondaries(removedSecondary)
-      replicator ! Stop
+      replicator ! Kill
       secondaries -= removedSecondary
       replicators -= replicator
     }
+    case Persisted(key, id) =>
+      val persistenceInfo  = persistenceAcks(id)
+      persistenceInfo.persist.valueOption.foreach(v => kv += (key -> v))
+      if(replicationAcks.get(id).isEmpty) persistenceInfo.caller ! OperationAck(id)
+      persistenceAcks -= id
+    case Replicated(key, id) =>
+      val replicationInfo = replicationAcks(id)
+      if(persistenceAcks.get(id).isEmpty) replicationInfo.caller ! OperationAck(id)
+      replicationAcks -= id
   }
 
   /* TODO Behavior for the replica role. */
@@ -96,9 +138,10 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
     case Snapshot(key, valueOption, seq) =>
+      println("The secondary got a snapshot request")
       handleSnapshotSeq(seq, key, valueOption, sender)
     case Persisted(key, seq) =>
-      persistenceAcks.get(seq).foreach(_._1 ! SnapshotAck(key, seq))
+      persistenceAcks.get(seq).foreach(_.caller ! SnapshotAck(key, seq))
       persistenceAcks -= seq
   }
 
@@ -106,26 +149,43 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     if(seq == expectedSeq) {
       val persistMsg = Persist(key, valueOption, seq)
       persistence !  persistMsg
-      persistenceAcks += seq -> Tuple2(sender, persistMsg)
+      persistenceAcks += seq -> PersistInfo(persistMsg, sender)
       expectedSeq += 1
       valueOption match {
-        case Some(v) => insertKey(key, v)
-        case None => removeKey(key)
+        case Some(v) => kv += (key -> v)
+        case None =>  kv -= key
       }
     } else if (seq < expectedSeq) {
       sender ! SnapshotAck(key, seq)
     }
 
 
-  private def insertKey(key:String, value:String): Unit = {
-    kv += (key -> value)
-  }
-  private def removeKey(key: String): Unit = {
-    kv -= key
-  }
-
-  private def resendPersistMsgs():Unit = persistenceAcks.foreach {
-    case (_, (_, msg)) => persistence ! msg
+  private def resendUnAcknowledgedMsgs():Unit = {
+    println(s"resendUnAcknowledgedMsgs-> persistenceAcks: ${persistenceAcks.toList.length} replicationAcks: ${replicationAcks.toList.length}")
+    persistenceAcks.foreach {
+      case (id, pi) =>
+        println("sending a retry for persistence")
+        val retries = pi.retries+1
+        if(retries < MAX_RETRIES) {
+          persistence ! pi.persist
+          persistenceAcks += (id -> pi.copy(retries = retries))
+        } else {
+          persistenceAcks -= id
+          pi.caller ! OperationFailed(id)
+        }
+    }
+    replicationAcks.foreach {
+      case (id, ri) =>
+        println(s"sending a retry for replication retry: ${ri.retries}")
+        val retries = ri.retries+1
+        if(retries < MAX_RETRIES) {
+          ri.replicator ! ri.replicate
+          replicationAcks += (id -> ri.copy(retries = retries))
+        } else {
+          replicationAcks -= id
+          ri.caller ! OperationFailed(id)
+        }
+    }
   }
 
 }
