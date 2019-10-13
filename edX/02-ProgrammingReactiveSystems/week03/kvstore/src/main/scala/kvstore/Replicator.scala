@@ -40,7 +40,7 @@ class Replicator(val replica: ActorRef) extends Actor {
       acks += seq -> senderMsg
       sendSnapShotMsg(key, valueOption, seq)
     case SnapshotAck(key, seq) =>
-      println("Got a snapshot ACK")
+      //println("Got a snapshot ACK")
       acks.get(seq).foreach ( _._1 ! Replicated(key, seq))
       acks -= seq
     case _ =>
@@ -52,7 +52,7 @@ class Replicator(val replica: ActorRef) extends Actor {
 
 
   private def sendSnapShotMsg(key:String, valueOpt: Option[String], seq: Long): Unit = {
-    println(s"Sending a snapshot from the replicator key:$key value:$valueOpt seq:$seq replica: $replica")
+    //println(s"Sending a snapshot from the replicator key:$key value:$valueOpt seq:$seq replica: $replica")
     replica ! Snapshot(key, valueOpt, seq)
   }
 

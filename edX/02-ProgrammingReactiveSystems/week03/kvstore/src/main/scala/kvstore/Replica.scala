@@ -10,7 +10,7 @@ import akka.util.Timeout
 import kvstore.Persistence.Persist
 import kvstore.Replicator.Replicate
 
-import scala.Tuple2
+import scala.language.postfixOps
 
 object Replica {
   sealed trait Operation {
@@ -48,7 +48,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   var secondaries = Map.empty[ActorRef, ActorRef]
   // the current set of replicators
   var replicators = Set.empty[ActorRef]
-  var replicationId = -1L
+  var replicationId: Long = -1L
   var replicationAcks = Map.empty[Long, ReplicateInfo]
 
   var expectedSeq:Long = 0
@@ -59,11 +59,11 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
   override def preStart(): Unit = {
     arbiter ! Join
-    context.system.scheduler.schedule(0 milliseconds, 100 milliseconds)(resendUnAcknowledgedMsgs())
+    context.system.scheduler.schedule(initialDelay = 0 milliseconds, interval = 100 milliseconds)(resendUnAcknowledgedMsgs())
   }
 
 
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
     case JoinedPrimary   => context.become(leader)
     case JoinedSecondary => context.become(replica)
   }
@@ -130,16 +130,20 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       }
     }
     case Persisted(key, id) =>
-      val persistenceInfo  = persistenceAcks(id)
-      persistenceInfo.persist.valueOption.foreach(v => kv += (key -> v))
-      if(!replicationAcks.values.exists(_.originalSeq == id)) persistenceInfo.caller ! OperationAck(id)
-      persistenceAcks -= id
+      persistenceAcks.get(id).fold(println(s"Unexpected persisted ack for key:$key id:$id"))
+    { persistenceInfo =>
+        persistenceInfo.persist.valueOption.foreach(v => kv += (key -> v))
+        if (!replicationAcks.values.exists(_.originalSeq == id)) persistenceInfo.caller ! OperationAck(id)
+        persistenceAcks -= id
+      }
     case Replicated(key, id) =>
-      val replicationInfo = replicationAcks(id)
-      replicationAcks -= id
-      val persistenceDone = persistenceAcks.get(replicationInfo.originalSeq).isEmpty
-      val replicationDone = !replicationAcks.values.exists(_.originalSeq == replicationInfo.originalSeq)
-      if(persistenceDone&& replicationDone) replicationInfo.caller ! OperationAck(replicationInfo.originalSeq)
+      replicationAcks.get(id).fold(println(s"Unexpected replication ack for key:$key id:$id"))
+      { replicationInfo =>
+        replicationAcks -= id
+        val persistenceDone = persistenceAcks.get(replicationInfo.originalSeq).isEmpty
+        val replicationDone = !replicationAcks.values.exists(_.originalSeq == replicationInfo.originalSeq)
+        if (persistenceDone && replicationDone) replicationInfo.caller ! OperationAck(replicationInfo.originalSeq)
+      }
 
   }
 
