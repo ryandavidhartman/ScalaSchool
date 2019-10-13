@@ -79,7 +79,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
         replicationId += 1
         val replicateMsg = Replicate(key, Some(value), replicationId)
         replicationAcks += replicationId -> ReplicateInfo(replicateMsg, sender, r, id)
-        println(s"waiting on n: ${replicationAcks.toList.length} replication acks")
+        //println(s"waiting on n: ${replicationAcks.toList.length} replication acks")
         r ! replicateMsg
 
       }
@@ -119,8 +119,15 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     removedSecondaries.foreach{ removedSecondary =>
       val replicator = secondaries(removedSecondary)
       replicator ! Kill
+      removedSecondary ! Kill
       secondaries -= removedSecondary
       replicators -= replicator
+      val (newAcks, removedAcks) = replicationAcks.partition(_._2.replicator != replicator)
+      replicationAcks = newAcks
+      removedAcks.values.foreach{ri =>
+        val persistenceDone = persistenceAcks.get(ri.originalSeq).isEmpty
+        if(persistenceDone) ri.caller ! OperationAck(ri.originalSeq)
+      }
     }
     case Persisted(key, id) =>
       val persistenceInfo  = persistenceAcks(id)
@@ -141,7 +148,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     case Get(key: String, id: Long) =>
       sender ! GetResult(key, kv.get(key), id)
     case Snapshot(key, valueOption, seq) =>
-      println("The secondary got a snapshot request")
+      //println("The secondary got a snapshot request")
       handleSnapshotSeq(seq, key, valueOption, sender)
     case Persisted(key, seq) =>
       persistenceAcks.get(seq).foreach(_.caller ! SnapshotAck(key, seq))
@@ -164,10 +171,10 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
 
   private def resendUnAcknowledgedMsgs():Unit = {
-    println(s"resendUnAcknowledgedMsgs-> persistenceAcks: ${persistenceAcks.toList.length} replicationAcks: ${replicationAcks.toList.length}")
+    //println(s"resendUnAcknowledgedMsgs-> persistenceAcks: ${persistenceAcks.toList.length} replicationAcks: ${replicationAcks.toList.length}")
     persistenceAcks.foreach {
       case (id, pi) =>
-        println("sending a retry for persistence")
+        //println("sending a retry for persistence")
         val retries = pi.retries+1
         if(retries < MAX_RETRIES) {
           persistence ! pi.persist
@@ -179,7 +186,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     }
     replicationAcks.foreach {
       case (id, ri) =>
-        println(s"sending a retry for replication retry: ${ri.retries}")
+        //println(s"sending a retry for replication retry: ${ri.retries}")
         if( ri.retries < MAX_RETRIES) {
           ri.replicator ! ri.replicate
           replicationAcks += (id -> ri.copy(retries = ri.retries+1))
