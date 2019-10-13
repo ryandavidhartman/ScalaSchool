@@ -28,9 +28,9 @@ object Replica {
 
   def props(arbiter: ActorRef, persistenceProps: Props): Props = Props(new Replica(arbiter, persistenceProps))
 
-  val MAX_RETRIES = 11
+  val MAX_RETRIES = 10
   case class PersistInfo(persist: Persist, caller: ActorRef, retries: Int = 0)
-  case class ReplicateInfo(replicate: Replicate, caller: ActorRef, replicator: ActorRef, retries: Int = 0)
+  case class ReplicateInfo(replicate: Replicate, caller: ActorRef, replicator: ActorRef, originalSeq: Long, retries: Int = 0)
 }
 
 class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
@@ -48,7 +48,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   var secondaries = Map.empty[ActorRef, ActorRef]
   // the current set of replicators
   var replicators = Set.empty[ActorRef]
-  var replicationId = 0L
+  var replicationId = -1L
   var replicationAcks = Map.empty[Long, ReplicateInfo]
 
   var expectedSeq:Long = 0
@@ -76,9 +76,9 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       persistence !  persistMsg
       persistenceAcks += id -> PersistInfo(persistMsg, sender)
       replicators.foreach{ r =>
-        // ryan replicationId += 1
-        val replicateMsg = Replicate(key, Some(value), id)
-        replicationAcks += id -> ReplicateInfo(replicateMsg, sender, r)
+        replicationId += 1
+        val replicateMsg = Replicate(key, Some(value), replicationId)
+        replicationAcks += replicationId -> ReplicateInfo(replicateMsg, sender, r, id)
         println(s"waiting on n: ${replicationAcks.toList.length} replication acks")
         r ! replicateMsg
 
@@ -89,9 +89,9 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       persistence !  persistMsg
       persistenceAcks += id -> PersistInfo(persistMsg, sender)
       replicators.foreach{ r =>
-        // ryan ryan replicationId += 1
-        val replicateMsg = Replicate(key, None, id)
-        replicationAcks += id -> ReplicateInfo(replicateMsg, sender, r)
+        replicationId += 1
+        val replicateMsg = Replicate(key, None, replicationId)
+        replicationAcks += replicationId -> ReplicateInfo(replicateMsg, sender, r, id)
         r ! replicateMsg
       }
     case Get(key: String, id: Long) =>
@@ -108,10 +108,10 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
         replicators += replicator
         secondaries += (addedSecondary -> replicator)
         kv.foreach{ kv =>
-          replicationId +=1
+          replicationId += 1
           val replicateMsg = Replicate(kv._1, Some(kv._2), replicationId)
           replicator ! replicateMsg
-          replicationAcks += replicationId -> ReplicateInfo(replicateMsg, self, replicator)
+          replicationAcks += replicationId -> ReplicateInfo(replicateMsg, self, replicator, replicationId)
         }
 
       }
@@ -125,12 +125,15 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     case Persisted(key, id) =>
       val persistenceInfo  = persistenceAcks(id)
       persistenceInfo.persist.valueOption.foreach(v => kv += (key -> v))
-      if(replicationAcks.get(id).isEmpty) persistenceInfo.caller ! OperationAck(id)
+      if(!replicationAcks.values.exists(_.originalSeq == id)) persistenceInfo.caller ! OperationAck(id)
       persistenceAcks -= id
     case Replicated(key, id) =>
       val replicationInfo = replicationAcks(id)
-      if(persistenceAcks.get(id).isEmpty) replicationInfo.caller ! OperationAck(id)
       replicationAcks -= id
+      val persistenceDone = persistenceAcks.get(replicationInfo.originalSeq).isEmpty
+      val replicationDone = !replicationAcks.values.exists(_.originalSeq == replicationInfo.originalSeq)
+      if(persistenceDone&& replicationDone) replicationInfo.caller ! OperationAck(replicationInfo.originalSeq)
+
   }
 
   /* TODO Behavior for the replica role. */
@@ -177,13 +180,13 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     replicationAcks.foreach {
       case (id, ri) =>
         println(s"sending a retry for replication retry: ${ri.retries}")
-        val retries = ri.retries+1
-        if(retries < MAX_RETRIES) {
+        if( ri.retries < MAX_RETRIES) {
           ri.replicator ! ri.replicate
-          replicationAcks += (id -> ri.copy(retries = retries))
+          replicationAcks += (id -> ri.copy(retries = ri.retries+1))
         } else {
+          val replicateInfo = replicationAcks(id)
           replicationAcks -= id
-          ri.caller ! OperationFailed(id)
+          ri.caller ! OperationFailed(replicateInfo.originalSeq)
         }
     }
   }
