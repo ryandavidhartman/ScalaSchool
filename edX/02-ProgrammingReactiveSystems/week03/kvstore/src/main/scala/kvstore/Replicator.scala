@@ -1,9 +1,6 @@
 package kvstore
 
-import akka.actor.Props
-import akka.actor.Actor
-import akka.actor.ActorRef
-import scala.concurrent.duration._
+import akka.actor.{Actor, ActorRef, Props}
 
 object Replicator {
   case class Replicate(key: String, valueOption: Option[String], id: Long)
@@ -17,43 +14,43 @@ object Replicator {
 
 class Replicator(val replica: ActorRef) extends Actor {
   import Replicator._
-  import context.dispatcher
+  import scala.concurrent.duration._
+  import scala.concurrent.ExecutionContext.Implicits.global
 
   /*
    * The contents of this actor is just a suggestion, you can implement it in any way you like.
    */
-
-  override def preStart():Unit = {
-    context.system.scheduler.schedule(0 milliseconds, 100 milliseconds)(resendSnapShotMsgs)
-  }
 
   // map from sequence number to pair of sender and request
   var acks = Map.empty[Long, (ActorRef, Replicate)]
   // a sequence of not-yet-sent snapshots (you can disregard this if not implementing batching)
   var pending = Vector.empty[Snapshot]
 
+  var _seqCounter = 0L
+  def nextSeq = {
+    val ret = _seqCounter
+    _seqCounter += 1
+    ret
+  }
 
-  /* TODO Behavior for the Replicator. */
+  context.system.scheduler.schedule(0.millisecond, 100.milliseconds) {
+    acks foreach {
+      case (seq, (_, Replicate(key, valueOption, _))) =>
+        replica ! Snapshot(key, valueOption, seq)
+    }
+  }
+
   def receive: Receive = {
-    case replicateMsg @ Replicate(key, valueOption, seq) =>
-      val senderMsg = (sender, replicateMsg)
-      acks += seq -> senderMsg
-      sendSnapShotMsg(key, valueOption, seq)
+    case rep @ Replicate(key, valueOption, id) =>
+      val seq = nextSeq
+      replica ! Snapshot(key, valueOption, seq)
+      acks += seq -> Tuple2(sender(), rep)
+
     case SnapshotAck(key, seq) =>
-      //println("Got a snapshot ACK")
-      acks.get(seq).foreach ( _._1 ! Replicated(key, seq))
-      acks -= seq
-    case _ =>
+      if (acks.contains(seq)) {
+        val (sender, Replicate(key, _, id)) = acks(seq)
+        acks -= seq
+        sender ! Replicated(key, id)
+      }
   }
-
-  private def resendSnapShotMsgs():Unit = acks.foreach {
-    case (seq, (_, msg)) => sendSnapShotMsg(msg.key, msg.valueOption, seq)
-  }
-
-
-  private def sendSnapShotMsg(key:String, valueOpt: Option[String], seq: Long): Unit = {
-    //println(s"Sending a snapshot from the replicator key:$key value:$valueOpt seq:$seq replica: $replica")
-    replica ! Snapshot(key, valueOpt, seq)
-  }
-
 }

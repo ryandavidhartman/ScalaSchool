@@ -11,6 +11,7 @@ class KVStoreSuite
     with Step4_SecondaryPersistenceSpec
     with Step5_PrimaryPersistenceSpec
     with Step6_NewSecondarySpec
+    with Step7_HandleFailuresSpec
     with IntegrationSpec
     with Tools
     with BeforeAndAfterAll {
