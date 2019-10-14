@@ -1,6 +1,10 @@
 package kvstore
 
 import akka.actor.{Actor, ActorRef, Props}
+import kvstore.Replicator._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 
 object Replicator {
   case class Replicate(key: String, valueOption: Option[String], id: Long)
@@ -8,49 +12,40 @@ object Replicator {
 
   case class Snapshot(key: String, valueOption: Option[String], seq: Long)
   case class SnapshotAck(key: String, seq: Long)
+  case class SnapshotInfo(originalSender: ActorRef, originalMessage: Replicate)
 
   def props(replica: ActorRef): Props = Props(new Replicator(replica))
 }
 
 class Replicator(val replica: ActorRef) extends Actor {
-  import Replicator._
-  import scala.concurrent.duration._
-  import scala.concurrent.ExecutionContext.Implicits.global
 
-  /*
-   * The contents of this actor is just a suggestion, you can implement it in any way you like.
-   */
-
-  // map from sequence number to pair of sender and request
-  var acks = Map.empty[Long, (ActorRef, Replicate)]
-  // a sequence of not-yet-sent snapshots (you can disregard this if not implementing batching)
-  var pending = Vector.empty[Snapshot]
+  // map from the snapshot sequence number to pair of the original sender and original request
+  var snapshotAcks = Map.empty[Long, SnapshotInfo]
 
   var _seqCounter = 0L
-  def nextSeq = {
+  def nextSnapshotId: Long = {
     val ret = _seqCounter
     _seqCounter += 1
     ret
   }
 
   context.system.scheduler.schedule(0.millisecond, 100.milliseconds) {
-    acks foreach {
-      case (seq, (_, Replicate(key, valueOption, _))) =>
-        replica ! Snapshot(key, valueOption, seq)
+    snapshotAcks foreach {
+      case (snapshotId, SnapshotInfo(_, Replicate(key, valueOption, _))) =>
+        replica ! Snapshot(key, valueOption, snapshotId)
     }
   }
 
   def receive: Receive = {
-    case rep @ Replicate(key, valueOption, id) =>
-      val seq = nextSeq
-      replica ! Snapshot(key, valueOption, seq)
-      acks += seq -> Tuple2(sender(), rep)
+    case originalReplicateMsg @ Replicate(key, valueOption, _) =>
+      val snapshotId = nextSnapshotId
+      replica ! Snapshot(key, valueOption, snapshotId)
+      snapshotAcks += snapshotId -> SnapshotInfo(sender, originalReplicateMsg)
 
     case SnapshotAck(key, seq) =>
-      if (acks.contains(seq)) {
-        val (sender, Replicate(key, _, id)) = acks(seq)
-        acks -= seq
-        sender ! Replicated(key, id)
+      snapshotAcks.get(seq).foreach { ri =>
+        snapshotAcks -= seq
+        ri.originalSender ! Replicated(key, ri.originalMessage.id)
       }
   }
 }
