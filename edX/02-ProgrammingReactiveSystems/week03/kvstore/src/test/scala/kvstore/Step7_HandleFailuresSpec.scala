@@ -5,7 +5,7 @@ import org.scalatest.FunSuiteLike
 import akka.testkit.TestProbe
 import Arbiter._
 
-trait Step7_HandleFailuresSpec  extends FunSuiteLike with Matchers {
+trait Step7_HandleFailuresSpec extends FunSuiteLike with Matchers {
   this: KVStoreSuite =>
 
   override def afterAll() { system.terminate() }
