@@ -29,12 +29,14 @@ class Replicator(val replica: ActorRef) extends Actor {
     ret
   }
 
-  context.system.scheduler.schedule(0.millisecond, 100.milliseconds) {
-    snapshotAcks foreach {
-      case (snapshotId, SnapshotInfo(_, Replicate(key, valueOption, _))) =>
-        replica ! Snapshot(key, valueOption, snapshotId)
+  override def preStart(): Unit = {
+    context.system.scheduler.schedule(0.millisecond, 100.milliseconds) {
+      snapshotAcks.foreach {
+        case (snapshotId, SnapshotInfo(_, Replicate(k, v, _))) => replica ! Snapshot(k, v, snapshotId)
+      }
     }
   }
+
 
   def receive: Receive = {
     case originalReplicateMsg @ Replicate(key, valueOption, _) =>

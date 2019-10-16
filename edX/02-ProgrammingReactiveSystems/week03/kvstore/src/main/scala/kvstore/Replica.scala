@@ -30,8 +30,6 @@ object Replica {
 
 class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
-  arbiter ! Join
-
   /*
    * The contents of this actor is just a suggestion, you can implement it in any way you like.
    */
@@ -49,8 +47,11 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   var persistActor = context.actorOf(persistenceProps)
   context.watch(persistActor)
 
-  context.system.scheduler.schedule(0.millisecond, 100.milliseconds) {
-    persistAcks foreach { persistActor ! _._2.persist }
+  override def preStart(): Unit = {
+    arbiter ! Join
+    context.system.scheduler.schedule(initialDelay = 0 milliseconds, interval = 100 milliseconds) {
+      persistAcks foreach { persistActor ! _._2.persist }
+    }
   }
 
   var _seqCounter = 0L
