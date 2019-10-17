@@ -25,7 +25,8 @@ object Replica {
 
   def props(arbiter: ActorRef, persistenceProps: Props): Props = Props(new Replica(arbiter, persistenceProps))
 
-  case class PersistInfo(sender: ActorRef, originalId:Long, persist: Persist)
+  case class PersistInfo(originalSender: ActorRef, originalId:Long, persistMsg: Persist)
+  case class ReplicateInfo(originalSender: ActorRef, originalId: Long, stillReplicating: Set[ActorRef])
 }
 
 class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
@@ -42,7 +43,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   // map from persist sequence number to the original sender, original id, and persist message to send
   var persistAcks = Map.empty[Long, PersistInfo]
   // map from sequence number to tuple of sender, id, and set of not replicated replicators
-  var replicationAcks = Map.empty[Long, (ActorRef, Long, Set[ActorRef])]
+  var replicationAcks = Map.empty[Long, ReplicateInfo]
 
   var persistActor = context.actorOf(persistenceProps)
   context.watch(persistActor)
@@ -50,7 +51,7 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
   override def preStart(): Unit = {
     arbiter ! Join
     context.system.scheduler.schedule(initialDelay = 0 milliseconds, interval = 100 milliseconds) {
-      persistAcks foreach { persistActor ! _._2.persist }
+      persistAcks.foreach { case (_, PersistInfo(_, _, msg)) => persistActor ! msg }
     }
   }
 
@@ -67,25 +68,23 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
     case JoinedSecondary => context.become(replica(0))
   }
 
-  def undoIfFailed(seq: Long, key: String, oldValue: Option[String], self: ActorRef): Unit = {
-    var succeed = true
-    if (persistAcks.contains(seq)) {
-      val persistInfo = persistAcks(seq)
-      if (persistInfo.originalId >= 0)  persistInfo.sender ! OperationFailed(persistInfo.originalId)
+  def revertFailedOperation(seq: Long, key: String, oldValue: Option[String]): Unit = {
+    val persistFailed = if (persistAcks.contains(seq)) {
+      val PersistInfo(originalSender, originalId, _) = persistAcks(seq)
+      if (originalSender != self) originalSender ! OperationFailed(originalId)
       persistAcks -= seq
-      succeed = false
-    } else if (replicationAcks.contains(seq)) {
-      val (sender, id, _) = replicationAcks(seq)
-      if (id >= 0) sender ! OperationFailed(id)
+      true
+    } else false
+
+    val replicateFailed = if (replicationAcks.contains(seq)) {
+      val ReplicateInfo(originalSender, originalId, _) = replicationAcks(seq)
+      if (originalSender != self) originalSender ! OperationFailed(originalId)
       replicationAcks -= seq
-      succeed = false
-    }
-    if (!succeed) {
-      oldValue match {
-        case Some(value) => self ! Insert(key, value, -seq-1)
-        case None => self ! Remove(key, -seq-1)
-      }
-    }
+      true
+    } else false
+
+    if (persistFailed || replicateFailed)
+      oldValue.fold(self ! Remove(key, nextSeq)){value => self ! Insert(key, value, nextSeq)}
   }
 
   val leader: Receive = {
@@ -97,26 +96,26 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       persistAcks += seq -> PersistInfo(sender(), id, persist)
       persistActor ! persist
       if (replicators.nonEmpty) {
-        replicationAcks += seq -> Tuple3(sender(), id, replicators)
+        replicationAcks += seq -> ReplicateInfo(sender(), id, replicators)
       }
       replicators foreach { _ ! Replicate(key, Some(value), seq) }
       context.system.scheduler.scheduleOnce(1.second) {
-        undoIfFailed(seq, key, oldValue, self)
+        revertFailedOperation(seq, key, oldValue)
       }
 
     case Remove(key, id) =>
       val oldValue = kv.get(key)
       kv -= key
-      val seq = if (id >= 0) nextSeq else id
+      val seq = if(id >= 0) nextSeq else id
       val persist = Persist(key, None, seq)
       persistAcks += seq -> PersistInfo(sender(), id, persist)
       persistActor ! persist
       if (replicators.nonEmpty) {
-        replicationAcks += seq -> Tuple3(sender(), id, replicators)
+        replicationAcks += seq -> ReplicateInfo(sender(), id, replicators)
       }
       replicators foreach { _ ! Replicate(key, None, seq) }
       context.system.scheduler.scheduleOnce(1.second) {
-        undoIfFailed(seq, key, oldValue, self)
+        revertFailedOperation(seq, key, oldValue)
       }
 
     case Get(key, id) =>
@@ -124,12 +123,12 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
     case Replicas(replicas) =>
       replicationAcks foreach {
-        case (seq, (sender, id, _)) =>
+        case (seq, ReplicateInfo(sender, id, _)) =>
           if (!persistAcks.contains(seq)) {
             sender ! OperationAck(id)
           }
       }
-      replicationAcks = Map.empty[Long, (ActorRef, Long, Set[ActorRef])]
+      replicationAcks = Map.empty[Long, ReplicateInfo]
       val oldReplicas = secondaries.keys.toSeq.toSet
       oldReplicas -- replicas - self foreach { replica =>
         val replicator = secondaries(replica)
@@ -153,12 +152,12 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
 
     case Replicated(_, seq) =>
       if (seq >= 0) {
-        val (sender, id, reps) = replicationAcks(seq)
-        replicationAcks += seq -> Tuple3(sender, id, reps - context.sender())
-        if (replicationAcks(seq)._3.isEmpty) {
+        val ReplicateInfo(originalSender, id, reps) = replicationAcks(seq)
+        replicationAcks += seq -> ReplicateInfo(originalSender, id, reps - context.sender())
+        if (replicationAcks(seq).stillReplicating.isEmpty) {
           replicationAcks -= seq
           if (!persistAcks.contains(seq)) {
-            sender ! OperationAck(id)
+            originalSender ! OperationAck(id)
           }
         }
       }
@@ -170,11 +169,11 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
         sender ! OperationAck(id)
       }
 
-    case Terminated(actor) =>
-      if (actor == persistActor) {
+    case Terminated(actorWhoDied) =>
+      if (actorWhoDied == persistActor) {
         persistActor = context.actorOf(persistenceProps)
         context.watch(persistActor)
-        persistAcks foreach { persistActor ! _._2.persist }
+        persistAcks foreach { persistActor ! _._2.persistMsg }
       }
   }
 
@@ -204,15 +203,15 @@ class Replica(val arbiter: ActorRef, persistenceProps: Props) extends Actor {
       }
 
     case Persisted(key, seq) =>
-      val PersistInfo(sender, id, Persist(key, _, _)) = persistAcks(seq)
+      val PersistInfo(originalSender, id, _) = persistAcks(seq)
       persistAcks -= seq
-      sender ! SnapshotAck(key, id)
+      originalSender ! SnapshotAck(key, id)
 
-    case Terminated(actor) =>
-      if (actor == persistActor) {
+    case Terminated(actorWhoDied) =>
+      if (actorWhoDied == persistActor) {
         persistActor = context.actorOf(persistenceProps)
         context.watch(persistActor)
-        persistAcks foreach { persistActor ! _._2.persist }
+        persistAcks.foreach{ case (_, PersistInfo(_, _, persistMsg)) => persistActor ! persistMsg }
       }
   }
 
