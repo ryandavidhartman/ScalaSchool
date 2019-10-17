@@ -10,7 +10,7 @@ import Replicator._
 
 trait Step5_PrimaryPersistenceSpec
   extends FunSuiteLike
-        with Matchers { this: KVStoreSuite =>
+    with Matchers { this: KVStoreSuite =>
 
   test("Step5-case1: Primary does not acknowledge updates which have not been persisted") {
     val arbiter = TestProbe()
@@ -71,8 +71,8 @@ trait Step5_PrimaryPersistenceSpec
   test("Step5-case4: Primary generates failure after 1 second if global acknowledgement fails") {
     val arbiter = TestProbe()
     val persistence = TestProbe()
-        val primary = system.actorOf(Replica.props(arbiter.ref, Persistence.props(flaky = false)), "step5-case4-primary")
-        val secondary = TestProbe()
+    val primary = system.actorOf(Replica.props(arbiter.ref, Persistence.props(flaky = false)), "step5-case4-primary")
+    val secondary = TestProbe()
     val client = session(primary)
 
     arbiter.expectMsg(Join)
@@ -89,8 +89,8 @@ trait Step5_PrimaryPersistenceSpec
   test("Step5-case5: Primary acknowledges only after persistence and global acknowledgement") {
     val arbiter = TestProbe()
     val persistence = TestProbe()
-        val primary = system.actorOf(Replica.props(arbiter.ref, Persistence.props(flaky = false)), "step5-case5-primary")
-        val secondaryA, secondaryB = TestProbe()
+    val primary = system.actorOf(Replica.props(arbiter.ref, Persistence.props(flaky = false)), "step5-case5-primary")
+    val secondaryA, secondaryB = TestProbe()
     val client = session(primary)
 
     arbiter.expectMsg(Join)
