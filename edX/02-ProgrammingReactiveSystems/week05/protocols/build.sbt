@@ -24,9 +24,11 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka"        %% "akka-stream"              % akkaVersion,
   "com.typesafe.akka"        %% "akka-stream-testkit"      % akkaVersion % Test,
   "com.typesafe.akka"        %% "akka-stream-typed"        % akkaVersion,
+  "com.typesafe.akka"        %% "akka-persistence"         % akkaVersion,
 
   // to be used slightly in followers example
   "com.typesafe.akka"        %% "akka-actor-typed"         % akkaVersion,
+  "com.typesafe.akka"        %% "akka-persistence-typed"   % akkaVersion,
 
   // Used by protocols assignment
   "com.typesafe.akka"        %% "akka-actor-testkit-typed" % akkaVersion % Test,

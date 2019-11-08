@@ -23,7 +23,7 @@ trait SelectiveReceiveSpec extends FunSuite with PropertyChecks with MustMatcher
                 }
             case Nil => Behaviors.ignore
         }
-    
+
     def expectStart[T](inbox: TestInbox[T], start: T, followUp: Behavior[T]): Behavior[T] =
         receiveMessagePartial {
             case x @ `start` =>
