@@ -17,7 +17,7 @@ object SelectiveReceive {
       *       the `Interceptor` defined below
       */
     def apply[T](bufferSize: Int, initialBehavior: Behavior[T]): Behavior[T] =
-        ???
+        Behaviors.intercept(new Interceptor[T](bufferSize))(initialBehavior)
 
     /**
       * An interceptor that stashes incoming messages unless they are handled by the target behavior.
@@ -25,11 +25,13 @@ object SelectiveReceive {
       * @param bufferSize Stash buffer size
       * @tparam T Type of messages
       *
-      * Hint: Ue a [[StashBuffer]] and [[Behavior]] helpers such as `same`
+      * Hint: Use a [[StashBuffer]] and [[Behavior]] helpers such as `same`
       * and `isUnhandled`.
       */
     private class Interceptor[T](bufferSize: Int) extends BehaviorInterceptor[T, T] {
         import BehaviorInterceptor.{ReceiveTarget, SignalTarget}
+
+        val buffer: StashBuffer[T] = StashBuffer[T](capacity = bufferSize)
 
         /**
           * @param ctx Actor context
@@ -37,11 +39,26 @@ object SelectiveReceive {
           * @param target Target (intercepted) behavior
           */
         def aroundReceive(ctx: TypedActorContext[T], msg: T, target: ReceiveTarget[T]): Behavior[T] = {
-            val next = target(ctx, msg)
+            println(s"aroundReceive msg: $msg")
+            val next: Behavior[T] = target(ctx, msg)
             // If the `next` behavior has not handled the incoming `msg`, stash the `msg` and
             // return an unchanged behavior. Otherwise, return a behavior resulting from
             // “unstash-ing” all the stashed messages to the `next` behavior.
-            ???
+            if (Behavior.isUnhandled(next)) {
+                //val bob = if(buffer.isEmpty) "Empty" else buffer.head.toString
+                //println(s"aroundReceive isUnhandled msg: $msg bufferhead: $bob")
+                if (buffer.isFull) {
+                    throw new StashOverflowException(s"Buffer is full.  Can't stash: $msg")
+                } else if (bufferSize == 0) {
+                    Behavior.same
+                } else {
+                    buffer.stash(msg)
+                    Behavior.unhandled
+                }
+            } else {
+                //println(s"aroundReceive handled msg: $msg")
+                buffer.unstashAll(ctx  = ctx.asScala, SelectiveReceive(bufferSize, next))
+            }
         }
 
         // Forward signals to the target behavior
