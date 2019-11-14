@@ -107,7 +107,7 @@ object Transactor {
         val result = f(currentValue)
         replyTo ! result
         sessionHandler(result, commit, done)
-      case (ctx, Modify(f, id, reply, replyTo: ActorRef[Any])) =>
+      case (_, Modify(f, id, reply, replyTo: ActorRef[Any])) =>
         if (done.contains(id)) {
           replyTo ! reply
           sessionHandler(currentValue, commit, done + id)
@@ -119,9 +119,8 @@ object Transactor {
       case (ctx, Commit(reply, replyTo: ActorRef[Any])) =>
         commit ! Committed(ctx.self, currentValue)
         replyTo ! reply
-        Behaviors.same
-      case (ctx, Rollback()) =>
         Behaviors.stopped
+      case (_, Rollback()) => Behaviors.stopped
     }
   }
 
