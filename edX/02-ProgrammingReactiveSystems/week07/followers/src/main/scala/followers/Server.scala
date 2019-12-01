@@ -5,6 +5,7 @@ import akka.event.Logging
 import akka.stream.scaladsl.{BroadcastHub, Flow, Framing, Keep, MergeHub, Sink, Source}
 import akka.stream.{ActorAttributes, Materializer}
 import akka.util.ByteString
+import followers.model.Event.{Broadcast, Follow, PrivateMsg, StatusUpdate, Unfollow}
 import followers.model.{Event, Followers, Identity}
 
 import scala.collection.SortedSet
@@ -77,7 +78,21 @@ object Server {
     * operation around in the operator.
     */
   val reintroduceOrdering: Flow[Event, Event, NotUsed] =
-    unimplementedFlow
+    Flow[Event].statefulMapConcat { () =>
+      var nextSequenceNr = 1
+      var buffer = List.empty[Event]
+
+      (event:Event) => event match {
+        case e if nextSequenceNr == e.sequenceNr =>
+          val results = (e :: buffer).sortBy(_.sequenceNr)
+          nextSequenceNr = results.last.sequenceNr + 1
+          buffer = List.empty[Event]
+          results
+        case e =>
+          buffer = e :: buffer
+          Nil
+      }
+    }
 
   /**
     * A flow that associates a state of [[Followers]] to
@@ -88,7 +103,25 @@ object Server {
     *  - you may find the `statefulMapConcat` operation useful.
     */
   val followersFlow: Flow[Event, (Event, Followers), NotUsed] =
-    unimplementedFlow
+    Flow[Event].statefulMapConcat { () =>
+      var followers:Followers = Map.empty
+
+      (event:Event) => {
+        followers = event match {
+          case f:Follow =>
+            val user = f.fromUserId
+            val nowFollowing:Set[Int] = followers.getOrElse(user, Set.empty) + f.toUserId
+            followers.updated(user,nowFollowing)
+          case f:Unfollow =>
+            val user = f.fromUserId
+            val nowFollowing:Set[Int] = followers.getOrElse(user, Set.empty) - f.toUserId
+            followers.updated(user,nowFollowing)
+          case e =>
+            followers
+        }
+        List((event, followers))
+      }
+    }
 
   /**
     * @return Whether the given user should be notified by the incoming `Event`,
@@ -97,8 +130,19 @@ object Server {
     * @param userId Id of the user
     * @param eventAndFollowers Event and current state of followers
     */
-  def isNotified(userId: Int)(eventAndFollowers: (Event, Followers)): Boolean =
-    ???
+  def isNotified(userId: Int)(eventAndFollowers: (Event, Followers)): Boolean = {
+    eventAndFollowers._1 match {
+      case Follow(_, _, to) => to == userId
+      case _:Unfollow => false
+      case _:Broadcast => true
+      case PrivateMsg(_, _, to) => to == userId
+      case StatusUpdate(_, from) =>
+        val following = eventAndFollowers._2.getOrElse(userId, Set.empty)
+        following.contains(from)
+      case _ => false
+    }
+
+  }
 
   // Utilities to temporarily have unimplemented parts of the program
   private def unimplementedFlow[A, B, C]: Flow[A, B, C] =
