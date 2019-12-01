@@ -31,7 +31,11 @@ object Server {
     * Hint: you may find the [[Framing]] flows useful.
     */
   val reframedFlow: Flow[ByteString, String, NotUsed] =
-    unimplementedFlow
+    Framing.delimiter(
+      ByteString("\n"),
+      maximumFrameLength = 256,
+      allowTruncation = false
+    ).map[String](_.utf8String)
 
   /**
     * A flow that consumes chunks of bytes and produces [[Event]] messages.
