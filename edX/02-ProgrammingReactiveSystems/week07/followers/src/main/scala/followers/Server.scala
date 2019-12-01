@@ -48,7 +48,7 @@ object Server {
     * Hint: reuse `reframedFlow`
     */
   val eventParserFlow: Flow[ByteString, Event, NotUsed] =
-    unimplementedFlow
+    reframedFlow.map[Event](Event.parse)
 
   /**
     * Implement a Sink that will look for the first [[Identity]]
@@ -61,7 +61,8 @@ object Server {
     * (and have a look at `Keep.right`).
     */
   val identityParserSink: Sink[ByteString, Future[Identity]] =
-    unimplementedSink
+    reframedFlow.map(Identity.parse).toMat(Sink.head)(Keep.right)
+
 
   /**
     * A flow that consumes unordered messages and produces messages ordered by `sequenceNr`.
