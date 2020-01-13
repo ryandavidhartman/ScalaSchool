@@ -24,6 +24,33 @@ Follow https://www.scala-sbt.org/1.x/docs/Setup.html  to download and install SB
 [info] This is sbt 1.1.0
 If the sbt command is not found, you need to install sbt. 
 
+If you are new to sbt it is recommended you read the first chapter, Getting Started with sbt, of the (Getting Started Guide)[http://www.scala-sbt.org/release/docs/Getting-Started.html]
+
+Starting sbt takes you to an interactive session. You will start sbt in a later step.
+
+Summary of important sbt commands
+
+exit - ends the sbt session
+help - lists the available commands
+compile - compiles the main sources
+test:compile - compiles the test and main sources
+test - runs tests after compiling the test and main sources
+console - starts the REPL with the project on the classpath
+run - runs a main class, passing args provided on command line
+clean - deletes files produced by the build in the target directory
+reload - reloads the project in the current sbt session
+sbtVersion - provides the version of sbt
+
+
+### Installing IntelliJ
+
+Download and install (IntelliJ IDEA Community Edition)[https://www.jetbrains.com/idea/download]
+
+After starting IntelliJ IDEA use the **Next:..** button on the **Customize IntelliJ IDEA** wizard to advance to Featured plugins
+**Install** Scala plugin
+
+
+
 
 ## Online Scala Resources:
 * [A Tour of Scala: Tutorial introducing the main concepts of Scala](https://docs.scala-lang.org/tour/tour-of-scala.html)
