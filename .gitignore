@@ -15,4 +15,4 @@ dist
 .DS_Store
 *.dat
 *.csv
-/out/
+rtjvm/beginners/out/production/beginners/out/
