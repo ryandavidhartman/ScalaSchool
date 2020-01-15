@@ -25,16 +25,16 @@ Starting sbt takes you to an interactive session. You will start sbt in a later 
 
 Summary of important sbt commands
 
-exit - ends the sbt session
-help - lists the available commands
-compile - compiles the main sources
-test:compile - compiles the test and main sources
-test - runs tests after compiling the test and main sources
-console - starts the REPL with the project on the classpath
-run - runs a main class, passing args provided on command line
-clean - deletes files produced by the build in the target directory
-reload - reloads the project in the current sbt session
-sbtVersion - provides the version of sbt
+* exit - ends the sbt session
+* help - lists the available commands
+* compile - compiles the main sources
+* test:compile - compiles the test and main sources
+* test - runs tests after compiling the test and main sources
+* console - starts the REPL with the project on the classpath
+* run - runs a main class, passing args provided on command line
+* clean - deletes files produced by the build in the target directory
+* reload - reloads the project in the current sbt session
+* sbtVersion - provides the version of sbt
 
 
 ### Installing IntelliJ
