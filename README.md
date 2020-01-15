@@ -58,7 +58,7 @@ Summary of important sbt commands
 
 ### Installing IntelliJ
 
-Download and install (IntelliJ IDEA Community Edition)[https://www.jetbrains.com/idea/download]
+Download and install [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download)
 
 After starting IntelliJ IDEA use the **Next:..** button on the **Customize IntelliJ IDEA** wizard to advance to Featured plugins
 **Install** Scala plugin
