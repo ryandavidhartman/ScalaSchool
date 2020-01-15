@@ -1,14 +1,14 @@
 ## Setup Your Machine:
 In order to work on the programming assignments, you need to have the following tools installed on your machine:
 
-* Oracle JDK, the Java Development Kit, version 1.8.
+* Oracle JDK, the Java Development Kit, version 1.8 or higher
+* Scala build tool (sbt)
 
-Check you have the right version by typing in the console:
+Check you have the right version of the JDK by typing in the console:
 `java -version`
 
-* Scala Build Tool (sbt), a build tool for Scala, version 0.13.x, or newer.
-The Scala IDE for Eclipse, Intellij IDEA or another IDE of your choice.
-Please follow the instructions on this page carefully.
+Check to see if you have sbt insalled
+`sbt sbtVersion`
 
 ### Installing the JDK
 
@@ -18,11 +18,6 @@ Any Java 8 compliant runtime will do (but note that Oracle versions before 8u102
 
 ### Installing sbt
 Follow https://www.scala-sbt.org/1.x/docs/Setup.html  to download and install SBT. Once the installation is complete, verify the installation by running the following command in a terminal session:
-
-`sbt sbtVersion`
-
-[info] This is sbt 1.1.0
-If the sbt command is not found, you need to install sbt. 
 
 If you are new to sbt it is recommended you read the first chapter, Getting Started with sbt, of the (Getting Started Guide)[http://www.scala-sbt.org/release/docs/Getting-Started.html]
 
