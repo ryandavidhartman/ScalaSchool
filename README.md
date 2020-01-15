@@ -22,9 +22,9 @@ Otherwise follow the [setup instructions](http://www.oracle.com/technetwork/java
 
 ```bash
 $ java -version
-java version "1.8.0_45"
-Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
-Java HotSp
+java version "1.8.0_151"
+Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
 ```
 
 ### Installing sbt
@@ -39,7 +39,7 @@ Otherwise follow the [setup instruction](http://www.scala-sbt.org/0.13/docs/inde
 ```bash
 $ sbt sbtVersion
 ...
-[info] 0.13.13
+[info] 1.2.7
 ```
 
 Summary of important sbt commands
