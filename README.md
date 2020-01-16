@@ -12,16 +12,35 @@ Check to see if you have sbt insalled
 
 ### Installing the JDK
 
-If you don't have Java 8 or higher installed on your computer:
-Install a recent build of the Java 8 Platform, such as OpenJDK or https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html.
-Any Java 8 compliant runtime will do (but note that Oracle versions before 8u102 have a known issue that affects Scala).
+If you are running OSX and a [Homebrew Cask](https://github.com/caskroom/homebrew-cask) user, from a terminal run:
+
+```bash
+$ brew cask install java
+```
+
+Otherwise follow the [setup instructions](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) to download and install. Once the installation is complete, very the installation by running the following command in a terminal session:
+
+```bash
+$ java -version
+java version "1.8.0_151"
+Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
+```
 
 ### Installing sbt
-Follow https://www.scala-sbt.org/1.x/docs/Setup.html  to download and install SBT. Once the installation is complete, verify the installation by running the following command in a terminal session:
+If you are running OSX and a [Homebrew](http://brew.sh/) user, from a terminal run:
 
-If you are new to sbt it is recommended you read the first chapter, Getting Started with sbt, of the (Getting Started Guide)[http://www.scala-sbt.org/release/docs/Getting-Started.html]
+```bash
+$ brew install sbt
+```
 
-Starting sbt takes you to an interactive session. You will start sbt in a later step.
+Otherwise follow the [setup instruction](http://www.scala-sbt.org/0.13/docs/index.html) to download and install. Once the installation is complete, verify the installation by running the following command in a terminal session:
+
+```bash
+$ sbt sbtVersion
+...
+[info] 1.2.7
+```
 
 Summary of important sbt commands
 
@@ -39,7 +58,7 @@ Summary of important sbt commands
 
 ### Installing IntelliJ
 
-Download and install (IntelliJ IDEA Community Edition)[https://www.jetbrains.com/idea/download]
+Download and install [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download)
 
 After starting IntelliJ IDEA use the **Next:..** button on the **Customize IntelliJ IDEA** wizard to advance to Featured plugins
 **Install** Scala plugin
