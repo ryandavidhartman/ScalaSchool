@@ -18,3 +18,16 @@ val someOtherValue = {
   if(someValue) 239 else 986
   42
 }
+
+// No else if key word
+// Since if else is an Expression we need no else if statement
+
+val x = 5
+val message = if(x < 0)
+  "negative"
+else if (x > 1000)
+  "to big"
+else
+  "just right"
+
+
