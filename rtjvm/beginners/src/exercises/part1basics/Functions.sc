@@ -5,6 +5,20 @@ def greeting(name: String, age: Int): Unit = println(s"Hi, my name is $name and 
 
 greeting("Ryan", 22)
 
+// A recursive string concat
+def cat(s:String, n: Int): String = {
+
+  @scala.annotation.tailrec
+  def helper(n: Int, acc:String): String =
+    if(n <= 0) acc
+    else helper(n-1, s+acc)
+
+  helper(n,"")
+}
+
+println(cat("bob", 5))
+
+
 // A recursive factorial function
 def fact(n: Int): Int = {
   @tailrec
