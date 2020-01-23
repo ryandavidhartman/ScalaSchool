@@ -2,7 +2,7 @@ package lectures.part2oop
 
 class Person(name: String, val age: Int) {
   // primary constructor body
-  val x = 2
+  val x = 4
   println(1+3)
 
   def greet(name: String): Unit = println(s"${this.name} says: Hi $name")
