@@ -61,7 +61,6 @@ def findDivisor(n: Int, test:Int): Int = {
 }
 
 def smallestDivisor(n:Int):Int = findDivisor(n,2)
-
 def isPrime(n:Int):Boolean = n == smallestDivisor(n)
 
 isPrime(5)
