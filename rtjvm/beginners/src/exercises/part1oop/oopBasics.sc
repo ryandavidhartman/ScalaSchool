@@ -43,7 +43,10 @@ class Counter(val count: Int = 0) {
 
   def increment(n: Int):Counter = if(n <0) this else increment.increment(n-1)
   def decrement(n: Int):Counter = if(n <0) this else decrement.decrement(n-1)
+
+  def print() = "Current count: " + count
 }
 
 val counter = new Counter()
-counter.increment
+println("First run: " + counter.increment.print())
+println("Second run: " +counter.increment(10).print())
