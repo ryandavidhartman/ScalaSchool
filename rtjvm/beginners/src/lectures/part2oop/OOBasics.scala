@@ -6,7 +6,7 @@ class Person(name: String, val age: Int) {
   println(1+3)
 
   def greet(name: String): Unit = println(s"${this.name} says: Hi $name")
-  def greet(): Unit = println(s"$Hi, I am $name")
+  def greet(): Unit = println(s"Hi, I am $name")
 }
 
 object OOBasics extends App {
