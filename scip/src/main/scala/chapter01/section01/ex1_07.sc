@@ -4,17 +4,19 @@ import scala.annotation.tailrec
 Square Root by Newton's method
  */
 
-def abs[A](x: A)(implicit num: Numeric[A]) = {
+def abs[A](x: A)(implicit num: Numeric[A]): A = {
   if (num.lt(x, num.zero)) num.negate(x)
   else x
 }
 
-def average[A](x: A, y: A)(implicit num: Numeric[A]) =
+def average[A](x: A, y: A)(implicit num: Numeric[A]): Double=
   num.toDouble(num.plus(x, y)) / 2.0
 
+def square[A](x: A)(implicit num: Numeric[A]): A = num.times(x, x)
 
-def sqrt(x: Double) = {
-  def goodEnough(guess: Double) = abs(square(guess) - x) < 0.001 * x
+def sqrt(x: Double):Double = {
+  def goodEnough(guess: Double):Boolean =
+    abs(square(guess) - x) < 0.001 * x
 
   def improve(guess: Double) = average(guess, x / guess)
 
@@ -30,3 +32,6 @@ def sqrt(x: Double) = {
 sqrt(25)
 sqrt(100)
 sqrt(15)
+
+sqrt(100000000000000000L)
+sqrt(0.00000000000001)

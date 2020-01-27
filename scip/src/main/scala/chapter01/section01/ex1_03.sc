@@ -2,7 +2,7 @@ import scala.annotation.tailrec
 
 /* Exercise 1.3
 Define a procedure that takes three numbers as arguments and returns the sum
-of the squares
+of the squares of the two larger numbers
 */
 
 def square[A](a: A)(implicit num: Numeric[A]): A =
