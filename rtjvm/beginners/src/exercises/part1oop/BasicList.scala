@@ -61,7 +61,9 @@ object BasicListRunner extends App {
   val l = Empty.add(1).add(2).add(3)
   println(l.toString)
 
-  val l2 = 1 ++: 2 ++: 3 ++: Empty
+  val l2 = 1 ++: 2 ++: 3 ++: Empty  // Empty.++(3).++(2).++(1)
+
+  // Empty ++ 1 ++ 2 ++ 3  //  Empty.++(1).++(2).++(3)
   println(l2.toString)
 
   val l3 = new Cons(1, Empty)
