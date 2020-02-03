@@ -33,8 +33,8 @@ object GenericList2 {
     def tail: MyList[T]
     def isEmpty: Boolean
     def add[U >: T](x:U): MyList[U]
-    def ++: [U >: T](x:U): MyList[U]
-    def +: [U >: T](xs:MyList[U]): MyList[U]
+    def +: [U >: T](x:U): MyList[U]
+    def ++ [U >: T](xs:MyList[U]): MyList[U]
 
     protected def printElements: String
     override def toString: String = s"[ $printElements]"
@@ -49,8 +49,8 @@ object GenericList2 {
     def tail: Nothing = throw new UnsupportedOperationException("tail of empty list")
     val isEmpty: Boolean = true
     def add[T](x: T): MyList[T] = new Cons(x)
-    def ++: [T](x: T): MyList[T] = new Cons(x)
-    def +: [T](xs: MyList[T]): MyList[T] = xs
+    def +: [T](x: T): MyList[T] = new Cons(x)
+    def ++ [T](xs: MyList[T]): MyList[T] = xs
 
     def printElements: String = "Nil"
 
@@ -66,11 +66,9 @@ object GenericList2 {
     def tail: MyList[T] = t
     val isEmpty: Boolean = false
     def add[U >: T](x: U): MyList[U] = new Cons(x, this)
-    def ++: [U >:T](x: U): MyList[U] = new Cons(x, this)
-    def +: [U >: T](xs: MyList[U]): MyList[U] = xs match {
-      case _:Empty.type => this
-      case ns:Cons[U] => ns.head ++: (ns.tail +: this)
-    }
+    def +: [U >:T](x: U): MyList[U] = new Cons(x, this)
+    def ++ [U >: T](xs: MyList[U]): MyList[U] = new Cons(head, tail ++ xs)
+
 
     def printElements: String = {
 
@@ -84,11 +82,11 @@ object GenericList2 {
     }
 
     override def map[U](t: MyTransformer[T, U]): MyList[U] =
-      t.transform(this.head) ++: tail.map(t)
+      t.transform(this.head) +: tail.map(t)
 
     override def filter(p: MyPredicate[T]): MyList[T] =
       if(p.test(h))
-        h ++: tail.filter(p)
+        h +: tail.filter(p)
       else
         tail.filter(p)
 
@@ -96,7 +94,7 @@ object GenericList2 {
     override def flatMap[U](t: MyTransformer[T, MyList[U]]): MyList[U] = {
       val result:MyList[U] = t.transform(head)
       val rest:MyList[U] = tail.flatMap(t)
-      result +: rest
+      result ++ rest
     }
 
   }
@@ -107,19 +105,19 @@ object GenericListRunner2 extends App {
   val l = Empty.add(1).add(2).add(3)
   println(l.toString)
 
-  val l2 = 1 ++: 2 ++: 3 ++: Empty
+  val l2 = 1 +: 2 +: 3 +: Empty
   println("l2 is: " + l2.toString)
 
   val l3 = new Cons(4, new Cons(5, Empty))
   println("l3 is: " + l3.toString)
 
-  val l4 = l2 +: l3
+  val l4 = l2 ++ l3
   println(s"l2 + l3 is:  $l4")
 
   val l5 = l4.map(_ * 2)
   println(l5)
 
-  val l6 = l4.flatMap(x => x ++: (x+1) ++: Empty)
+  val l6 = l4.flatMap(x => x +: (x+1) +: Empty)
   println(l6)
 
 }
