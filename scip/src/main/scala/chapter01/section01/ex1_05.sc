@@ -33,12 +33,22 @@ So (test 0 (p)) blows up in Scheme
 def p():Int = p()
 // NOTE  p()  => will blow up!!
 
-def test(x: Int, y: () => Int): Int = {
-  if(x == 0) 0 else y()
+
+def test1(x: Int, y: Int): Int = {
+ if(x == 0) 0 else y
 }
 
-val bob = test(0, p)
-// This works so Scala is a normal-order language
+// val test1Results = test1(0, p()) will blow up!
+
+def test2(x: Int, y: () => Int): Int = {
+  if(x == 0) 0 else y()
+}
+val test2Results = test2(0, p)  // fine
+
+def test3(x: Int, y: => Int): Int = {
+  if(x == 0) 0 else y
+}
+val test3Results = test3(0, p())
 
 
 
