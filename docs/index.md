@@ -1,6 +1,10 @@
 # Welcome to the Scala School Page!
 
-## Intro
+## Getting Started
+* [Installation](./Getting-Started.md)
+* [Online Help](./Online-Resources.md)
+
+## Basics
 * [Basics](./Basics.md)
 * [Basics - OOP](./Basics-OOP.md)
 
