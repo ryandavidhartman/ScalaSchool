@@ -1,14 +1,9 @@
 ## Setup Your Machine:
 In order to work on the programming assignments, you need to have the following tools installed on your machine:
 
-* [Java Development Kit, JDK, version 1.8 or higher](./Installation.md#Installing the JDK)
-* [Scala build tool, SBT, version 0.13.17 or higher](./Installation.md#Installing sbt)
-* [IntelliJ a great Scala/Java IDE](./Installation.md#Installing IntelliJ)
-
-
-
-Check to see if you have sbt installed
-`sbt sbtVersion`
+* Java Development Kit, JDK, version 1.8 or higher
+* Scala build tool, SBT, version 0.13.17 or higher
+* IntelliJ a great Scala/Java IDE
 
 ### Installing the JDK
 
@@ -34,6 +29,7 @@ Alternatively follow the [setup instructions](http://www.oracle.com/technetwork/
 
 ### Installing sbt
 Check to see if sbt is already installed:
+
 ```bash
 $ sbt sbtVersion
 ...
