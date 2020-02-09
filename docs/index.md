@@ -1,7 +1,7 @@
 # Welcome to the Scala School Page!
 
 ## Getting Started
-* [Installation](./Getting-Started.md)
+* [Installation](./Installation.md)
 * [Online Help](./Online-Resources.md)
 * [Back to the code](https://github.com/ryandavidhartman/ScalaSchool)
 
