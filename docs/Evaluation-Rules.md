@@ -5,10 +5,10 @@
     // expression is evaluated whenever example1 is called
     def example1 = {expression}      
     
-    // expression is evaluated immediately when example2 is declared its value copied
+    // expression is evaluated immediately when example2 is declared its value copied once
     val example2 = {expression}
 
-    // expression is evaluated once, but not until example3 is used      
+    // expression is evaluated once, but not until example3 is used the first time     
     lazy val example3 = {expression} 
 ```
 
