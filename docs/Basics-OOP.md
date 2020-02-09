@@ -7,7 +7,7 @@ In Scala there exists a special kind of class named _case classes_. We'll take a
 
 Classes in Scala cannot have static members. You can use _Objects_ (see below) to achieve similar functionality as with static members in Java.
 
-![Classes](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvm_oopBasics.png)
+![Classes](./imgs/rtjvm_oopBasics.png)
 
 ## Class methods
 A _method_ is a function that is a member of some class, trait, or singleton object.  Scala has some interesting syntactic sugar to make calling methods more like natural language syntax.
@@ -57,7 +57,7 @@ a.x // 10
 a %%= 5 // Equivalent to a = a %% 5
 a.x // 50
 ```
-![Methods](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvmMethods.png)
+![Methods](./imgs/rtjvmMethods.png)
 
 ## Traits
 Traits are like interfaces in Java, but they can also contain concrete members, i.e. method implementations or field definitions.
@@ -67,12 +67,12 @@ Traits are like interfaces in Java, but they can also contain concrete members, 
         trait Planar { ... }
         class Square extends Shape with Planar
 ```
-![Traits and Abstract Classes](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvmAbstractClassesAndTraits.png)
+![Traits and Abstract Classes](./imgs/rtjvmAbstractClassesAndTraits.png)
 
 ## Objects
 Object in Scala are like classes, but for every object definition there is only one single instance. It is not possible to create instances of objects using new, instead you can just access the members (methods or fields) of an object using its name.
 
-![Objects](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvmObjects.png)
+![Objects](./imgs/rtjvmObjects.png)
 
 ## Class Definitions
 

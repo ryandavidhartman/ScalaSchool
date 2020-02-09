@@ -32,7 +32,7 @@
 
 ```
 
-![Values, Variables, Types](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvmValuesVariablesTypes.png)
+![Values, Variables, Types](./imgs/rtjvmValuesVariablesTypes.png)
 
 # Expressions
 
@@ -92,10 +92,9 @@ An _Expression_ is any bit of code that yields a result.  You can also say that 
   // the final expression in the code block.
 ```
 
-![Expressions](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/rtjvmExpressions.png)
+![Expressions](./imgs/rtjvmExpressions.png)
 
 # Functions
 
 A _Function_ can be _invoked_ with a list of arguments to produce a result.  A function has a parameter list, a body, and a result type.  Functions that are members of a class, trait or singleton object, are called _methods_.  Functions defined inside other functions are called _local functions_.  Functions with the result type of `Unit` are called _procedures_.  Anonymous functions in source code are called _function literals_.   At run time, function literals are instantiated into objects called _function values_
 
- 

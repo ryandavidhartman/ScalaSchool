@@ -8,7 +8,7 @@ In general reactive applications are written with the following concepts in mind
 * React to users -> responsive
 
 
-![reactive-systems](https://github.com/ryandavidhartman/ScalaSchool/blob/master/imgs/reactive-traits.svg)
+![reactive-systems](./imgs/reactive-traits.svg)
 
 ## Event Driven
 Traditionally: Systems are composed of multiple threads, which communicate with shared, synchronized state.
