@@ -81,5 +81,5 @@ object ex1_12 extends App {
   /*pascalPrinter(3, pascal1)
   pascalPrinter(3, pascal2)
   pascalPrinter(4, pascal3)*/
-  pascalPrinter(4, pascal4)
+  pascalPrinter(100, pascal3)
 }
