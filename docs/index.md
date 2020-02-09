@@ -1,4 +1,4 @@
-# Welcome to the Scala School wiki!
+# Welcome to the Scala School Page!
 
 ## Intro
 * [Basics](https://github.com/ryandavidhartman/ScalaSchool/wiki/Basics)
