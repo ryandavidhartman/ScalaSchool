@@ -16,6 +16,7 @@
 
 ## Glossary of Scala Terms
 * [Call by Name and Call by Value](./Evaluation-Rules.md)
+* [Case Classes](./Case-Classes.md)
 * [Classes](././Basics-OOP.md#classes)
 * [Class Hierarchies](././Basics-OOP.md#class-hierarchies)
 * [Collections](./Collections.md)

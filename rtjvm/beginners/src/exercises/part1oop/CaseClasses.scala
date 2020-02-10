@@ -28,5 +28,12 @@ object CaseClasses extends App {
   val thePerson = Person
   val mary = thePerson("mary", 45)  // this is == to thePerson.apply("mary", 45) == Person.apply("mary", 45)
 
+  //6. case classes are serializable
+  //7. case classes have extractor patterns for destructuring/pattern matching
+
+  case object UnitedKingdom {
+    def name: String = "The UK of GB and NI"
+  }
+
 
 }
