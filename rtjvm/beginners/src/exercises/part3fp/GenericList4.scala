@@ -8,9 +8,9 @@ define myPredict, and MyTransformer as function types
 
 object GenericList4 {
 
-  type MyPredicate[-T] = (T) => Boolean
+  type MyPredicate[-T] = T => Boolean
 
-  type MyTransformer[-T, U] = (T) => U
+  type MyTransformer[-T, U] = T => U
 
   abstract class MyList4[+T] {
 

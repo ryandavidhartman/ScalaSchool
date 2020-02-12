@@ -19,3 +19,5 @@ Higher order functions are functions that take a function as a parameter or retu
     sum(x => x * x * x)(1, 10) // sum of cubes from 1 to 10
     sum(cube)(1, 10)           // same as above      
 ```
+
+![HOF](imgs/rtjvmHigherOrderFunctions.png)
