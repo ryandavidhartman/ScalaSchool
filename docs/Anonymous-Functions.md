@@ -9,4 +9,4 @@ A function with no name in Scala source code, specified with function literal sy
 
 Also called _function literal_
 
-[Anonymous Functions](./imgs/rtjvmAnonymous.png)
+![Anonymous Functions](./imgs/rtjvmAnonymous.png)
