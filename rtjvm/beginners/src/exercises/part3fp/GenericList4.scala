@@ -90,14 +90,14 @@ object GenericList4 {
 }
 
 object GenericListRunner4 extends App {
-  import GenericList5._
-  val l = Empty5.add(1).add(2).add(3)
+  import GenericList4._
+  val l = Empty4.add(1).add(2).add(3)
   println(l.toString)
 
-  val l2 = 1 +: 2 +: 3 +: Empty5
+  val l2 = 1 +: 2 +: 3 +: Empty4
   println("l2 is: " + l2.toString)
 
-  val l3 = Cons5(4, Cons5(5, Empty5))
+  val l3 = Cons4(4, Cons4(5, Empty4))
   println("l3 is: " + l3)
 
   val l4 = l2 ++ l3
@@ -106,7 +106,7 @@ object GenericListRunner4 extends App {
   val l5 = l4.map(_ * 2)
   println(l5)
 
-  val l6 = l4.flatMap(x => x +: (x+1) +: Empty5)
+  val l6 = l4.flatMap(x => x +: (x+1) +: Empty4)
   println(l6)
 
   val l7 = l6.clone()
