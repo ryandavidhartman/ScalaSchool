@@ -107,9 +107,9 @@ object  HofsCurries extends App {
 
   // toCurry(f: (Int, Int) => Int) yields (Int => Int => Int)
   // fromCurry(f: (Int => Int => Int)) yields (Int, Int) => Int
-
   // compose(f,g) yields  x => f(g(x))
   // andThen(f,g) yields x => g(f(x))
+  // see lectures/part3fp/HofsCurries.scala
 
 
 }
