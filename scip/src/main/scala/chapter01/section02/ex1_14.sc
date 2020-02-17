@@ -6,3 +6,23 @@ Section 1.2.2 in making change for 11 cents. What are the orders of growth of th
 space and number of steps used by this process as the amount to be changed increases?
  */
 
+def firstDenomination(kindsOfCoin: Int): Int = kindsOfCoin match {
+  case 1 => 1
+  case 2 => 5
+  case 3 => 10
+  case 4 => 25
+  case 5 => 50
+}
+
+def cc(amount: Int, kindsOfCoin: Int): Int = {
+  if(amount == 0) 1
+  else if(amount < 0 || kindsOfCoin == 0) 0
+  else cc(amount, kindsOfCoin-1) + cc(amount-firstDenomination(kindsOfCoin), kindsOfCoin)
+}
+
+def countChange(amount: Int): Int = cc(amount, 5)
+
+
+countChange(11)
+
+// runtime O(2^n)

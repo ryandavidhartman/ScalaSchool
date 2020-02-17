@@ -33,7 +33,7 @@ object WhatsAFunction extends App {
     override def apply(s: String): Int = s.toInt
   }
 
-  val adder1: ((Int, Int) => Int) = new Function2[Int, Int, Int] {
+  val adder1: (Int, Int) => Int = new Function2[Int, Int, Int] {
     override def apply(v1: Int, v2: Int): Int = v1 + v2
   }
 
@@ -42,6 +42,8 @@ object WhatsAFunction extends App {
   val adder2: ((Int, Int) => Int) = (v1: Int, v2: Int) => v1 + v2
 
   val adder3 = (v1: Int, v2: Int) => v1 + v2
+
+  def addr4(v1:Int, v2:Int) = v1 + v2
 
   /* Exercises
 
