@@ -21,7 +21,7 @@ val bobSally2 = dansConcat(bob, sally)
      Int.
       - what is the type?
       - how to you implement it?
-     SEE: exercises/part3fp/WhatsAFunction.sc
+     SEE: exercises/part3fp/024-WhatsAFunction.sc
  */
 
 

@@ -1,7 +1,7 @@
-package exercises.part3fp
+package exercises.part03fp
 
-import exercises.part1oop.Generics.MyList
-import exercises.part3fp.GenericList5.Empty5
+import exercises.part02oop.Generics.MyList
+import exercises.part03fp.GenericList5.Empty5
 
 
 // Expand MyList to include a foreach method T => Unit

@@ -1,4 +1,4 @@
-package exercises.part1oop
+package exercises.part02oop
 
 /*
 Same as GenericList2 just using case classes and case objects

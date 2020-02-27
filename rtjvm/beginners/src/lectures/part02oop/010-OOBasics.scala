@@ -1,4 +1,4 @@
-package lectures.part2oop
+package lectures.part02oop
 
 class Person(name: String, val age: Int) {
   // primary constructor body

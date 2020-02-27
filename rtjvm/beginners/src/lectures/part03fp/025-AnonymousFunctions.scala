@@ -1,4 +1,4 @@
-package lectures.part3fp
+package lectures.part03fp
 
 object AnonymousFunctions extends App {
 

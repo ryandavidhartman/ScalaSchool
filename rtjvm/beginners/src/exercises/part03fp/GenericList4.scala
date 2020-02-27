@@ -1,4 +1,4 @@
-package exercises.part3fp
+package exercises.part03fp
 
 
 /*

@@ -1,4 +1,4 @@
-package exercises.part1oop
+package exercises.part02oop
 
 object GenericList2 {
 

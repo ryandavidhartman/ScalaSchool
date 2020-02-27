@@ -1,4 +1,4 @@
-package exercises.part1oop
+package exercises.part02oop
 
 import scala.runtime.java8.JFunction0$mcB$sp
 

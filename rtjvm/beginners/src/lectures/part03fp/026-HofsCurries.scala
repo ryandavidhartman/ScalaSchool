@@ -1,4 +1,4 @@
-package lectures.part3fp
+package lectures.part03fp
 
 object  HofsCurries extends App {
 
@@ -109,7 +109,7 @@ object  HofsCurries extends App {
   // fromCurry(f: (Int => Int => Int)) yields (Int, Int) => Int
   // compose(f,g) yields  x => f(g(x))
   // andThen(f,g) yields x => g(f(x))
-  // see lectures/part3fp/HofsCurries.scala
+  // see lectures/part3fp/026-HofsCurries.scala
 
 
 }

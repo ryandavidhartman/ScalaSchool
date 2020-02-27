@@ -1,4 +1,4 @@
-package lectures.part3fp
+package lectures.part03fp
 
 object WhatsAFunction extends App {
 
@@ -48,14 +48,14 @@ object WhatsAFunction extends App {
   /* Exercises
 
   1) a function which takes 2 strings and concatenates them
-     SEE: exercises/part3fp/WhatsAFunction.sc
+     SEE: exercises/part3fp/024-WhatsAFunction.sc
   2) transform the MyPredicate and MyTransformer from exercises/part1oop/GenericList3.scala
      SEE: exercises/part3fp/GenericList4.scala
   3) Define a function which takes an int and returns another function which takes an int and returns and
      Int.
       - what is the type?
       - how to you implement it?
-     SEE: exercises/part3fp/WhatsAFunction.sc
+     SEE: exercises/part3fp/024-WhatsAFunction.sc
    */
 
 

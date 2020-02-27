@@ -1,4 +1,4 @@
-package lectures.part2oop
+package lectures.part02oop
 
 object MethodNotations extends App {
 
