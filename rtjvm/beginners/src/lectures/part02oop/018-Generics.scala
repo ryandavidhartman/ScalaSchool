@@ -44,7 +44,7 @@ object Generics extends  App {
 
   // OK NOW given our animalList above QUESTION: should I be able to add a
   // Dog to this this??????  TURNS OUT NO!!!!!  But this is not immediately clear
-  // why!!!!!!!
+  // why!!!!!!!  This is the Second BIG QUESTION
 
 
   //
@@ -67,11 +67,34 @@ object Generics extends  App {
   // This seems REALLY WEIRD!!! But it actually makes sense sometimes, this case
   // is called CONTRAVARIANT and we write it like List[-T] with the - sign
   // on the type parameter
-  class ContravariantList[-T]
 
+  // Ok contravariance doesn't make alot of intuitive sense for lists...
+  // but you can do it
+  class ContravariantList[-T]
   val animalList3: ContravariantList[Cat] = new ContravariantList[Animal]
 
+  //but consider some another types:
+  class Cook[-T]
+  class CanCookAnything
+  class CanCookVeggies extends CanCookAnything
+  // here contravariance makes more sense!
+  val cook: Cook[CanCookVeggies] = new Cook[CanCookAnything]
 
+
+  // type bounds
+  class Cage[T <: Animal](animal: T)  //here we have a type parameter that can take a generic T
+                                      //that must be an Animal or a subclass of Animal
+  val cage = new Cage(new Dog)
+  //val cage2 = new Cage(cook)  // this won't compile
+
+  // you can do lower bounds too with the >: operator
+
+  /*
+  BACK to BIG QUESTION TWO
+  NOW given our animalList above QUESTION: should I be able to add a
+  Dog to this this??????  TURNS OUT NO!!!!!  But this is not immediately clear
+  why!!!!!!!  This is the Second BIG QUESTION
+   */
 
 
 }

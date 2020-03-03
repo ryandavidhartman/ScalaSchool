@@ -56,10 +56,14 @@ object AnonymousFunctions extends App {
   // Ok now we can see even more syntactic sugar!
   val niceIncrementer1: Int => Int = (x: Int) => x + 1
   val niceIncrementer2 = (x: Int) => x + 1
-  val niceIncrementer3:(Int) => Int = _ + 1
+  val niceIncrementer3: Int => Int = _ + 1
 
   val niceAdder1: (Int, Int) => Int = (x:Int, y:Int) => x+y
+  val niceAdder1_5: (Int, Int) => Int = (x, y) => x+y
   val niceAdder2: (Int, Int) => Int = _ + _
+
+  val bob1 = niceAdder1(4,5)
+  var bob2 = niceAdder1(5,5)
 
   /**
    * Exercises
@@ -68,5 +72,7 @@ object AnonymousFunctions extends App {
    * 2 -> rewrite the "special" adder as an anonymous function
    *
    */
+
+  def bob(x:Int): String = x.toString
 
 }
