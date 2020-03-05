@@ -14,7 +14,8 @@ object Generics extends  App {
 
   // generic methods -- make a companion object to MyList
   object MyList {
-    def empty[T]: MyList[T] = ???
+    class emptyList[T] extends MyList[T]
+    def empty[T]: MyList[T] = new emptyList[T]()
   }
 
   val emptyListOfIntegers = MyList.empty[Int]
@@ -80,7 +81,6 @@ object Generics extends  App {
   // here contravariance makes more sense!
   val cook: Cook[CanCookVeggies] = new Cook[CanCookAnything]
 
-
   // type bounds
   class Cage[T <: Animal](animal: T)  //here we have a type parameter that can take a generic T
                                       //that must be an Animal or a subclass of Animal
@@ -95,6 +95,46 @@ object Generics extends  App {
   Dog to this this??????  TURNS OUT NO!!!!!  But this is not immediately clear
   why!!!!!!!  This is the Second BIG QUESTION
    */
+
+  /*  This won't compile!
+  class CovariantList2[+T] {
+    def addElement(a:T): CovariantList2[T] = ???
+  }
+  */
+
+  // consider
+  trait MyCovariantList[+T] {
+    def head:T
+    def tail: MyCovariantList[T]
+    def add[U >:T](element:U): MyCovariantList[U]
+
+  }
+  case object MyEmptyCovariantList extends MyCovariantList[Nothing] {
+    def head = throw new Exception("head on empty list")
+    def tail = throw new Exception("tail on empty list")
+    def add[U](element: U): MyCovariantList[U] = MyNonEmptyCovariantList(element, MyEmptyCovariantList)
+  }
+
+    case class MyNonEmptyCovariantList[T](h:T, t:MyCovariantList[T]=MyEmptyCovariantList) extends MyCovariantList[T] {
+    def head: T = h
+    def tail: MyCovariantList[T] = t
+    def add[U >: T](element: U): MyCovariantList[U] = MyNonEmptyCovariantList(element, this)
+  }
+
+  type animalList = MyCovariantList[Animal]
+  type catList = MyCovariantList[Cat]
+  type dogList = MyCovariantList[Dog]
+
+
+  val animalList4: catList =  MyNonEmptyCovariantList[Cat](new Cat())
+  // will fail val animalList5: catList = animalList4.add(new Dog)
+  // will val animalList5: dogList = animalList4.add(new Dog)
+  val animalList5: animalList = animalList4.add(new Dog) 
+
+
+
+
+
 
 
 }
