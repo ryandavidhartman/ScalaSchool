@@ -129,7 +129,7 @@ object Generics extends  App {
   val animalList4: catList =  MyNonEmptyCovariantList[Cat](new Cat())
   // will fail val animalList5: catList = animalList4.add(new Dog)
   // will val animalList5: dogList = animalList4.add(new Dog)
-  val animalList5: animalList = animalList4.add(new Dog) 
+  val animalList5: animalList = animalList4.add(new Dog)
 
 
 
