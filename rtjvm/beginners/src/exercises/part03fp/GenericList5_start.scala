@@ -69,7 +69,21 @@ object GenericList5_start {
     def add[U >: T](x: U): MyList5[U] = Cons5(x, this)
     def +: [U >:T](x: U): MyList5[U] = Cons5(x, this)
     def ++ [U >: T](xs: MyList5[U]): MyList5[U] = Cons5(head, tail ++ xs)
-    def sort(c: MyComparer[T]): MyList5[T] = ???
+    def sort(c: MyComparer[T]): MyList5[T] = {
+      def sort_helper(l:MyList5[T]): MyList5[T] =
+        if(l.isEmpty)
+          l
+        else
+          insert(l.head, sort_helper(l.tail),c)
+
+      sort_helper(this)
+    }
+
+    def insert[U >:T](x:U, xs:MyList5[U], c:MyComparer[U]): MyList5[U] =
+      if(xs.isEmpty || c(x,xs.head) <= 0)
+        x +: xs
+      else
+        xs.head +: insert(x, xs.tail,c)
 
 
     def printElements: String = {
@@ -124,5 +138,8 @@ object GenericListRunner5_start extends App {
 
   val l7 = l6.clone()
   println(l7 == l6)
+
+  val l8 = 8 +: 17 +: -1  +: 23 +: EmptyList5
+  println("l8 sorted: " + l8.sort((l,r) => l-r))
 
 }
