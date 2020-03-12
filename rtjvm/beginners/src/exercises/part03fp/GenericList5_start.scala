@@ -18,8 +18,8 @@ package exercises.part03fp
 object GenericList5_start {
 
   type MyPredicate[-T] = T => Boolean
-
   type MyTransformer[-T, U] = T => U
+  type MyComparer[-T] = (T,T) => Int
 
   abstract class MyList5[+T] {
 
@@ -29,6 +29,7 @@ object GenericList5_start {
     def add[U >: T](x:U): MyList5[U]
     def +: [U >: T](x:U): MyList5[U]
     def ++ [U >: T](xs:MyList5[U]): MyList5[U]
+    def sort(c:MyComparer[T]): MyList5[T]
 
     protected def printElements: String
     override def toString: String = s"[ $printElements]"
@@ -50,12 +51,14 @@ object GenericList5_start {
     def add[T](x: T): MyList5[T] = Cons5(x)
     def +: [T](x: T): MyList5[T] = Cons5(x)
     def ++ [T](xs: MyList5[T]): MyList5[T] = xs
+    def sort(c: MyComparer[Nothing]): MyList5[Nothing] = EmptyList5
 
     def printElements: String = "Nil"
 
     def map[U](t: MyTransformer[Nothing,U]): MyList5[U]  = EmptyList5
     def filter(p: MyPredicate[Nothing]): MyList5[Nothing] = EmptyList5
     def flatMap[U](t: MyTransformer[Nothing,MyList5[U]]): MyList5[U] = EmptyList5
+
   }
 
   case class Cons5[+T](h: T, t:MyList5[T] = EmptyList5) extends MyList5[T] {
@@ -66,6 +69,7 @@ object GenericList5_start {
     def add[U >: T](x: U): MyList5[U] = Cons5(x, this)
     def +: [U >:T](x: U): MyList5[U] = Cons5(x, this)
     def ++ [U >: T](xs: MyList5[U]): MyList5[U] = Cons5(head, tail ++ xs)
+    def sort(c: MyComparer[T]): MyList5[T] = ???
 
 
     def printElements: String = {
