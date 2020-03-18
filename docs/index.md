@@ -24,6 +24,7 @@
 * [Currying](./Currying.md)
 * [Evaluation Rules](./Evaluation-Rules.md)
 * [For Comprehensions](./For-Comprehensions.md)
+* [Generics](./Generics.md)
 * [Higher Order Functions](./Higher-order-functions.md) 
 * [Lazy Evaluation](./Evaluation-Rules.md)
 * [Object Oriented Programming](./Basics-OOP.md)
