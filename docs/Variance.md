@@ -72,3 +72,5 @@ Therefore `Functions` must be contravariant in their *argument* types and covari
 Find out more about variance in
 [lecture 4.4](https://class.coursera.org/progfun-2012-001/lecture/81)
 and [lecture 4.5](https://class.coursera.org/progfun-2012-001/lecture/83)
+
+![variance](imgs/rtjvmVariance.png)
