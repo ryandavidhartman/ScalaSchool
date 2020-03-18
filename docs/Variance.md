@@ -18,7 +18,7 @@ Examples:
 Well given `Cat <: Animal` Now can I use a `List[Cat]` anywhere a `List[Animal]` is used?  Yes.
 This means `List[Cat] <: List[Animal]`.  So `List[T]` follows with subtype arrangement of `T`.  Therefore List is covariant.
 
-2. Ok should `Array[T]` also be covarient?
+2. Ok should `Array[T]` also be covariant?
 Turns out no!  Why?  Well arrays are mutable, so if Array[T] *was* covariant you could do:
 
 <!-- code -->
@@ -58,10 +58,10 @@ Therefore `Functions` must be contravariant in their *argument* types and covari
 
 <!-- code -->
 ```scala
-  class Seq[+T] Lists etc. are covariant, and can be because they are immutable
+  class Seq[+T] //Lists etc. are covariant, and can be because they are immutable
 
   class Array[+T] {
-    def update(x: T)
+    def update(x: T): Unit
   } // variance checks fails
 
  trait Function1[-T, +U] {
