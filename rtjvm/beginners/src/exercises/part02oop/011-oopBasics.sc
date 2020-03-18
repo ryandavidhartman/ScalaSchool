@@ -2,7 +2,7 @@ import sun.java2d.SurfaceDataProxy.CountdownTracker
 
 class Writer(firstName: String, surname: String, val year: Int) {
 
-  def fullname(): String = s"$firstName $surname"
+  def fullName(): String = s"$firstName $surname"
 
   override def equals(w: Any): Boolean = {
     println("Hey I'm using your equals function!\n")

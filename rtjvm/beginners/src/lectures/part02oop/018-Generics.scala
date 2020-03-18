@@ -131,10 +131,4 @@ object Generics extends  App {
   // will val animalList5: dogList = animalList4.add(new Dog)
   val animalList5: animalList = animalList4.add(new Dog)
 
-
-
-
-
-
-
 }
