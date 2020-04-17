@@ -1,10 +1,7 @@
 #lang sicp
 
-(lambda (x) (+ x 4))
 
-(lambda (x) (/ 1.0 (* x (+ x 2))))
-
-; Then our pi-sum procedure can be expressed without defining any auxiliary procedures as
+; From 1_3_1 we have a generic summation prodecure
 
 (define (sum term a next b)
   (if (> a b)
@@ -12,22 +9,36 @@
       (+ (term a)
          (sum term (next a) next b))))
 
-(define (pi-sum a b)
-  (sum (lambda (x) (/ 1.0 (* x (+ x 2))))
-       a
-       (lambda (x) (+ x 4))
-       b))
-
-(* 8 (pi-sum 1 1000))
-
+; some other little helpers
 (define (square x) (* x x))
 (define (cube x) (* x (square x))) 
 
+; Using lambda we can write anonymous procedures like this: 
+
+
+(lambda (x) (+ x 4))
+
+(lambda (x) (/ 1.0 (* x (+ x 2))))
+
+; Then our pi-sum procedure can be expressed without defining any auxiliary procedures as
+
+
+(define (pi-sum a b)
+  (sum (lambda (x) (/ 1.0 (* x (+ x 2)))) ; term
+       a                                  ; start
+       (lambda (x) (+ x 4))               ; next
+       b))                                ; stop
+
+(* 8 (pi-sum 1 1000))
+
+
+; now we can write the integrator in a nicer way
+
 (define (integral f a b dx)
-  (* (sum f
-          (+ a (/ dx 2.0))
-          (lambda (x) (+ x dx))
-          b)
+  (* (sum f                              ; term
+          (+ a (/ dx 2.0))               ; start
+          (lambda (x) (+ x dx))          ; next
+          b)                             ; end
      dx))
 
 (integral cube 0 1 0.01)
