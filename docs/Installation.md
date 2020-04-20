@@ -34,13 +34,13 @@ Check to see if sbt is already installed:
 ```bash
 $ sbt sbtVersion
 ...
-[info] 1.2.7
+[info] 0.13.18
 ```
 
 If you need to install and you are running OSX and a [Homebrew](http://brew.sh/) user, from a terminal run:
 
 ```bash
-$ brew install sbt
+$ brew install sbt@0.13
 ```
 
 Otherwise follow the [setup instruction](http://www.scala-sbt.org/0.13/docs/index.html) to download and install. Once the installation is complete, verify the installation by running the following command in a terminal session:
