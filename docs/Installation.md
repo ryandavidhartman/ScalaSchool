@@ -9,13 +9,11 @@ In order to work on the programming assignments, you need to have the following 
 ### Installing the JDK
 
 Check you have the right version of the JDK by typing in the console:
-Run `java -version`
+Run `javac -version`
 If you see something like:
 ```bash
-$ java -version
-java version "1.8.0_151"
-Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
+$ javac -version
+javac 1.8.0_241
 ```
 
 Move to the next section.  Otherwise you'll need to install 1.8 version of the oracle JDK
