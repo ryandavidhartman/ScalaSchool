@@ -65,3 +65,5 @@ Download and install [IntelliJ IDEA Community Edition](https://www.jetbrains.com
 
 After starting IntelliJ IDEA use the **Next:..** button on the **Customize IntelliJ IDEA** wizard to advance to Featured plugins
 **Install** Scala plugin
+
+[Here](https://stackoverflow.com/questions/38973049/how-to-install-scala-plugin-for-intellij) are some more hints on installing the plugin
