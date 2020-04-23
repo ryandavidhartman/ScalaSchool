@@ -26,7 +26,7 @@ If you are running OSX and a [Homebrew Cask](https://github.com/caskroom/homebre
 $  brew cask install adoptopenjdk/openjdk/adoptopenjdk8
 ```
 
-or if you prefer get the installer from Oracle
+or if you prefer to, you can get the installer from Oracle
 
 Follow the [setup instructions](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) to download and install. Once the installation is complete, very the installation by running the following command in a terminal session:
 
