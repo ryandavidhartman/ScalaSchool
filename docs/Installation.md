@@ -1,8 +1,8 @@
 ## Setup Your Machine:
 In order to work on the programming assignments, you need to have the following tools installed on your machine:
 
-* Java Development Kit, JDK, version 1.8 (it is possible to use a higher version but not recommended)
-* Scala build tool, SBT, version 0.13.17 or higher
+* Java Development Kit, JDK, version *1.8* (it is possible to use a higher version but not recommended)
+* Scala build tool, SBT, version 0.13.x (it is possible to use sbt 1.x)
 * IntelliJ (a great Scala/Java IDE, but you are free to use whatever you want)
 
 
@@ -18,15 +18,17 @@ javac 1.8.0_241
 
 Move to the next section.  Otherwise you'll need to install 1.8 version of the oracle JDK
 
-Follow the [setup instructions](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) to download and install. Once the installation is complete, very the installation by running the following command in a terminal session:
 
+If you are running OSX and a [Homebrew Cask](https://github.com/caskroom/homebrew-cask) user, from a terminal run:
 
-Alternatively if you know you won't need the 1.8 version of the JDK and if you are running OSX and a [Homebrew Cask](https://github.com/caskroom/homebrew-cask) user, from a terminal run:
 
 ```bash
-$ brew cask install java
+$  brew cask install adoptopenjdk/openjdk/adoptopenjdk8
 ```
 
+or if you prefer get the installer from Oracle
+
+Follow the [setup instructions](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) to download and install. Once the installation is complete, very the installation by running the following command in a terminal session:
 
 ### Installing sbt
 Check to see if sbt is already installed:
@@ -43,10 +45,10 @@ If you need to install and you are running OSX and a [Homebrew](http://brew.sh/)
 $ brew install sbt@0.13
 ```
 
-Otherwise follow the [setup instruction](http://www.scala-sbt.org/0.13/docs/index.html) to download and install. Once the installation is complete, verify the installation by running the following command in a terminal session:
+Other wise follow the [setup instruction](http://www.scala-sbt.org/0.13/docs/index.html) to download and install. Once the installation is complete, verify the installation by running the following command in a terminal session:
 
 Summary of important sbt commands
-
+* compile - builds the project
 * exit - ends the sbt session
 * help - lists the available commands
 * compile - compiles the main sources
