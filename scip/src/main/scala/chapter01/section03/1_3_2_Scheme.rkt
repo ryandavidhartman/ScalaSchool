@@ -1,7 +1,7 @@
 #lang sicp
 
 
-; From 1_3_1 we have a generic summation prodecure
+; From 1_3_1 we have a generic summation procedure
 
 (define (sum term a next b)
   (if (> a b)
@@ -11,9 +11,9 @@
 
 ; some other little helpers
 (define (square x) (* x x))
-(define (cube x) (* x (square x))) 
+(define (cube x) (* x (square x)))
 
-; Using lambda we can write anonymous procedures like this: 
+; Using lambda we can write anonymous procedures like this:
 
 
 (lambda (x) (+ x 4))
@@ -59,7 +59,7 @@
     (+ (* x (square a))
        (* y b)
        (* a b)))
-  (f-helper (+ 1 (* x y)) 
+  (f-helper (+ 1 (* x y))
             (- 1 y)))
 
 ; step 2 use a lambda
