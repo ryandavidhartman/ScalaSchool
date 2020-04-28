@@ -1,8 +1,8 @@
-package example
+package example.streams
 
 sealed trait ProcessStream[I,O]
 
-case class HaltStream[I,O]() extends ProcessStream[I,O] 
+case class HaltStream[I,O]() extends ProcessStream[I,O]
 
 case class EmitStream[I,O](head: O, tail: ProcessStream[I,O] = HaltStream[I,O]()) extends ProcessStream[I,O]
 
