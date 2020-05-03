@@ -26,7 +26,7 @@ def toThePowerOf[A](x: A, n: Int)(implicit num: Numeric[A]): A = {
   helper(x,n)
 }
 def square[A](x: A)(implicit num: Numeric[A]): A = toThePowerOf(x,2)
-def cube[A](x: A)(implicit num: Numeric[A]): A =toThePowerOf(x,3)
+def cube[A](x: A)(implicit num: Numeric[A]): A = toThePowerOf(x,3)
 
 def cubeRoot(x: Double):Double = {
   def goodEnough(guess: Double):Boolean =

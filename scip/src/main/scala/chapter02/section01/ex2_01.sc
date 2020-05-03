@@ -1,3 +1,5 @@
+import scala.util.Try
+
 /*
 Exercise 2.1
 
@@ -26,7 +28,7 @@ cdr(x)
 type Rational = List[Int]
 
 def numer(r: Rational): Int = car(r)
-def demon(r: Rational): Int = cdr(r).head
+def denom(r: Rational): Int = car(cdr(r))
 
 def make_rat(p:Int, q:Int): Rational = (p,q) match {
   case (_, 0) => throw new NumberFormatException("Divide by zero")
@@ -38,6 +40,65 @@ def make_rat(p:Int, q:Int): Rational = (p,q) match {
 make_rat(-1,2)
 make_rat(2, -1)
 make_rat(0, 1201)
+
+// We could also to this in a much more OOP way
+
+case class ScalaRational(numerator: Int, denominator: Int) {
+  import ScalaRational._
+
+  def + (r: ScalaRational): ScalaRational =
+    make_rat_scala(numerator*r.denominator + denominator*r.numerator, denominator*r.denominator)
+
+  def + (n: Int): ScalaRational = this.+(ScalaRational(n, 1))
+
+  def - (r: ScalaRational): ScalaRational = this.+(r.*(-1))
+
+  def * (r: ScalaRational): ScalaRational =
+    make_rat_scala(numerator*r.numerator, denominator*r.denominator)
+
+  def * (n: Int): ScalaRational =
+    make_rat_scala(numerator*n, denominator)
+
+  def / (r: ScalaRational): ScalaRational = this.*(ScalaRational(r.denominator, r.numerator))
+
+  def / (n: Int): ScalaRational =
+    make_rat_scala(numerator, denominator*n)
+
+  override def toString: String = numerator + "/" + denominator
+}
+
+object ScalaRational {
+
+  @scala.annotation.tailrec
+  def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+
+  def make_rat_scala(p: Int, q: Int): ScalaRational = {
+    val g = gcd(p,q)
+    (p/g, q/g) match {
+      case (_, 0) => throw new NumberFormatException("Divide by zero")
+      case (0, _) => new ScalaRational(numerator = 0, denominator = 1)
+      case (n, d) if d > 0 => new ScalaRational(numerator = n, denominator = d)
+      case (n, d) if d < 0 => new ScalaRational(numerator = n * -1, denominator = d * -1)
+    }
+  }
+}
+
+
+Try {ScalaRational.make_rat_scala(-1,0)}
+ScalaRational.make_rat_scala(-1,2)
+ScalaRational.make_rat_scala(2,-1)
+ScalaRational.make_rat_scala(0,223)
+ScalaRational.make_rat_scala(15,220)
+
+val a = ScalaRational(3,4)
+val b = ScalaRational(5,8)
+a + b
+
+a - b
+
+a * b
+
+a / b
 
 
 
