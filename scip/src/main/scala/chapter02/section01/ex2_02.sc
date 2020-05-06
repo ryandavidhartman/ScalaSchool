@@ -18,10 +18,16 @@ average of the coordinates of the endpoints). To try your procedures, you'll nee
  */
 
 // The easy way:
-case class PointEasyWay(x: Double, y: Double)
+case class PointEasyWay(x: Double, y: Double) {
+  override def toString: String = f"($x%.3f, $y%.3f)"
+}
 case class Segment(start: PointEasyWay, end: PointEasyWay) {
   def midpoint() = PointEasyWay((start.x + end.x) / 2.0, (start.y + end.y) / 2.0)
 }
+
+val p1 = PointEasyWay(1,5)
+val p2 = PointEasyWay(5,11)
+Segment(p1, p2).midpoint()
 
 // The Scheme like way?
 
