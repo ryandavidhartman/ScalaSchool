@@ -15,13 +15,13 @@ What is the corresponding definition of cdr? (Hint: To verify that this works, m
 of section 1.1.5.)
  */
 
-type pair[T] = ((T, T) => T) => T
+type Pair[T] = ((T, T) => T) => T
 
-def cons[T](x: T, y: T): pair[T] = (m: (T, T) => T)=> m(x,y)
+def cons[T](x: T, y: T): Pair[T] = (m: (T, T) => T)=> m(x,y)
 
-def car[T](z: pair[T]): T = z((x,_) => x )
+def car[T](z: Pair[T]): T = z((x, _) => x )
 
-def cdr[T](z: pair[T]): T = z((_, y) => y)
+def cdr[T](z: Pair[T]): T = z((_, y) => y)
 
 val pair1 = cons(1,true)
 car(pair1)
