@@ -15,4 +15,16 @@ What is the corresponding definition of cdr? (Hint: To verify that this works, m
 of section 1.1.5.)
  */
 
-def cons[T](x: T, y:T)(m: (T, T) => List[T]): List[T] = ???
+type pair[T] = ((T, T) => T) => T
+
+def cons[T](x: T, y: T): pair[T] = (m: (T, T) => T)=> m(x,y)
+
+def car[T](z: pair[T]): T = z((x,_) => x )
+
+def cdr[T](z: pair[T]): T = z((_, y) => y)
+
+val pair1 = cons(1,true)
+car(pair1)
+cdr(pair1)
+
+
