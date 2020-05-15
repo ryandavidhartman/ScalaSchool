@@ -15,3 +15,18 @@ Here are two different definitions of square-list. Complete both of them by fill
   (map <??> <??>))
  */
 
+def square_list1(l: Seq[Int]): Seq[Int] = {
+  if(l.isEmpty)
+    Nil
+  else {
+    val h = l.head
+    val t = l.tail
+    (h*h) +: square_list1(t)
+  }
+}
+
+def square_list2(l: Seq[Int]): Seq[Int] = l.map(i => i*i)
+
+
+square_list1(List(1, 2, 3, 4))
+square_list2(List(1, 2, 3, 4))
