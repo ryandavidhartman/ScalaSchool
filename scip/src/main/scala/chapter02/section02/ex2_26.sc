@@ -18,4 +18,3 @@ val y = Seq(4, 5, 6)
 x ++ y   // scala append
 x +: y   // scala cons
 Seq(x,y) // constructor
-
