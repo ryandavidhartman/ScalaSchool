@@ -1,3 +1,5 @@
+import utilities.SchemeUtilities.SchemeData
+
 /* Exercise 2.29
 
 A binary mobile consists of two branches, a left branch and a right branch. Each branch is a rod of a certain length,
@@ -33,26 +35,22 @@ Part D.  Suppose we change the representation of mobiles so that the constructor
 How much do you need to change your programs to convert to the new representation?
 */
 
-case class Mobile(left: Branch, right: Branch) {
-  def totalWeight: Double = left.totalWeight + right.totalWeight
-  def isBalanced: Boolean = ???
-}
+def make_mobile(left: SchemeData, right: SchemeData):List[SchemeData] = List(left, right)
+def make_branch(length: Double, structure: SchemeData) = List(length, structure)
 
-trait Branch {
-  def totalWeight: Double
-  def totalLength: Double
-  def torque: Double
-}
 
-case class Root(length: Double, branch: Branch) extends Branch {
-  def totalWeight: Double = branch.totalWeight
-  def totalLength: Double = length + branch.totalLength
-  def torque: Double = ???
-}
+// Part A
+// Write the corresponding selectors left-branch and right-branch, which return the branches of a mobile,
+// and branch-length and branch-structure, which return the components of a branch.
 
-case class Node(length: Double, weight: Double) extends Branch {
-  def totalWeight: Double = weight
-  def totalLength: Double = length
-  def torque: Double = weight*length
+object PartA {
+  import utilities.SchemeUtilities._
+
+  def left_branch(mobile: List[SchemeData]): SchemeData = car(mobile)
+
+  def right_branch(mobile: List[SchemeData]): SchemeData = car(cdr(mobile))
+
+  def branch_length(branch: SchemeData): SchemeData = car(branch)
+  //and branch-structure
 }
 

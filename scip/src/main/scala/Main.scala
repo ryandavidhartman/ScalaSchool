@@ -1,3 +1,3 @@
 object Main extends App {
-  println("Hello, Structure and Interpreation of Computer Programs!")
+  println("Hello, Structure and Interpretation of Computer Programs!")
 }
