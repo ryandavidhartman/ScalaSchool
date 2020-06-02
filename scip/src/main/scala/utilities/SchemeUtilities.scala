@@ -15,11 +15,13 @@ object SchemeUtilities {
   def car(arg: SchemeData): SchemeData = arg match {
     case x: Pair => x._1
     case xs: List[SchemeData] => xs.head
+    case _ => throw new IllegalArgumentException(s"car of arg: $arg")
   }
 
   def cdr(arg: SchemeData): SchemeData = arg match {
     case x: Pair => x._2
     case xs: List[SchemeData] => xs.tail
+    case _ => throw new IllegalArgumentException(s"cdr of arg: $arg")
   }
 
   def isPair(arg: SchemeData): Boolean = arg match {
