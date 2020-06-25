@@ -49,23 +49,7 @@ class SchemeUtilitiesSpecs extends AnyWordSpec {
 
       }
     }
-    "if called with the wrong number of parameters" should {
-      "fail because of too many arguments" in {
-        assertThrows[IllegalArgumentException] {
-          cons("1", "2", "3")
-        }
-      }
-      "fail because of too few arguments" in {
-        assertThrows[IllegalArgumentException] {
-          cons("1")
-        }
-      }
-      "fail because of zero arguments" in {
-        assertThrows[IllegalArgumentException] {
-          cons()
-        }
-      }
-    }
+
   }
 
   "car and cdr" when {

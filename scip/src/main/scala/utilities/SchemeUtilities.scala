@@ -7,10 +7,7 @@ object SchemeUtilities {
   type SchemeData = Any
   type Pair = (SchemeData, SchemeData)
 
-  def cons(args: SchemeData*): Pair = args match {
-    case Seq(l, r) => (l,r)
-    case _ => throw new IllegalArgumentException(s"Cons requires 2 parameters.  args={$args} is invalid")
-  }
+  def cons(left: SchemeData, right: SchemeData): Pair = (left, right)
 
   def car(arg: SchemeData): SchemeData = arg match {
     case x: Pair => x._1
@@ -29,8 +26,8 @@ object SchemeUtilities {
     case _ => false
   }
 
-  def isDefined(arg: SchemeData): Boolean = Try{arg.toString}.isSuccess
-  def isNull(arg: SchemeData): Boolean = !isDefined(arg)
+  def isNull(arg: SchemeData): Boolean = (arg != null) && (arg != List.empty)
+  def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
   def multiply(args: SchemeData*): Double = {
     @scala.annotation.tailrec
