@@ -1,4 +1,4 @@
-import utilities.SchemeUtilities.SchemeData
+import ScalaScheme.Primitives.SchemeData
 
 /* Exercise 2.29
 
@@ -44,7 +44,7 @@ def make_branch(length: Double, structure: SchemeData) = List(length, structure)
 // and branch-length and branch-structure, which return the components of a branch.
 
 object PartA {
-  import utilities.SchemeUtilities._
+  import ScalaScheme.Primitives._
 
   def left_branch(mobile: SchemeData): SchemeData = car(mobile)
 

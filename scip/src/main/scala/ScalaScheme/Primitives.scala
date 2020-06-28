@@ -1,32 +1,22 @@
-package utilities
+package ScalaScheme
 
-import scala.util.Try
-
-object SchemeUtilities {
+object Primitives {
 
   type SchemeData = Any
-  type Pair = (SchemeData, SchemeData)
 
-  def cons(left: SchemeData, right: SchemeData): Pair = (left, right)
+  def cons(first: SchemeData, second: SchemeData): SchemePair = SchemePair(first, second)
+  def car(list: SchemeList): SchemeData = list.head
+  def cdr(list: SchemeList): SchemeData = list.tail
+  def cdrL(list: SchemeList): SchemeList = list.tailSchemeList
+  def cadr(list: SchemeList): SchemeData = list.tailSchemeList.head
+  def cddr(list: SchemeList): SchemeData = list.tailSchemeList.tail
+  def caar(list: SchemeList): SchemeData = list.headSchemeList.head
+  def cdar(list: SchemeList): SchemeData = list.headSchemeList.tail
 
-  def car(arg: SchemeData): SchemeData = arg match {
-    case x: Pair => x._1
-    case xs: List[SchemeData] => xs.head
-    case _ => throw new IllegalArgumentException(s"car of arg: $arg")
-  }
+  def isPair(arg: SchemeData): Boolean = arg.isInstanceOf[SchemeList]
 
-  def cdr(arg: SchemeData): SchemeData = arg match {
-    case x: Pair => x._2
-    case xs: List[SchemeData] => xs.tail
-    case _ => throw new IllegalArgumentException(s"cdr of arg: $arg")
-  }
 
-  def isPair(arg: SchemeData): Boolean = arg match {
-    case _:Pair => true
-    case _ => false
-  }
-
-  def isNull(arg: SchemeData): Boolean = (arg != null) && (arg != List.empty)
+  def isNull(arg: SchemeData): Boolean = arg == null || arg == SchemeNil || arg == Nil || arg == List.empty
   def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
   def multiply(args: SchemeData*): Double = {

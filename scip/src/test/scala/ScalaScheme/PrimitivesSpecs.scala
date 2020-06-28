@@ -1,9 +1,9 @@
-package utilities
+package ScalaScheme
 
 import org.scalatest.wordspec.AnyWordSpec
-import utilities.SchemeUtilities._
+import ScalaScheme.Primitives._
 
-class SchemeUtilitiesSpecs extends AnyWordSpec {
+class PrimitivesSpecs extends AnyWordSpec {
 
   case class Stuff(a: Int, b: Double)
 
@@ -40,13 +40,13 @@ class SchemeUtilitiesSpecs extends AnyWordSpec {
         assert(car(pair4) == stuff1)
         assert(cdr(pair4) == pair3)
 
+
         val pair5 = cons(1, cons(2, cons(3, 4)))
         assert(car(pair5) == 1)
-        assert(car(cdr(pair5)) == 2)
-        assert(cdr(cdr(pair5)) == cons(3, 4))
-        assert(car(cdr(cdr(pair5))) == 3)
-        assert(cdr(cdr(cdr(pair5))) == 4)
-
+        assert(car(cdr(pair5).asInstanceOf[SchemeList]) == 2)
+        assert(cadr(pair5) == 2)
+        assert(cdr(cdr(pair5).asInstanceOf[SchemeList]) == cons(3, 4))
+        assert(cddr(pair5) == cons(3, 4))
       }
     }
 
@@ -54,18 +54,64 @@ class SchemeUtilitiesSpecs extends AnyWordSpec {
 
   "car and cdr" when {
     "succeed" should {
-      "succeed with cons pairs" in {
+      "with cons pairs" in {
         val pair1 = cons(1, 2)
         assert(car(pair1) == 1)
         assert(cdr(pair1) == 2)
       }
 
-      "succeed with lists" in {
-        val list1 = List(1, 2)
+      "with lists" in {
+        val list1 = SchemeList(1, 2)
         assert(car(list1) == 1)
-        assert(cdr(list1) == List(2))
+        assert(cdr(list1) == SchemeList(2))
       }
 
+    }
+  }
+
+  "isPair" when {
+    "succeed" should {
+      "with cons pairs" in {
+        val pair1 = cons(1, 2)
+        assert(isPair(pair1))
+      }
+
+      "with lists" in {
+        val list1 = SchemeList(1, 2)
+        assert(isPair(list1))
+      }
+    }
+    "fail" should {
+      "with nil" in {
+        assert(!isPair(Nil))
+      }
+      "with an int" in {
+        assert(!isPair(101))
+      }
+    }
+
+  }
+
+  "isNull" when {
+    "false" should {
+      "with cons pairs" in {
+        val pair1 = cons(1, 2)
+        assert(!isNull(pair1))
+      }
+
+      "with lists" in {
+        val list1 = SchemeList(1, 2)
+        assert(!isNull(list1))
+      }
+
+      "with an int" in {
+        assert(!isNull(101))
+      }
+    }
+    "true" should {
+      "with nil" in {
+        assert(isNull(Nil))
+      }
     }
   }
 
@@ -94,8 +140,8 @@ class SchemeUtilitiesSpecs extends AnyWordSpec {
   "division" when {
     "dividing valid numbers" should {
       "succeed" in {
-        assert(division(-1, 3) == -1.0/3)
-        assert(division(2, 3, 3.33) == 2.0/9.99)
+        assert(division(-1, 3) == -1.0 / 3)
+        assert(division(2, 3, 3.33) == 2.0 / 9.99)
         assert(division("224", 2) == 112.0)
       }
     }

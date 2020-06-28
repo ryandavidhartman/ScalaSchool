@@ -1,6 +1,7 @@
-import utilities.SchemeUtilities._
+import ScalaScheme.Primitives._
+import ScalaScheme.{SchemeList, SchemeNil}
 
-/* Exercise 2.30.
+/* Exercise 2.30
 
 Define a procedure square-tree analogous to the square-list procedure of exercise 2.21.
 
@@ -18,14 +19,15 @@ Define square-tree both directly (i.e., without using any higher-order procedure
 
 // Review square-list recursive:
 
-def square(x:Int):Int = x*x
+def square(x:SchemeData):SchemeData = multiply(x,x)
 
-def  square_list_rec(items: List[Int]): List[Int] = {
-  if (items.isEmpty)
-    List.empty
-  else
-    square(items.head) :: square_list_rec(items.tail)
-}
+def square_list(items: SchemeList): SchemeData =
+    if(isNull(items))
+       SchemeNil
+    else
+      cons(square(car(items)), square_list(cdrL(items)))
 
-val list1 = List(1,2,3,4)
-square_list_rec(list1)
+
+
+val list1 = SchemeList(1,2,3,4)
+square_list(list1)
