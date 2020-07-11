@@ -12,7 +12,7 @@ scalaVersion := "2.13.1"
 
 // It's possible to define many kinds of settings, such as:
 
-name := "hello-scip"
+name := "sicp-scala"
 organization := "com.example"
 version := "1.0"
 

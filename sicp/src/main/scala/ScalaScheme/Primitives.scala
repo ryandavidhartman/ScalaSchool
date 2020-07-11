@@ -3,6 +3,8 @@ package ScalaScheme
 object Primitives {
 
   type SchemeData = Any
+  type SD = SchemeData
+  type SL = SchemeList
 
   def cons(first: SchemeData, second: SchemeData): SchemePair = SchemePair(first, second)
   def car(list: SchemeList): SchemeData = list.head
