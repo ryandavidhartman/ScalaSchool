@@ -17,7 +17,7 @@ abstract class SchemeList {
       case SchemePair( left, right ) => sys.error( s"SchemeList.map: improper list: ($left $right)" )
   }
 
-  def fold(zero: Any)(f: (Any, Any) => Any): Any = {
+  def foldLeft(zero: Any)(f: (Any, Any) => Any): Any = {
 
     @scala.annotation.tailrec
     def reducer(res: Any, tail: Any): Any = tail match {
@@ -30,6 +30,13 @@ abstract class SchemeList {
       zero
     else
       reducer( f(zero, head), tail )
+  }
+
+  def foldRight(zero: Any)(f: (Any, Any) => Any): Any = {
+    if(this.isEmpty)
+      zero
+    else
+      this.tailSchemeList.foldRight(f(this.head, zero))(f)
   }
 
   def exists(p: Any => Boolean): Boolean = this match {

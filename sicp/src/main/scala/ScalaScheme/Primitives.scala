@@ -4,9 +4,10 @@ object Primitives {
 
   type SchemeData = Any
   type SD = SchemeData
+
   type SL = SchemeList
 
-  def cons(first: SchemeData, second: SchemeData): SchemePair = SchemePair(first, second)
+  def cons(first: SchemeData, second: SchemeData): SchemeList = SchemePair(first, second)
   def car(list: SchemeList): SchemeData = list.head
   def cdr(list: SchemeList): SchemeData = list.tail
   def cdrL(list: SchemeList): SchemeList = list.tailSchemeList
@@ -14,6 +15,12 @@ object Primitives {
   def cddr(list: SchemeList): SchemeData = list.tailSchemeList.tail
   def caar(list: SchemeList): SchemeData = list.headSchemeList.head
   def cdar(list: SchemeList): SchemeData = list.headSchemeList.tail
+
+  def append(first: SchemeList, second: SchemeList): SchemeList =
+    if(first.isEmpty)
+      second
+    else
+      cons(car(first), append(cdrL(first), second))
 
   def isPair(arg: SchemeData): Boolean = arg.isInstanceOf[SchemeList]
 
