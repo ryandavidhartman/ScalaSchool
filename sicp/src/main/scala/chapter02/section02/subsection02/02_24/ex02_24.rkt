@@ -4,9 +4,10 @@
          pict/tree-layout)
 
 
-(list 1 (list 2 (list 3)))
+(list 1 (list 2 (list 3 4)))
+(define tree1 (list 1 (list 2 (list 3 4))))
 
-(sdraw (list 1 (list 2 (list 3))) #:null-style '/)
+(sdraw tree1 #:null-style '/)
 
 
 
@@ -27,5 +28,5 @@
       #f
       (naive-layered (viz tree))))
 
-(define t1 '(\. (\1) (\. \2 \3)))
+(define t1 '(\. (\1) (\. \2 (\. \3 \4))))
 (draw t1)
