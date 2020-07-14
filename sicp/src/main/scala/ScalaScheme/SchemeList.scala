@@ -39,6 +39,15 @@ abstract class SchemeList {
       this.tailSchemeList.foldRight(f(this.head, zero))(f)
   }
 
+  def length: Int = {
+    def iter(xs: SchemeList, acc: Int): Int =
+      if(xs.isEmpty)
+        acc
+      else iter(xs.tailSchemeList, acc+1)
+
+    iter(this, 0)
+  }
+
   def exists(p: Any => Boolean): Boolean = this match {
       case SchemeNil => false
       case SchemePair( head, tail: SchemeList ) =>

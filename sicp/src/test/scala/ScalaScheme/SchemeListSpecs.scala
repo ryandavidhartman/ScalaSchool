@@ -80,4 +80,17 @@ class SchemeListSpecs extends AnyWordSpec {
     }
 
   }
+
+  "length" when {
+    "should find the correct length" in {
+      val list1 = SchemeNil
+      assert(list1.length == 0)
+
+      val list2 = SchemeList(1, 2, 3, 4, 5, 6)
+      assert(list2.length == 6)
+
+      val list3 = SchemeList(list1, list2)
+      assert(list3.length == 2)
+    }
+  }
 }
