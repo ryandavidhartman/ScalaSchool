@@ -1,4 +1,4 @@
-import ScalaScheme.{Primitives, SchemePair, SchemeList => SL, SchemeNil => SNil}
+import ScalaScheme.{SchemeList => SL, SchemeNil => SNil}
 import ScalaScheme.Primitives.{SchemeData => SD}
 import ScalaScheme.Primitives._
 

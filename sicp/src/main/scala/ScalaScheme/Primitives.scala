@@ -23,8 +23,6 @@ object Primitives {
       cons(car(first), append(cdrL(first), second))
 
   def isPair(arg: SchemeData): Boolean = arg.isInstanceOf[SchemeList]
-
-
   def isNull(arg: SchemeData): Boolean = arg == null || arg == SchemeNil || arg == Nil || arg == List.empty
   def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
@@ -52,5 +50,22 @@ object Primitives {
     if(args.length == 1)  1.0/ multiply(args)
     else if(args.length > 1) args.head.toString.toDouble / multiply(args.tail:_*)
     else throw new IllegalArgumentException("Division needs at least one number")
+  }
+
+  def fold_right(op: (SD, SD) => SD, initial: SD, sequence: SL): SD =
+    if (isNull(sequence))
+      initial
+    else
+      op(car(sequence), fold_right(op, initial, cdrL(sequence)))
+
+  def fold_left(op: (SD, SD) => SD, initial: SD, sequence: SL): SD = {
+    @scala.annotation.tailrec
+    def iter(result: SD, rest: SL): SD =
+      if (isNull(rest))
+        result
+      else
+        iter(op(result, car(rest)), cdrL(rest))
+
+    iter(initial, sequence)
   }
 }
