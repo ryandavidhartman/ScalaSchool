@@ -32,9 +32,16 @@ def enumerate_interval(i: Int, j: Int): SL =
   else
     cons (i,enumerate_interval(i+1, j))
 
+def summer(data:SD): Int = {
+  val seq = data.asInstanceOf[SL]
+  if (isNull(seq))
+    0
+  else
+    car(seq).asInstanceOf[Int] + summer(cdrL(seq))
+}
 
 def triples3(n: Int, s: Int): SD =
-  filter(sl => sum(sl) == s,
+  filter(sl => summer(sl) == s,
     flat_map(i =>
       flat_map(j =>
         map(k => SchemeList(i,j,k),
