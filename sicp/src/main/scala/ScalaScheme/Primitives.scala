@@ -57,7 +57,6 @@ object Primitives {
       initial
     else
       op(car(sequence), fold_right(op, initial, cdrL(sequence)))
-
   def fold_left(op: (SD, SD) => SD, initial: SD, sequence: SL): SD = {
     @scala.annotation.tailrec
     def iter(result: SD, rest: SL): SD =
@@ -68,4 +67,24 @@ object Primitives {
 
     iter(initial, sequence)
   }
+
+  def map(op: SD => SD, seq: SL): SL =
+    if(isNull(seq))
+      SchemeNil
+    else cons(op(car(seq)), map(op, cdrL(seq)))
+
+  def appender(s1:SD, s2:SD): SD = append(s1.asInstanceOf[SL], s2.asInstanceOf[SL])
+
+  def flat_map(op: SD => SD, seq: SL): SD = fold_right(appender, SchemeNil, map(op, seq))
+
+  def filter(op: SD => Boolean, seq: SL): SL =
+    if(isNull(seq))
+      SchemeNil
+    else if(op(car(seq)))
+      cons(car(seq), filter(op, cdrL(seq)))
+    else
+      cdrL(seq)
+
+
+
 }
