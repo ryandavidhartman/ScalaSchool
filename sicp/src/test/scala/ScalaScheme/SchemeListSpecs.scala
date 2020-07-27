@@ -2,6 +2,7 @@ package ScalaScheme
 
 import org.scalatest.wordspec.AnyWordSpec
 import ScalaScheme.Primitives._
+import ScalaScheme.SchemeMath._
 
 class SchemeListSpecs extends AnyWordSpec {
 

@@ -1,5 +1,5 @@
 import ScalaScheme.Primitives._
-import ScalaScheme.Primitives.{Pair, SchemeData}
+import ScalaScheme.Primitives.SchemeData
 
 /* Exercise 2.29
 
@@ -13,16 +13,20 @@ Part D.  Suppose we change the representation of mobiles so that the constructor
 How much do you need to change your programs to convert to the new representation?
 */
 
-def make_mobile(leftBranch: SchemeData, rightBranch: SchemeData): Pair = cons(leftBranch, rightBranch)
-def make_branch(length: Double, structure: SchemeData):Pair = cons(length, structure)
-
-
 // Part A
 // Write the corresponding selectors left-branch and right-branch, which return the branches of a mobile,
 // and branch-length and branch-structure, which return the components of a branch.
 
 object PartA {
   import ScalaScheme.Primitives._
+
+  type Pair = (SchemeData, SchemeData)
+  def cons(l: SD, r: SD):Pair = (l, r)
+  def car(d: SD): SD = d.asInstanceOf[Pair]._1
+  def cdr(d: SD): SD = d.asInstanceOf[Pair]._2
+
+  def make_mobile(leftBranch: SchemeData, rightBranch: SchemeData): Pair = cons(leftBranch, rightBranch)
+  def make_branch(length: Double, structure: SchemeData): Pair = cons(length, structure)
 
   def left_branch(mobile: SchemeData): SchemeData = car(mobile)
 
@@ -91,12 +95,12 @@ object PartC {
 
 
 // Part B Tests
-val branch1 = make_branch(length = 1.0, structure = 3.0)
-val mobile1 = make_mobile(branch1, branch1)
+val branch1 = PartA.make_branch(length = 1.0, structure = 3.0)
+val mobile1 = PartA.make_mobile(branch1, branch1)
 assert(PartB.total_weight(mobile1) == 6.0)
 
-val branch2 = make_branch(length = 1.0, mobile1)
-val mobile2 = make_mobile(branch1,branch2)
+val branch2 =  PartA.make_branch(length = 1.0, mobile1)
+val mobile2 =  PartA.make_mobile(branch1,branch2)
 assert(PartB.total_weight(mobile2) == 9.0)
 
 // Part C Tests
@@ -106,13 +110,13 @@ assert(!PartC.isTorqueBalanced(branch1, branch2))
 assert(PartC.isBalanced(mobile1))
 assert(!PartC.isBalanced(mobile2))
 
-val mobile3 = make_mobile(
-  leftBranch  = make_branch(length = 9.0, mobile1),
-  rightBranch = make_branch(length = 6.0, mobile2)
+val mobile3 =  PartA.make_mobile(
+  leftBranch  =  PartA.make_branch(length = 9.0, mobile1),
+  rightBranch =  PartA.make_branch(length = 6.0, mobile2)
 )
 
 PartB.total_weight(mobile3)
-PartC.torque(make_branch(length = 9.0, mobile1))
-PartC.torque(make_branch(length = 6.0, mobile2))
+PartC.torque( PartA.make_branch(length = 9.0, mobile1))
+PartC.torque( PartA.make_branch(length = 6.0, mobile2))
 
 assert(!PartC.isBalanced(mobile3))

@@ -46,13 +46,16 @@ def make_branch(length: Double, structure: SchemeData) = List(length, structure)
 object PartA {
   import ScalaScheme.Primitives._
 
-  def left_branch(mobile: SchemeData): SchemeData = car(mobile)
+  def car(d:SD): SD = d.asInstanceOf[List[SD]].head
+  def cadr(d:SD): SD = d.asInstanceOf[List[SD]].tail.head
 
-  def right_branch(mobile: SchemeData): SchemeData = car(cdr(mobile))
+  def left_branch(mobile: SD): SD = car(mobile)
 
-  def branch_length(branch: SchemeData): SchemeData = car(branch)
+  def right_branch(mobile: SD): SD = cadr(mobile)
 
-  def branch_structure(branch: SchemeData): SchemeData = car(cdr(branch))
+  def branch_length(branch: SD): SD = car(branch)
+
+  def branch_structure(branch: SD): SD = cadr(branch)
 }
 
 // Part B

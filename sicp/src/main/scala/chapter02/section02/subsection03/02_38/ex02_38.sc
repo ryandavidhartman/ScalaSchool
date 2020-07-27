@@ -1,7 +1,7 @@
 import ScalaScheme.Primitives.{SchemeData => SD}
 import ScalaScheme.Primitives._
 import ScalaScheme.{SchemeNil => SNil, SchemeList => SL}
-
+import ScalaScheme.SchemeMath._
 
 
 def accumulate(op: (SD, SD) => SD, initial: SD, sequence: SL): SD =

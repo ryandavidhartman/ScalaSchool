@@ -1,15 +1,17 @@
-import ScalaScheme.Primitives.{SD, SL, cons, filter, flat_map, map, car, cdrL, isNull, sum}
+import ScalaScheme.Primitives.{SD, SL, cons, filter, flat_map, map, car, cdrL, isNull}
 import ScalaScheme.{SchemeList, SchemeNil}
+import ScalaScheme.SchemeMath.sum
+
 // solve it the idiomatic scala way
 
 def triples(n: Int, s: Int): Seq[(Int, Int, Int)] =
   for {
     i <- 1 to n
-    j <- 1 to n
-    k <- 1 to n if i+j+k == s
+    j <- 1 until i
+    k <- 1 until j if i+j+k == s
   } yield  (i, j, k)
 
-triples(3, 7)
+triples(10, 10)
 
 // triples desugared scala
 
@@ -22,7 +24,7 @@ def triples2(n: Int, s: Int): Seq[(Int, Int, Int)] =
     }
   }
 
-triples2(3,7)
+triples2(10,10)
 
 // triples in scala scheme format
 

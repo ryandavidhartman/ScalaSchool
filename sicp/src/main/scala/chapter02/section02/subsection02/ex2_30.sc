@@ -1,5 +1,6 @@
 import ScalaScheme.Primitives._
 import ScalaScheme.{SchemeList, SchemeNil}
+import ScalaScheme.SchemeMath._
 
 /* Exercise 2.30
 

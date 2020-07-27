@@ -1,5 +1,6 @@
-import ScalaScheme.Primitives.{SD, SL, car, cdrL, cons, isNull, append, multiply}
+import ScalaScheme.Primitives.{SD, SL, car, cdrL, cons, isNull, append}
 import ScalaScheme.{SchemeList, SchemeNil}
+import ScalaScheme.SchemeMath.multiply
 // First with the idiomatic scala way
 
 def unique_pairs_scala(n: Int): Seq[(Int, Int)] =
@@ -53,4 +54,15 @@ def unique_pairs_scheme(n: Int) =
 flat_map(i => map(j => SchemeList(i,j), enumerate_interval(1, i.asInstanceOf[Int]-1)),
 enumerate_interval(1, n))
 
-unique_pairs_scheme(2)
+unique_pairs_scheme(10)
+
+def filter(op: SD => Boolean, seq: SL): SL =
+  if(isNull(seq))
+    SchemeNil
+  else if(op(car(seq)))
+    cons(car(seq), filter(op, cdrL(seq)))
+  else
+    cdrL(seq)
+
+def prime_sum_pairs(n: SD):SD = ???
+

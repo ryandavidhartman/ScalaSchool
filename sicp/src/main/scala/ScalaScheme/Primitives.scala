@@ -26,32 +26,6 @@ object Primitives {
   def isNull(arg: SchemeData): Boolean = arg == null || arg == SchemeNil || arg == Nil || arg == List.empty
   def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
-  def multiply(args: SchemeData*): Double = {
-    @scala.annotation.tailrec
-    def mHelper[T](acc: Double, rest:Seq[Double]):Double =
-      if(rest.isEmpty)
-        acc
-      else
-        mHelper(acc * rest.head, rest.tail)
-    mHelper(acc=1.0, args.map(_.toString.toDouble))
-  }
-
-  def sum(args: SchemeData*): Double = {
-    @scala.annotation.tailrec
-    def mHelper[T](acc: Double, rest:Seq[Double]):Double =
-      if(rest.isEmpty)
-        acc
-      else
-        mHelper(acc + rest.head, rest.tail)
-    mHelper(acc=0.0, args.map(_.toString.toDouble))
-  }
-
-  def division(args: SchemeData*): Double = {
-    if(args.length == 1)  1.0/ multiply(args)
-    else if(args.length > 1) args.head.toString.toDouble / multiply(args.tail:_*)
-    else throw new IllegalArgumentException("Division needs at least one number")
-  }
-
   def fold_right(op: (SD, SD) => SD, initial: SD, sequence: SL): SD =
     if (isNull(sequence))
       initial
@@ -84,7 +58,4 @@ object Primitives {
       cons(car(seq), filter(op, cdrL(seq)))
     else
       cdrL(seq)
-
-
-
 }
