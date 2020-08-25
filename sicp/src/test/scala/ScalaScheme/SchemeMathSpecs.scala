@@ -158,5 +158,56 @@ class SchemeMathSpecs  extends AnyWordSpec {
     }
   }
 
-  "isPrime" 
+  "isPrime" when {
+    "when used with numeric data" should {
+      "succeed for our smoke tests" in {
+        assert(isPrime(1))
+        assert(isPrime(2))
+        assert(isPrime(3))
+        assert(!isPrime(4))
+        assert(isPrime(5))
+        assert(!isPrime(6))
+        assert(isPrime(7))
+        assert(isPrime(8))
+        assert(!isPrime(9))
+        assert(!isPrime(10))
+        assert(isPrime(11))
+        assert(!isPrime(12))
+        assert(isPrime(13))
+        assert(!isPrime(14))
+        assert(!isPrime(15))
+        assert(isPrime(16))
+      }
+      "succeed for ints" in {
+        val i1:SD = 10
+        assert(!isPrime(i1))
+
+        val i2:SD = 11
+        assert(isPrime(i2))
+      }
+
+      "succeed for doubles" in {
+        val d1:SD = 11.0
+        assert(isPrime(d1))
+
+        val d2:SD = 12.00
+        assert(!isPrime(d2))
+      }
+
+      "succeed for numeric strings" in {
+        val d1:SD = "11"
+        assert(isPrime(d1))
+
+        val d2:SD = "12.00"
+        assert(!isPrime(d2))
+      }
+    }
+
+    "when used with non-numeric data" should {
+      "fail for non-numeric strings" in {
+        val i:SD = "6.1"
+        assertThrows[java.lang.NumberFormatException](isPrime(i))
+      }
+    }
+  }
 }

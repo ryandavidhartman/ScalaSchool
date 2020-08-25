@@ -55,5 +55,13 @@ object SchemeMath {
     findDivisor(n.toString.toInt, testDivisor = 2)
   }
 
-  def isPrime(n: SD): Boolean = smallestDivisor(n) == n
+  def isPrime(in: SD): Boolean = {
+    val d:Double = in.toString.toDouble
+    if(d % 1 == 0) {
+      val n = d.toInt
+      smallestDivisor(n) == n
+    } else {
+      throw new NumberFormatException(s"$in is not a valid integer")
+    }
+  }
 }

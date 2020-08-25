@@ -34,6 +34,9 @@ object Primitives {
       initial
     else
       op(car(sequence), fold_right(op, initial, cdrL(sequence)))
+
+  def accumulate(op: (SD, SD) => SD, initial: SD, seq: SL): SD = fold_right(op, initial, seq)
+
   def fold_left(op: (SD, SD) => SD, initial: SD, sequence: SL): SD = {
     @scala.annotation.tailrec
     def iter(result: SD, rest: SL): SD =
@@ -60,7 +63,13 @@ object Primitives {
     else if(op(car(seq)))
       cons(car(seq), filter(op, cdrL(seq)))
     else
-      cdrL(seq)
+      filter(op, cdrL(seq))
+
+  def enumerate_interval(i: Int, j: Int): SL =
+    if ( i > j)
+      SchemeNil
+    else
+      cons (i,enumerate_interval(i+1, j))
 
   // Implicit Conversions
 
