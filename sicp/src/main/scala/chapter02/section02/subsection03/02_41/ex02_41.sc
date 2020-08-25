@@ -1,6 +1,6 @@
-import ScalaScheme.Primitives.{SD, SL, cons, filter, flat_map, map, car, cdrL, isNull}
 import ScalaScheme.{SchemeList, SchemeNil}
-import ScalaScheme.SchemeMath.sum
+import ScalaScheme.Primitives.{SD, SL, cons, flat_map, fold_right,map, filter}
+import ScalaScheme.Primitives.schemeDataToSchemeList
 
 // solve it the idiomatic scala way
 
@@ -34,23 +34,19 @@ def enumerate_interval(i: Int, j: Int): SL =
   else
     cons (i,enumerate_interval(i+1, j))
 
-def summer(data:SD): Int = {
-  val seq = data.asInstanceOf[SL]
-  if (isNull(seq))
-    0
-  else
-    car(seq).asInstanceOf[Int] + summer(cdrL(seq))
+def isCorrectSum(data:SL, sum: Int): Boolean = {
+  sum == fold_right((i,j) => i.toString.toInt + j.toString.toInt, 0, data)
 }
 
 def triples3(n: Int, s: Int): SD =
-  filter(sl => summer(sl) == s,
+  filter(sl => isCorrectSum(sl, s),
     flat_map(i =>
       flat_map(j =>
         map(k => SchemeList(i,j,k),
             enumerate_interval(1,n)),
         enumerate_interval(1, n)),
-      enumerate_interval(1, n)).asInstanceOf[SL])
+      enumerate_interval(1, n)))
 
-triples3(3,7)
+triples3(6,7)
 
 
