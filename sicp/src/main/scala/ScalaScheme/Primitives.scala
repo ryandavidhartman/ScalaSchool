@@ -2,6 +2,8 @@ package ScalaScheme
 
 object Primitives {
 
+  import scala.language.implicitConversions
+
   type SchemeData = Any
   type SD = SchemeData
 
@@ -22,7 +24,8 @@ object Primitives {
     else
       cons(car(first), append(cdrL(first), second))
 
-  def isPair(arg: SchemeData): Boolean = arg.isInstanceOf[SchemeList]
+  def isPair(arg: SchemeData): Boolean = arg.isInstanceOf[SchemePair]
+  def isList(arg: SchemeData): Boolean = arg.isInstanceOf[SchemeList]
   def isNull(arg: SchemeData): Boolean = arg == null || arg == SchemeNil || arg == Nil || arg == List.empty
   def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
@@ -58,4 +61,18 @@ object Primitives {
       cons(car(seq), filter(op, cdrL(seq)))
     else
       cdrL(seq)
+
+  // Implicit Conversions
+
+  implicit def schemeDataToSchemePair(sd: SD): SchemePair =
+    if(isPair(sd))
+      sd.asInstanceOf[SchemePair]
+    else
+      throw new RuntimeException(s"data: $sd is not a SchemePair")
+
+  implicit def schemeDataToSchemeList(sd: SD): SchemeList =
+    if(isList(sd))
+      sd.asInstanceOf[SchemeList]
+    else
+      throw new RuntimeException(s"data: $sd is not a SchemeList")
 }

@@ -157,4 +157,6 @@ class SchemeMathSpecs  extends AnyWordSpec {
       }
     }
   }
+
+  "isPrime" 
 }

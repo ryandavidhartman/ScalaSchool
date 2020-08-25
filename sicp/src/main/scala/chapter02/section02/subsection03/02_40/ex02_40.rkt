@@ -63,7 +63,7 @@
 
 (filter prime?  (enumerate-interval 1 10))
 
-(prime-sum-pairs 5)
+(prime-sum-pairs 6)
 
 
 (define (unique-pairs n)
@@ -74,3 +74,10 @@
    (enumerate-interval 1 n)))
 
 (unique-pairs 6)
+
+(define (prime-sum-pairs2 n)
+  (map make-pair-sum
+       (filter prime-sum?
+               (unique-pairs n))))
+
+(prime-sum-pairs2 6)
