@@ -29,6 +29,8 @@ val toolbox = currentMirror.mkToolBox()
 toolbox.eval(quoted1).asInstanceOf[List[Any]]
 
 
+val bob = q"sally"
+
 
 
 
