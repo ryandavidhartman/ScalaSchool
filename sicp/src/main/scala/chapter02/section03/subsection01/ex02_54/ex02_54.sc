@@ -1,9 +1,5 @@
 import ScalaScheme.Primitives.{SD, car, cdrL, isPair, schemeDataToSchemeList}
-import ScalaScheme.{SchemeList, SchemeNil}
-import scala.annotation.tailrec
-import scala.reflect.runtime.currentMirror
-import scala.reflect.runtime.universe.Quasiquote
-import scala.tools.reflect.ToolBox
+import ScalaScheme.SchemeList
 
 /*
 n practice, programmers use equal? to compare lists that contain numbers as well as symbols.

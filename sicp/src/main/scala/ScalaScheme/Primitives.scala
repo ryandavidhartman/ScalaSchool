@@ -17,6 +17,7 @@ object Primitives {
   def cddr(list: SchemeList): SchemeData = list.tailSchemeList.tail
   def caar(list: SchemeList): SchemeData = list.headSchemeList.head
   def cdar(list: SchemeList): SchemeData = list.headSchemeList.tail
+  def caddr(list: SchemeList): SchemeData = list.tailSchemeList.tailSchemeList.head
 
   def append(first: SchemeList, second: SchemeList): SchemeList =
     if(first.isEmpty)
