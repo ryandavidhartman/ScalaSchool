@@ -46,7 +46,7 @@
 (define (multiplier p) (if (product? p)(cadr p) (error "not a product")))
 (define (multiplicand p) (if (product? p) (caddr p) (error "not a product")))
 
-(define (base e) (if (exponentiation? e)(cadr e) (error "not exponentiation")))
+(define (base e) (if (exponentiation? e)(cadr e) (error "not an exponentiation")))
 (define (exponent e) (if (exponentiation? e)(caddr e) (error "not an exponentiation")))
 
 
@@ -79,5 +79,10 @@
 ; xy(x+3)
 (deriv '(* (* x y) (+ x 3)) 'x)
 
-;;  x^6
+;;  (yx)^6
 (deriv '(** (* y x) 6) 'x)
+
+;; x^5 +2*x^2 + 5x +1
+(deriv '(+ (** x 5) (* 2 (** x 2)) (* 5 x) 1) 'x)
+(deriv '(+ (** x 5) (* 2 (** x 2))) 'x)
+
