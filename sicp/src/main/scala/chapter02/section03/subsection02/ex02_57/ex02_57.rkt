@@ -14,7 +14,7 @@
 
 (define (make-sums as)
   (if (= (length as) 2)
-      (list '+ (car as) (cadr as))
+      (make-sum (car as) (cadr as))
       (make-sum (car as) (make-sums (cdr as)))))
 
 (define (make-sum a1 a2)
@@ -25,7 +25,7 @@
 
 (define (make-products ms)
   (if (= (length ms) 2)
-      (list '* (car ms) (cadr ms))
+      (make-product (car ms) (cadr ms))
       (make-product (car ms) (make-products (cdr ms))))) 
 
 (define (make-product m1 m2)

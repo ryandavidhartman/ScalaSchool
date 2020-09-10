@@ -30,6 +30,13 @@ object Primitives {
   def isNull(arg: SchemeData): Boolean = arg == null || arg == SchemeNil || arg == Nil || arg == List.empty
   def isDefined(arg: SchemeData): Boolean = !isNull(arg)
 
+  def length(arg: SchemeData): Int = {
+    if(isList(arg) || isPair(arg))
+      arg.asInstanceOf[SchemeList].length
+    else
+      throw new RuntimeException(s"data: $arg is not a SchemeList")
+  }
+
   def fold_right(op: (SD, SD) => SD, initial: SD, sequence: SL): SD =
     if (isNull(sequence))
       initial
