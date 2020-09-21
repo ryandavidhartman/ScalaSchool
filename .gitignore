@@ -124,4 +124,4 @@ project/plugins/project/
 
 
 _site/
-.jekyll-metadata
+.jekyll-metadata.DS_Store
