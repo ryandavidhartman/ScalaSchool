@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7ac22926-a9ce-4693-a1f6-6ac2f5904431" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/project/project/target/" />
+    <ignored path="$PROJECT_DIR$/project/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Getter.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
+              <folding>
+                <element signature="e#18#54#0" expanded="true" />
+                <element signature="e#386#401#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Controller.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16">
+              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+              <folding>
+                <element signature="e#18#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/BadCache.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="80" column="109" selection-start-line="80" selection-start-column="109" selection-end-line="80" selection-end-column="109" />
+              <folding>
+                <element signature="e#18#54#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/actor/ActorCell.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1911">
+              <caret line="93" column="6" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="6" />
+              <folding>
+                <element signature="e#99#142#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/pattern/PipeToSupport.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="18" column="15" lean-forward="true" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.12-sources.jar!/scala/concurrent/Future.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="432" column="6" selection-start-line="432" selection-start-column="6" selection-end-line="432" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Receptionist.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding>
+                <element signature="e#18#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/WebClient.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+              <folding>
+                <element signature="e#18#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>WebClient</find>
+      <find>find</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/Main.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/Receptionist.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/reactive/GetterSpec.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/reactive/ReceptionistSpec.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/WebClient.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/Controller.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/Cache.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/Getter.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/reactive/BadCache.scala" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="23" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="798" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="reactive" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reactive-link-checker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="reactive" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="akka-actor_2.11-2.5.16.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="akka-actor_2.11-2.5.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="akka-actor_2.11-2.5.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
+              <item name="actor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="akka-actor_2.11-2.5.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: com.typesafe.akka:akka-actor_2.11:2.5.16:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="akka-actor_2.11-2.5.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="akka" type="462c0819:PsiDirectoryNode" />
+              <item name="pattern" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: org.scala-lang:scala-library:2.11.12:jar" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: org.scala-lang:scala-library:2.11.12:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="scala-library-2.11.12.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: org.scala-lang:scala-library:2.11.12:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="scala-library-2.11.12.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reactive-link-checker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="sbt: org.scala-lang:scala-library:2.11.12:jar" type="70bed36:NamedLibraryElementNode" />
+              <item name="scala-library-2.11.12.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="$USER_HOME$/.nvm/versions/node/v6.7.0/bin/node" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.WebClientTest">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebClientTest" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="reactive.WebClientTest" />
+      <module name="linkchecker" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="reactive.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReceptionistSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <module name="linkchecker" />
+      <setting name="path" value="reactive.ReceptionistSpec" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <setting name="jrePath" value="" />
+      <envs />
+      <setting name="testKind" value="Class" />
+      <setting name="path" value="reactive.ReceptionistSpec" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.WebClientTest" />
+        <item itemvalue="ScalaTest.ReceptionistSpec" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="linkchecker" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="reactive-link-checker [file:/Volumes/Transcend/tutorial/scala/ScalaSchool/edX/02-ProgrammingReactiveSystems/week02/reactive-link-checker/]" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="linkchecker-build" />
+                <option name="path" value="$PROJECT_DIR$/project" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/Desktop/DesignPatterns/DesignPatterns" value="1455060645000" />
+        <entry key="$USER_HOME$/Desktop/recfun" value="1442506654000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight18Advanced" value="1467147782000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight19Advanced" value="1467147788000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight20Advanced" value="1467147790000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight21Advanced" value="1467147792000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight22Advanced" value="1467147794000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight24Advanced" value="1467147798000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight25Advanced" value="1467147800000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight29Advanced" value="1467147808000" />
+        <entry key="$USER_HOME$/source/angieslist/EventBusListener/modules/LegacyListener" value="1473273983000" />
+        <entry key="$USER_HOME$/source/angieslist/accounting" value="4414166203000" />
+        <entry key="$USER_HOME$/source/angieslist/ach_importer" value="1456345083000" />
+        <entry key="$USER_HOME$/source/angieslist/achpayments" value="4384376709000" />
+        <entry key="$USER_HOME$/source/angieslist/activity-streams" value="1458142956000" />
+        <entry key="$USER_HOME$/source/angieslist/address" value="5847241800000" />
+        <entry key="$USER_HOME$/source/angieslist/advertising" value="2873772404000" />
+        <entry key="$USER_HOME$/source/angieslist/angieslist-common" value="19086884052000" />
+        <entry key="$USER_HOME$/source/angieslist/backoffice-api/servicetown" value="2960192903000" />
+        <entry key="$USER_HOME$/source/angieslist/bob/servicetown_backend/servicetown" value="26648488464000" />
+        <entry key="$USER_HOME$/source/angieslist/contact-preference-listener" value="1476901772000" />
+        <entry key="$USER_HOME$/source/angieslist/event-bus" value="2957074040000" />
+        <entry key="$USER_HOME$/source/angieslist/index-importer" value="2886046738000" />
+        <entry key="$USER_HOME$/source/angieslist/index-importer/modules/index-importer" value="1443016456000" />
+        <entry key="$USER_HOME$/source/angieslist/payment" value="5878612691000" />
+        <entry key="$USER_HOME$/source/angieslist/payment_service/tools" value="1446754385000" />
+        <entry key="$USER_HOME$/source/angieslist/platform-gateway" value="1489683784000" />
+        <entry key="$USER_HOME$/source/angieslist/reference" value="1438996121000" />
+        <entry key="$USER_HOME$/source/angieslist/review" value="4392347069000" />
+        <entry key="$USER_HOME$/source/angieslist/sbt-class-generator" value="1489761314000" />
+        <entry key="$USER_HOME$/source/angieslist/scala-bc-example" value="4470397326000" />
+        <entry key="$USER_HOME$/source/angieslist/scala-gateway-example" value="1490317307000" />
+        <entry key="$USER_HOME$/source/angieslist/search-gateway" value="1488235077000" />
+        <entry key="$USER_HOME$/source/angieslist/security" value="4451708070000" />
+        <entry key="$USER_HOME$/source/angieslist/segment-listener" value="2968578330000" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider" value="1470924134000" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider-search" value="5909679152000" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend/servicetown" value="11869488136000" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend_deprecated" value="16332269778000" />
+        <entry key="$USER_HOME$/source/angieslist/store" value="4350602756000" />
+        <entry key="$USER_HOME$/source/angieslist/subscriptions" value="4420132038000" />
+        <entry key="$USER_HOME$/source/angieslist/user" value="5960424156000" />
+        <entry key="$USER_HOME$/source/angieslist/vindicia_gateway" value="1469561851000" />
+        <entry key="$USER_HOME$/source/frameworks/RxScala" value="1436728098000" />
+        <entry key="$USER_HOME$/source/tools/swagger/Doppelauge" value="1489028281000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week01/quickcheck" value="1429590132000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week02/calculator" value="1429554320000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week03/nodescala" value="1430153180000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/lectures/CourseraCodeSamplesReactiveProgramming" value="1432866424000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week01/recfun" value="1462387130000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week04/patmat" value="1428974370000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week06/forcomp" value="1424654264000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week07/streams" value="1424654370000" />
+        <entry key="$USER_HOME$/source/tutorial/DesignPatterns" value="1455577489000" />
+        <entry key="$USER_HOME$/source/tutorial/bob" value="4468560951000" />
+        <entry key="$USER_HOME$/source/tutorial/play/play-scala-intro" value="1429908845000" />
+        <entry key="$USER_HOME$/source/tutorial/scala" value="1434327221000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/PragmaticScalaBook/part1" value="1446950076000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera" value="1429747009000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/gettingStarted/example" value="1442503336000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week1/recfun" value="1453779770000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week2/funsets" value="1462334240000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week3/objsets" value="1462337246000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week4/patmat" value="1457397659000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week6/forcomp" value="1445456582000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week7/streams" value="1446092400000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week0/example" value="1457131070000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week1/quickcheck" value="1429590132000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week2/streams" value="1464301452000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week01/scalashop" value="1465250294000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week02/reductions" value="1465251682000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week03/kmeans" value="1465252634000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week04/barneshut" value="1465577884000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week01/example" value="1489259344000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week01/wikipedia" value="1476892220000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week02/stackoverflow" value="1489530274000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/cousera3/week01/example" value="1456704556000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/cousera3/week01/scalashop" value="1465250294000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/dbPerf" value="4418075100000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/encryption/rijndael" value="1451439706000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/gateway" value="1474400942000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/kafka/basic-kafka-example" value="1451271720000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/akka-stream-scala" value="1437863949000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/play-intro" value="1432522431000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/play-scala-intro2" value="1432676889000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/rijndael" value="1452018540000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/sbt-in-action-examples/chapter02" value="1476590878000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight01" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight02" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight03" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight04" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight05" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight06" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight07" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight08" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight09" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight10" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight11" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight12" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight13" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight14" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight15" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight16" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Sudoku" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/flights/Flight01" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/flights/Flight02" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training2/Flight01" value="1443964360000" />
+        <entry key="$PROJECT_DIR$" value="3138396054000" />
+        <entry key="$PROJECT_DIR$/build.sbt" value="3704997350" />
+        <entry key="$PROJECT_DIR$/project/build.properties" value="1396028727" />
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Desktop/example" value="PREVIEW" />
+        <entry key="$USER_HOME$/Downloads/actorbintree" value="PREVIEW" />
+        <entry key="$USER_HOME$/Downloads/recfun" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/EventBusListener/modules/LegacyListener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/achpayments" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/activity-streams" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/address" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/advertising" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/advertising-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/analytics" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/analytics-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/angieslist-common" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/backoffice-api/servicetown" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/contact-preference-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/event-bus" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/event-logger-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/job-bc" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/job-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/kafka-manager" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/member-management-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/message-center-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/notification-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/notification-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/platform-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/project-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/reference" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/sbt-class-generator" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-bc-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-fix-rules" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-gateway-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-listener-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-persistence" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/search-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/security" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/security-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/segment-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider-profile-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend_deprecated" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/subscriptions" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/temp/security-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/temp/segment-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/user" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/webhook-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/temp/bootcamp/bc/example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/temp/jtop" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/jtop" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/named-literal-arguments/scalafix" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/play-guard/samples/play-guard-sample" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/sbt-scalafix-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/scala-named-argument-compiler-plugin" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../../InterviewProblems" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala/RandomGenerator" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala/ScalaExamples" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala2/async" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ScalaJson" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/gettingStarted/example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week01/recfun" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week02/funsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week03/objsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week04-05/patmat" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week06/forcomp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week07/streams" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../ReactiveScala2/04-ActorModel/Lecture01/BankAccountExample" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../ReactiveScala2/actorbintree" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../coursera1/week1/recfun" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../courseraClasses/01-FunctionalProgrammingPrinciples/week03/objsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../async" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../actorbintree" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../metatest" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../play/2_7/play-scala-seed" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../sbt-example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../sbt-scalafix-example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/bootcamp/demo1" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/bootcamp/demo1_finished" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/essential-slick-code/chapter-01" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="useEclipseCompatibility" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7ac22926-a9ce-4693-a1f6-6ac2f5904431" name="Default Changelist" comment="" />
+      <created>1569196823019</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569196823019</updated>
+      <workItem from="1569196827719" duration="805000" />
+      <workItem from="1569238969414" duration="3036000" />
+      <workItem from="1569326503932" duration="3137000" />
+      <workItem from="1569341165149" duration="1020000" />
+      <workItem from="1569585657968" duration="13017000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="ReceptionistSpec - 2019.09.22 at 20h 02m 31s.xml">
+      <configuration name="ReceptionistSpec" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="ReceptionistSpec - 2019.09.22 at 20h 03m 43s.xml">
+      <configuration name="ReceptionistSpec" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="21015000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="23" y="23" width="1440" height="798" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14020029" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.115615614" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.04470939" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.17138599" />
+      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.069970846" />
+      <window_info anchor="bottom" id="Docker" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.478979" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="sbt" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Gradle" order="7" />
+      <window_info anchor="right" id="SciView" order="8" />
+      <window_info anchor="right" id="Database" order="9" />
+      <window_info anchor="right" id="Palette&#9;" order="10" />
+      <window_info anchor="right" id="Theme Preview" order="11" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14520743" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32935917" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.17138599" />
+      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.069970846" />
+      <window_info anchor="bottom" id="Docker" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.31778425" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="sbt" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Gradle" order="7" />
+      <window_info anchor="right" id="SciView" order="8" />
+      <window_info anchor="right" id="Database" order="9" />
+      <window_info anchor="right" id="Palette&#9;" order="10" />
+      <window_info anchor="right" id="Theme Preview" order="11" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/actor/Props.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Main.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
+          <folding>
+            <element signature="e#18#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/reactive/GetterSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="88" column="2" selection-start-line="88" selection-start-column="2" selection-end-line="88" selection-end-column="2" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/reactive/ReceptionistSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/srcs/akka-testkit_2.11-2.5.16-sources.jar!/akka/testkit/TestKit.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="378" column="6" selection-start-line="378" selection-start-column="6" selection-end-line="378" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.ning/async-http-client/srcs/async-http-client-1.9.40-sources.jar!/com/ning/http/client/ListenableFuture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/util/concurrent/Future.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1302">
+          <caret line="95" column="17" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sbt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.ning/async-http-client/srcs/async-http-client-1.9.40-sources.jar!/com/ning/http/client/AsyncHttpClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3906">
+          <caret line="227" column="41" selection-start-line="227" selection-start-column="14" selection-end-line="227" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.12-sources.jar!/scala/util/matching/Regex.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-107">
+          <caret line="378" lean-forward="true" selection-start-line="378" selection-end-line="378" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.jsoup/jsoup/srcs/jsoup-1.8.1-sources.jar!/org/jsoup/nodes/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="250" column="20" selection-start-line="250" selection-start-column="20" selection-end-line="250" selection-end-column="20" />
+          <folding>
+            <element signature="e#8692#8693#0" expanded="true" />
+            <element signature="e#8746#8747#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.jsoup/jsoup/srcs/jsoup-1.8.1-sources.jar!/org/jsoup/nodes/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-167">
+          <caret line="171" column="18" selection-start-line="171" selection-start-column="18" selection-end-line="171" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.jsoup/jsoup/srcs/jsoup-1.8.1-sources.jar!/org/jsoup/Jsoup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+          <folding>
+            <element signature="e#884#885#0" expanded="true" />
+            <element signature="e#934#935#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/actor/Actor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="495" column="30" selection-start-line="495" selection-start-column="21" selection-end-line="495" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/event/Logging.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="1247" column="6" selection-start-line="1247" selection-start-column="6" selection-end-line="1247" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Receptionist.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="e#18#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/WebClient.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+          <folding>
+            <element signature="e#18#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.12-sources.jar!/scala/concurrent/Future.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="432" column="6" selection-start-line="432" selection-start-column="6" selection-end-line="432" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/pattern/PipeToSupport.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="15" lean-forward="true" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Getter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
+          <folding>
+            <element signature="e#18#54#0" expanded="true" />
+            <element signature="e#386#401#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.5.16-sources.jar!/akka/actor/ActorCell.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1911">
+          <caret line="93" column="6" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="6" />
+          <folding>
+            <element signature="e#99#142#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/Controller.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <folding>
+            <element signature="e#18#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/reactive/BadCache.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="80" column="109" selection-start-line="80" selection-start-column="109" selection-end-line="80" selection-end-column="109" />
+          <folding>
+            <element signature="e#18#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.11.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="776d0c21-8975-497c-8f74-b33471733b4e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="SBT">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sicp-scala" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Scala Worksheet" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JupyterTrust" id="9762610e-2c93-4fb6-a083-159d6cd00148" />
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1f0Jksb9wjV3GhvNFTt9gx0mPZB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="shared-indexes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_56" />
+    </key>
+  </component>
+  <component name="RunManager" selected="ScalaTest.SchemeMathSpecs.smallestDivisor when when used with numeric data should succeed for doubles">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PrimitivesSpecs" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="sicp-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="testKind" value="Class" />
+      <option name="testClassPath" value="ScalaScheme.PrimitivesSpecs" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemeListSpecs" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="sicp-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="testKind" value="Class" />
+      <option name="testClassPath" value="ScalaScheme.SchemeListSpecs" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemeMathSpecs" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="sicp-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="testKind" value="Class" />
+      <option name="testClassPath" value="ScalaScheme.SchemeMathSpecs" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemeMathSpecs.isPrime when when used with numeric data should succeed for ints" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="sicp-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="ScalaScheme.SchemeMathSpecs" />
+      <option name="testName" value="isPrime when when used with numeric data should succeed for ints" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemeMathSpecs.smallestDivisor when when used with numeric data should succeed for doubles" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="sicp-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="ScalaScheme.SchemeMathSpecs" />
+      <option name="testName" value="smallestDivisor when when used with numeric data should succeed for doubles" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="ScalaTest.SchemeMathSpecs.smallestDivisor when when used with numeric data should succeed for doubles" />
+        <item itemvalue="ScalaTest.SchemeMathSpecs.isPrime when when used with numeric data should succeed for ints" />
+        <item itemvalue="ScalaTest.SchemeMathSpecs" />
+        <item itemvalue="ScalaTest.SchemeListSpecs" />
+        <item itemvalue="ScalaTest.PrimitivesSpecs" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="776d0c21-8975-497c-8f74-b33471733b4e" name="Default Changelist" comment="" />
+      <created>1595349222597</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595349222597</updated>
+      <workItem from="1595349228333" duration="3045000" />
+      <workItem from="1595462891407" duration="3307000" />
+      <workItem from="1595469117369" duration="4744000" />
+      <workItem from="1595546276217" duration="3642000" />
+      <workItem from="1595551505683" duration="2914000" />
+      <workItem from="1595554452099" duration="1309000" />
+      <workItem from="1595555789076" duration="782000" />
+      <workItem from="1595556596995" duration="5462000" />
+      <workItem from="1595605891100" duration="19028000" />
+      <workItem from="1595863590811" duration="601000" />
+      <workItem from="1596802685661" duration="2117000" />
+      <workItem from="1597951402363" duration="6327000" />
+      <workItem from="1598131016669" duration="1500000" />
+      <workItem from="1598133181799" duration="6403000" />
+      <workItem from="1598377327783" duration="370000" />
+      <workItem from="1598377729397" duration="20341000" />
+      <workItem from="1598625838344" duration="11128000" />
+      <workItem from="1598887276750" duration="16665000" />
+      <workItem from="1599231207902" duration="2674000" />
+      <workItem from="1599576490604" duration="589000" />
+      <workItem from="1599587305977" duration="5517000" />
+      <workItem from="1599740123476" duration="8639000" />
+      <workItem from="1599837385877" duration="6763000" />
+      <workItem from="1600121931183" duration="7569000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="458" y="194" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1599839502196">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="-1309" y="250" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595614401862" />
+    <state x="458" y="194" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1599839502196" />
+    <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377432802" />
+    <state x="430" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595806550737">
+      <screen x="0" y="23" width="1440" height="798" />
+    </state>
+    <state x="430" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1595806550737" />
+    <state x="406" y="291" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1595468272181">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="406" y="291" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1595468272181" />
+    <state x="75" y="105" width="1290" height="713" key="DiffContextDialog" timestamp="1598376400490">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="-1820" y="123" width="1720" height="857" key="DiffContextDialog/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595605862608" />
+    <state x="75" y="98" width="1290" height="648" key="DiffContextDialog/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1595811415174" />
+    <state x="75" y="105" width="1290" height="713" key="DiffContextDialog/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598376400490" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom" timestamp="1600172208781">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.0.bottom/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081158" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598920527130" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom/0.23.1440.798/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1599147947572" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1598465573764" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1600172208781" />
+    <state width="1398" height="35" key="GridCell.Tab.0.bottom/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127279972" />
+    <state width="1398" height="43" key="GridCell.Tab.0.bottom/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377752401" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center" timestamp="1600172208778">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.0.center/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081157" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598920527128" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center/0.23.1440.798/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1599147947569" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1598465573763" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1600172208778" />
+    <state width="1398" height="35" key="GridCell.Tab.0.center/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127279971" />
+    <state width="1398" height="43" key="GridCell.Tab.0.center/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377752400" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left" timestamp="1600172208777">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.0.left/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081157" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598920527126" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left/0.23.1440.798/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1599147947568" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1598465573763" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1600172208777" />
+    <state width="1398" height="35" key="GridCell.Tab.0.left/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127279970" />
+    <state width="1398" height="43" key="GridCell.Tab.0.left/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377752399" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right" timestamp="1600172208780">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.0.right/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081158" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598920527129" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right/0.23.1440.798/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1599147947570" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right/0.23.1440.798/-1920.23.1920.1057@0.23.1440.798" timestamp="1598465573763" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1600172208780" />
+    <state width="1398" height="35" key="GridCell.Tab.0.right/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127279971" />
+    <state width="1398" height="43" key="GridCell.Tab.0.right/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377752400" />
+    <state width="1878" height="352" key="GridCell.Tab.1.bottom" timestamp="1595854163477">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.1.bottom/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081160" />
+    <state width="1878" height="352" key="GridCell.Tab.1.bottom/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595854163477" />
+    <state width="1878" height="352" key="GridCell.Tab.1.center" timestamp="1595854163477">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.1.center/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081159" />
+    <state width="1878" height="352" key="GridCell.Tab.1.center/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595854163477" />
+    <state width="1878" height="352" key="GridCell.Tab.1.left" timestamp="1595854163477">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.1.left/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081158" />
+    <state width="1878" height="352" key="GridCell.Tab.1.left/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595854163477" />
+    <state width="1878" height="352" key="GridCell.Tab.1.right" timestamp="1595854163477">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1878" height="352" key="GridCell.Tab.1.right/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081160" />
+    <state width="1878" height="352" key="GridCell.Tab.1.right/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595854163477" />
+    <state x="439" y="47" key="RollbackChangesDialog" timestamp="1600127220680">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="439" y="47" key="RollbackChangesDialog/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598393976092" />
+    <state x="439" y="47" key="RollbackChangesDialog/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127220680" />
+    <state x="221" y="98" key="SettingsEditor" timestamp="1598625874650">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="221" y="98" key="SettingsEditor/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1598625874650" />
+    <state x="100" y="125" width="1241" height="606" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600127883023">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="-1787" y="156" width="1654" height="792" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1599673939508" />
+    <state x="100" y="123" width="1240" height="597" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595552978854" />
+    <state x="100" y="125" width="1241" height="606" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.808/-1920.23.1920.1057@0.23.1440.808" timestamp="1600127883023" />
+    <state x="-1529" y="140" width="1275" height="918" key="dock-window-1" timestamp="1599837680792">
+      <screen x="-1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="-1529" y="140" width="1275" height="918" key="dock-window-1/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1599837680792" />
+    <state x="385" y="147" width="671" height="674" key="search.everywhere.popup" timestamp="1599838557483">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="-1407" y="188" width="894" height="893" key="search.everywhere.popup/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595611098406" />
+    <state x="385" y="147" width="671" height="674" key="search.everywhere.popup/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1599838557483" />
+    <state x="385" y="148" width="670" height="676" key="search.everywhere.popup/0.23.1440.801/-1920.23.1920.1057@0.23.1440.801" timestamp="1595470059919" />
+  </component>
+  <component name="WorksheetDefaultProjectSettings">
+    <option name="compilerProfileName" value="Default" />
+    <option name="makeBeforeRun" value="true" />
+    <option name="moduleName" value="sicp-scala" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/ScalaScheme/SchemeList.scala</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

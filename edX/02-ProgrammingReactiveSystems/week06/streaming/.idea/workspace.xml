@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0dc6120b-28ea-46b6-b280-d9918f80cd65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/lectures/lecture03/AkkaStreamsLecture.scala" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>filter</find>
+      <find>ex</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1UMOl3JuiKjucVOhUm8CWyl9vA9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="$USER_HOME$/.nvm/versions/node/v6.7.0/bin/node" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleStreamingSuite" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="reactive-streaming" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="testKind" value="Class" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="javaOptions" value="" />
+      <option name="jrePath" value="" />
+      <option name="searchTest" value="Across module dependencies" />
+      <option name="showProgressMessages" value="true" />
+      <option name="testArgs" value="" />
+      <option name="testClassPath" value="streaming.SimpleStreamingSuite" />
+      <option name="useSbt" value="false" />
+      <option name="useUiWithSbt" value="false" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="ScalaTest.SimpleStreamingSuite" />
+        <item itemvalue="ScalaTest.SimpleStreamingSuite" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="reactive-streaming" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="streaming [file:/Volumes/Transcend/tutorial/scala/ScalaSchool/edX/02-ProgrammingReactiveSystems/week06/streaming/]" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="reactive-streaming-build" />
+                <option name="path" value="$PROJECT_DIR$/project" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/Desktop/DesignPatterns/DesignPatterns" value="1455060645000" />
+        <entry key="$USER_HOME$/Desktop/recfun" value="1442506654000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight18Advanced" value="1467147782000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight19Advanced" value="1467147788000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight20Advanced" value="1467147790000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight21Advanced" value="1467147792000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight22Advanced" value="1467147794000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight24Advanced" value="1467147798000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight25Advanced" value="1467147800000" />
+        <entry key="$USER_HOME$/Desktop/stairway-adv-angieslist/stairway-adv-exercises-angieslist/Flight29Advanced" value="1467147808000" />
+        <entry key="$USER_HOME$/source/angieslist/EventBusListener/modules/LegacyListener" value="1473273983000" />
+        <entry key="$USER_HOME$/source/angieslist/accounting" value="4414166203000" />
+        <entry key="$USER_HOME$/source/angieslist/ach_importer" value="1456345083000" />
+        <entry key="$USER_HOME$/source/angieslist/achpayments" value="4384376709000" />
+        <entry key="$USER_HOME$/source/angieslist/activity-streams" value="1458142956000" />
+        <entry key="$USER_HOME$/source/angieslist/address" value="5847241800000" />
+        <entry key="$USER_HOME$/source/angieslist/advertising" value="2873772404000" />
+        <entry key="$USER_HOME$/source/angieslist/angieslist-common" value="19086884052000" />
+        <entry key="$USER_HOME$/source/angieslist/backoffice-api/servicetown" value="2960192903000" />
+        <entry key="$USER_HOME$/source/angieslist/bob/servicetown_backend/servicetown" value="26648488464000" />
+        <entry key="$USER_HOME$/source/angieslist/contact-preference-listener" value="1476901772000" />
+        <entry key="$USER_HOME$/source/angieslist/event-bus" value="2957074040000" />
+        <entry key="$USER_HOME$/source/angieslist/index-importer" value="2886046738000" />
+        <entry key="$USER_HOME$/source/angieslist/index-importer/modules/index-importer" value="1443016456000" />
+        <entry key="$USER_HOME$/source/angieslist/payment" value="5878612691000" />
+        <entry key="$USER_HOME$/source/angieslist/payment_service/tools" value="1446754385000" />
+        <entry key="$USER_HOME$/source/angieslist/platform-gateway" value="1489683784000" />
+        <entry key="$USER_HOME$/source/angieslist/reference" value="1438996121000" />
+        <entry key="$USER_HOME$/source/angieslist/review" value="4392347069000" />
+        <entry key="$USER_HOME$/source/angieslist/sbt-class-generator" value="1489761314000" />
+        <entry key="$USER_HOME$/source/angieslist/scala-bc-example" value="4470397326000" />
+        <entry key="$USER_HOME$/source/angieslist/scala-gateway-example" value="1490317307000" />
+        <entry key="$USER_HOME$/source/angieslist/search-gateway" value="1488235077000" />
+        <entry key="$USER_HOME$/source/angieslist/security" value="4451708070000" />
+        <entry key="$USER_HOME$/source/angieslist/segment-listener" value="2968578330000" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider" value="1470924134000" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider-search" value="5909679152000" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend/servicetown" value="11869488136000" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend_deprecated" value="16332269778000" />
+        <entry key="$USER_HOME$/source/angieslist/store" value="4350602756000" />
+        <entry key="$USER_HOME$/source/angieslist/subscriptions" value="4420132038000" />
+        <entry key="$USER_HOME$/source/angieslist/user" value="5960424156000" />
+        <entry key="$USER_HOME$/source/angieslist/vindicia_gateway" value="1469561851000" />
+        <entry key="$USER_HOME$/source/frameworks/RxScala" value="1436728098000" />
+        <entry key="$USER_HOME$/source/tools/swagger/Doppelauge" value="1489028281000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week01/quickcheck" value="1429590132000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week02/calculator" value="1429554320000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/homework/week03/nodescala" value="1430153180000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraReactive/lectures/CourseraCodeSamplesReactiveProgramming" value="1432866424000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week01/recfun" value="1462387130000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week04/patmat" value="1428974370000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week06/forcomp" value="1424654264000" />
+        <entry key="$USER_HOME$/source/tutorial/CourseraScala/Week07/streams" value="1424654370000" />
+        <entry key="$USER_HOME$/source/tutorial/DesignPatterns" value="1455577489000" />
+        <entry key="$USER_HOME$/source/tutorial/bob" value="4468560951000" />
+        <entry key="$USER_HOME$/source/tutorial/play/play-scala-intro" value="1429908845000" />
+        <entry key="$USER_HOME$/source/tutorial/scala" value="1434327221000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/PragmaticScalaBook/part1" value="1446950076000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera" value="1429747009000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/gettingStarted/example" value="1442503336000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week1/recfun" value="1453779770000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week2/funsets" value="1462334240000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week3/objsets" value="1462337246000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week4/patmat" value="1457397659000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week6/forcomp" value="1445456582000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera1/week7/streams" value="1446092400000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week0/example" value="1457131070000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week1/quickcheck" value="1429590132000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera2/week2/streams" value="1464301452000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week01/scalashop" value="1465250294000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week02/reductions" value="1465251682000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week03/kmeans" value="1465252634000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera3/week04/barneshut" value="1465577884000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week01/example" value="1489259344000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week01/wikipedia" value="1476892220000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/coursera4/week02/stackoverflow" value="1489530274000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/cousera3/week01/example" value="1456704556000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/cousera3/week01/scalashop" value="1465250294000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/dbPerf" value="4418075100000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/encryption/rijndael" value="1451439706000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/gateway" value="1474400942000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/kafka/basic-kafka-example" value="1451271720000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/akka-stream-scala" value="1437863949000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/play-intro" value="1432522431000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/play/play-scala-intro2" value="1432676889000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/rijndael" value="1452018540000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/sbt-in-action-examples/chapter02" value="1476590878000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight01" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight02" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight03" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight04" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight05" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight06" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight07" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight08" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight09" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight10" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight11" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight12" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight13" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight14" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight15" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Flight16" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/alexercises/Sudoku" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/flights/Flight01" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training1/flights/Flight02" value="1429706894000" />
+        <entry key="$USER_HOME$/source/tutorial/scala/training2/Flight01" value="1443964360000" />
+        <entry key="$PROJECT_DIR$" value="10838118266000" />
+        <entry key="$PROJECT_DIR$/build.sbt" value="1911855953" />
+        <entry key="$PROJECT_DIR$/project/MOOCPlugin.scala" value="2976220008" />
+        <entry key="$PROJECT_DIR$/project/StudentPlugin.scala" value="3842137593" />
+        <entry key="$PROJECT_DIR$/project/StyleChecker.scala" value="2718938948" />
+        <entry key="$PROJECT_DIR$/project/build.properties" value="2678115315" />
+        <entry key="$PROJECT_DIR$/project/buildSettings.sbt" value="2446188345" />
+        <entry key="$PROJECT_DIR$/project/plugins.sbt" value="4025950404" />
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Desktop/example" value="PREVIEW" />
+        <entry key="$USER_HOME$/Downloads/actorbintree" value="PREVIEW" />
+        <entry key="$USER_HOME$/Downloads/recfun" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/EventBusListener/modules/LegacyListener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/achpayments" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/activity-streams" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/address" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/advertising" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/advertising-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/analytics" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/analytics-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/angieslist-common" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/backoffice-api/servicetown" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/batch-management" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/contact-preference-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/event-bus" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/event-logger-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/job-bc" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/job-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/kafka-manager" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/member-management-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/message-center-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/notification-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/notification-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/platform-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/project-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/reference" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/sbt-class-generator" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-bc-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-fix-rules" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-gateway-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-listener-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/scala-persistence" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/search-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/search-visitor-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/security" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/security-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/segment-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/service-provider-profile-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/servicetown_backend_deprecated" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/spprofile-visitor-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/subscriptions" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/tampa_data_validation" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/temp/security-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/temp/segment-listener" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/user" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/angieslist/webhook-gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/temp/bootcamp/bc/example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/temp/jtop" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/jtop" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/named-literal-arguments/scalafix" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/play-guard/samples/play-guard-sample" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/sbt-scalafix-example" value="PREVIEW" />
+        <entry key="$USER_HOME$/source/tools/scala-named-argument-compiler-plugin" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../../InterviewProblems" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala/RandomGenerator" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala/ScalaExamples" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ReactiveScala2/async" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../ScalaJson" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/gettingStarted/example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week01/recfun" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week02/funsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week03/objsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week04-05/patmat" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week06/forcomp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../01-FunctionalProgrammingPrinciples/week07/streams" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../ReactiveScala2/04-ActorModel/Lecture01/BankAccountExample" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../ReactiveScala2/actorbintree" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../coursera1/week1/recfun" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../courseraClasses/01-FunctionalProgrammingPrinciples/week03/objsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../async" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../week02/actorbintree" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../week02/reactive-link-checker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../week02/reactive-week2" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../week03/kvstore" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../week05/protocols" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../metatest" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../play/2_7/play-scala-seed" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../sbt-example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../sbt-scalafix-example" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/bootcamp/SlickTutorial/demo1" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/bootcamp/demo1" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/bootcamp/demo1_finished" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/essential-slick-code/chapter-01" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../../../slick/scalax15-slick" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="useEclipseCompatibility" value="true" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0dc6120b-28ea-46b6-b280-d9918f80cd65" name="Default Changelist" comment="" />
+      <created>1573951250736</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573951250736</updated>
+      <workItem from="1573951255482" duration="1782000" />
+      <workItem from="1573953966353" duration="7430000" />
+      <workItem from="1574429111104" duration="483000" />
+      <workItem from="1575163145837" duration="2602000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 21h 48m 21s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 21h 52m 42s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 21h 58m 07s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 21h 59m 57s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 06m 18s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 08m 51s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 10m 28s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 17m 23s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 18m 22s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="SimpleStreamingSuite - 2019.11.16 at 22h 26m 48s.xml">
+      <configuration name="SimpleStreamingSuite" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.11.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

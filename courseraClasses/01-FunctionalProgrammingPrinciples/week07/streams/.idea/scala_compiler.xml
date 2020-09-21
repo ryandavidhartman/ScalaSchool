@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <option name="incrementalityType" value="SBT" />
+    <profile name="sbt 1" modules="streams_2996" />
+    <profile name="sbt 2" modules="streams,submission-streams">
+      <option name="deprecationWarnings" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="optimiseBytecode" value="true" />
+      <parameters>
+        <parameter value="-P:scalagrading:instrumentClassPrefix:patmat" />
+        <parameter value="-P:scalagrading:instrumentClassPrefix:forcomp" />
+        <parameter value="-Yinline-warnings" />
+      </parameters>
+      <plugins>
+        <plugin path="$USER_HOME$/.ivy2/cache/ch.epfl.lamp/scala-grading-plugin_2.11.5/jars/scala-grading-plugin_2.11.5-0.3.jar" />
+      </plugins>
+    </profile>
+  </component>
+</project>

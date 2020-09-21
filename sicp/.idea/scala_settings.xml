@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WorksheetDefaultProjectSettings">
+    <option name="compilerProfileName" value="Default" />
+    <option name="makeBeforeRun" value="true" />
+    <option name="moduleName" value="sicp-scala" />
+  </component>
+</project>
