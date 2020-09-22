@@ -1,4 +1,5 @@
 package old.lectures.part02oop
+import scala.language.postfixOps
 
 object MethodNotations extends App {
 

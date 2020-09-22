@@ -71,7 +71,7 @@ object GenericList5 {
     def flatMap[U](t: MyTransformer[Nothing,MyList5[U]]): MyList5[U] = Empty5
 
     // new stuff
-    def foreach(sideEffect: MySideEffect[Nothing]): Unit = Unit
+    def foreach(sideEffect: MySideEffect[Nothing]): Unit = ()
     def sort(comparer: MyComparer[Nothing]): MyList5[Nothing] = Empty5
     def getLargest(comparer: MyComparer[Nothing]): (Nothing, MyList5[Nothing]) =
       throw new UnsupportedOperationException("getLargest of empty list")
