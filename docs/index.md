@@ -34,6 +34,7 @@
 * [Packages](./Basics-OOP.md#class-hierarchies)
 * [Pattern Matching](./Pattern-Matching.md)
 * [Reactive Systems](./Reactive-Systems.md)
+* [String Interpolation](./String-Interpolation.md)
 * [Tuples](./Tuples.md)
 * [Variance](./Variance.md)
 
