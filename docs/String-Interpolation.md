@@ -39,5 +39,26 @@ So far so good, this looks pretty standard!  However, Scala provides
 [multiple string interpolators](https://docs.scala-lang.org/overviews/core/string-interpolation.html),
 `s, f, raw, """` and easily allows you to write custom interpolators!
 
+```scala
 
+/* Custom Interpolator
+  Here we define custom string interpolator `date` so that you can define a
+  java.time.LocalDate as data"$year-$month-$day"
+*/
+
+implicit class DateInterpolator(val sc: StringContext) extends AnyVal {
+  def date(args: Any*): LocalDate = LocalDate.of(
+    args(0).toString.toInt,
+    args(1).toString.toInt,
+    args(2).toString.toInt
+  )
+}
+
+val year = 2020
+val month = 9
+val day = 22
+
+val fancyDate: LocalDate = date"$year-$month-$day"
+
+```
 
