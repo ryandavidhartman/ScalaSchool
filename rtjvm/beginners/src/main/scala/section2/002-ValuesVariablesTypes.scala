@@ -1,4 +1,6 @@
-package old.lectures.part01basics
+package section2
+
+// https://ryandavidhartman.github.io/ScalaSchool/Basics.html
 
 object ValuesVariablesTypes extends App {
   val x:Int = 42
