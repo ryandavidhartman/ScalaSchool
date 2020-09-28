@@ -8,7 +8,7 @@ String interpolation (or variable interpolation, variable substitution, or varia
   content-specification compared with string concatenation.  [More](https://en.wikipedia.org/wiki/String_interpolation)
   
  ## String Interpolation in Popular Languages
- 
+  
  ```javascript
 // JavaScript
 const appleCount = 4;

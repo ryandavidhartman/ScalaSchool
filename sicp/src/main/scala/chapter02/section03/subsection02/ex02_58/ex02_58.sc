@@ -15,11 +15,12 @@ case class Sum(addend: Expression, augend: Expression) extends Expression {
     case (Number(0.0), a2) => a2.toString
     case (a1, Number(0.0)) => a1.toString
     case (Number(a), Number(b)) => Number(a + b).toString
-    case _ => s"($addend+$augend)"
+    case _ => s"[$addend+${augend}]"
   }
 }
 
 case class Product(multiplier: Expression, multiplicand: Expression) extends Expression {
+
   override def toString: String = (multiplier: Expression, multiplicand) match {
     case (Number(0.0), _) | (_, Number(0.0)) => "0"
     case (a, Number(1.0)) => a.toString
@@ -27,6 +28,7 @@ case class Product(multiplier: Expression, multiplicand: Expression) extends Exp
     case (Number(n), Number(m)) => Number(n * m).toString
     case _ => s"$multiplier*$multiplicand"
   }
+
 }
 
 case class Exponentiation(base: Expression, exponent: Number) extends Expression {
@@ -89,17 +91,19 @@ def isNumber(x: String): Boolean =
   }
 
 implicit def makeExpression(str: String): Expression = str.trim match {
-  case s"($e)" => makeExpression(e)
   case s"$left+$right" => makeSum(makeExpression(left), makeExpression(right))
-  case s"$left^$right" => makeExponentiation(makeExpression(left), makeNumber(right))
   case s"$left*$right" => makeProduct(makeExpression(left), makeExpression(right))
+  case s"$left^$right" => makeExponentiation(makeExpression(left), makeNumber(right))
+  case s"($e)" => makeExpression(e)
   case n if isNumber(n) => makeNumber(n)
   case x => Variable(x)
 }
 
 deriv("x + y", Variable("x"))
 deriv("x^2", Variable("x"))
-deriv("3*x^3 + 2*x^2 + 5*x + 12" , Variable("x"))
+deriv("3*x^3" , Variable("x"))
+//deriv("3*(x^2 + 5*x)" , Variable("x"))
+makeExpression("3*(x^2 + 5*x + 2)")
 
 
 

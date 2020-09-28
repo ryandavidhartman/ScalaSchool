@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="776d0c21-8975-497c-8f74-b33471733b4e" name="Default Changelist" comment="" />
+    <list default="true" id="776d0c21-8975-497c-8f74-b33471733b4e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../docs/String-Interpolation.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/String-Interpolation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_58/ex02_58.sc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_58/ex02_58.sc" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,19 +83,6 @@
     </key>
   </component>
   <component name="RunManager" selected="ScalaTest.SchemeMathSpecs.smallestDivisor when when used with numeric data should succeed for doubles">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PrimitivesSpecs" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="sicp-scala" />
       <option name="allowRunningInParallel" value="false" />
@@ -204,6 +195,7 @@
       <workItem from="1599740123476" duration="8639000" />
       <workItem from="1599837385877" duration="6763000" />
       <workItem from="1600121931183" duration="7569000" />
+      <workItem from="1600950305625" duration="1904000" />
     </task>
     <servers />
   </component>
@@ -217,6 +209,10 @@
     <state x="-1309" y="250" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595614401862" />
     <state x="458" y="194" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1599839502196" />
     <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.877/-1920.23.1920.977@0.23.1440.877" timestamp="1598377432802" />
+    <state x="-1514" y="260" width="1379" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600966614515">
+      <screen x="-1920" y="23" width="1920" height="977" />
+    </state>
+    <state x="-1514" y="260" width="1379" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877/-1920.23.1920.977@-1920.23.1920.977" timestamp="1600966614515" />
     <state x="430" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595806550737">
       <screen x="0" y="23" width="1440" height="798" />
     </state>
