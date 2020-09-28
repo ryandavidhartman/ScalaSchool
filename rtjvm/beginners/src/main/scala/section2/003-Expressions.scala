@@ -1,4 +1,6 @@
-package old.lectures.part01basics
+package section2
+
+// see https://ryandavidhartman.github.io/ScalaSchool/Basics.html
 
 object Expressions extends App {
 
@@ -19,7 +21,7 @@ object Expressions extends App {
   var aVariable = 2
   aVariable += 3 // also works with -=, *= /= ... side effects on variables
 
-  // Instructions (DO something ) VS Expressions (VALUE and type)
+  // Statements/Instructions (DO something ) VS Expressions (VALUE and/or a type)
 
   // Consider the IF expression
   val aCondition = true
@@ -38,21 +40,19 @@ object Expressions extends App {
   // A while loops *is* an expression.  But it is an expression of type Unit, and there
   // action is done as a side effect
 
-  // side effects: println(), whiles, reassigning to a var
+  // side effects: println(), whiles, reassigning to a var are expressions, but of type Unit
+
+  val aWeirdValue: Unit = { aVariable = 3 }
+  println(s"Here is a Unit: $aWeirdValue")
 
   // code blocks
   val aCodeBlock = {
     val y = 2
-    val z = y + 1
+    val z = y + 1  // y and z are only defined inside this code block
 
     if(z >2) "hello" else "goodbye"
   }
 
   // everything inside the { } is a code block.  It is also an expression, it value is the value of
   // the final expression in the code block.
-
-
-
-
-
 }
