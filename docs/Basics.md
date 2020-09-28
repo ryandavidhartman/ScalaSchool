@@ -7,7 +7,7 @@
 * A _type_ is the kind of data you are working with, a definition or classification of data.  All data in Scala corresponds to a specific type, and all Scala types are defined as classes with methods that operate on the data.  ```var x:Int = 1``` Here Int is the type.
 
 ```scala
-  val x:Int = 42
+  val x: Int = 42
   println(x)
   // x = 2 throws a reassignment to val error.  vals are immutable
 
@@ -18,8 +18,8 @@
   //some types
 
   val aBoolean: Boolean = true
-  val aChar:Char = 'x'
-  val anInt:Int = x
+  val aChar: Char = 'x'
+  val anInt: Int = x
   val aShort: Short = 1;   // Short.MaxValue is the biggest short
   val aLong: Long = 1000L  // use the L to tell the compiler you want a Long not an Int
   val aDouble: Double = 2.0
