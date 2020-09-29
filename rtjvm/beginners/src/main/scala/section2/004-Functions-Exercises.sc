@@ -68,18 +68,38 @@ fib_tail_rec(4)
 fib_tail_rec(5)
 
 // Problem #4 Test if a number is prime
-def divides(a:Int, b:Int): Boolean = b % a == 0
 
-@scala.annotation.tailrec
-def findDivisor(n: Int, test:Int): Int =
-  if(test*test > n) n
-  else if(divides(test, n)) test
-  else findDivisor(n, test+1)
+def isPrime(n: Int): Boolean = {
+  @tailrec
+  def isPrimeUntil(t: Int): Boolean =
+    if(t <= 1)
+      true
+    else
+      n % t != 0 && isPrimeUntil(t-1)
 
-def smallestDivisor(n:Int):Int = findDivisor(n,2)
-def isPrime(n:Int):Boolean = n == smallestDivisor(n)
+  isPrimeUntil(n/2)
 
-isPrime(5)
-isPrime(6)
+}
+
+isPrime(2003)
+
+
+
+def isPrime_better(n:Int):Boolean = {
+  def divides(a:Int, b:Int): Boolean = b % a == 0
+
+  @scala.annotation.tailrec
+  def findDivisor(n: Int, test:Int): Int =
+    if(test*test > n) n
+    else if(divides(test, n)) test
+    else findDivisor(n, test+1)
+
+  def smallestDivisor(n:Int):Int = findDivisor(n,2)
+
+  n == smallestDivisor(n)
+}
+
+isPrime_better(5)
+isPrime_better(6)
 
 
