@@ -1,4 +1,4 @@
-package old.lectures.part01basics
+package section2
 
 object Functions extends App {
 
@@ -8,11 +8,11 @@ object Functions extends App {
   println(aFunction("hello", 3))
 
   // Note parameterless functions can be called without ()
-  def aParameterlessFuncton(): Int = 42
-  println(aParameterlessFuncton())
-  println(aParameterlessFuncton)
+  def aParameterlessFunction(): Int = 42
+  println(aParameterlessFunction())
+  println(aParameterlessFunction)
 
- //How can we do loops in a more functional way?  (i.e. avoid using loops
+ //How can we do loops in a more functional way?  (i.e. avoid using loops by using recursion!)
   def aRepeatedFunction(aString: String, n: Int): String = {
     if(n == 1) aString
     else aString + aRepeatedFunction(aString, n-1)
@@ -36,6 +36,8 @@ object Functions extends App {
   def aRepeatedFunction4(aString: String, n: Int): String = Seq.fill(n)(aString).mkString("")
 
   println(aRepeatedFunction4("hello", 3))
+
+  // Remember when you need a loop, use RECURSION!
 
 
   def aFunctionWithSideEffects(aString: String): Unit = println(aString)
