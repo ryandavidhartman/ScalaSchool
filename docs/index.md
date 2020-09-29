@@ -36,5 +36,6 @@
 * [Reactive Systems](./Reactive-Systems.md)
 * [String Interpolation](./String-Interpolation.md)
 * [Tuples](./Tuples.md)
+* [Type Inference](./Type-Inference.md)
 * [Variance](./Variance.md)
 
