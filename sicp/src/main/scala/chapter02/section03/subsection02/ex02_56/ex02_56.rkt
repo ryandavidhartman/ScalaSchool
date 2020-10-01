@@ -65,7 +65,7 @@
                          (multiplicand exp))))
          ((exponentiation? exp)
           (make-product (exponent exp)
-                        (make-product (make-exponentiation (base exp) (- (exponent exp) 1))
+                        (make-product (make-exponentiation (base exp) (make-sum (exponent exp) -1))
                                       (deriv (base exp) var))))
         (else
          (error "unknown expression type -- DERIV" exp))))

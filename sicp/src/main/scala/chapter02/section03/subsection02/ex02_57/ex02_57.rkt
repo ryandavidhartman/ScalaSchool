@@ -26,7 +26,7 @@
 (define (make-products ms)
   (if (= (length ms) 2)
       (make-product (car ms) (cadr ms))
-      (make-product (car ms) (make-products (cdr ms))))) 
+      (make-product (car ms) (make-products (cdr ms)))))
 
 (define (make-product m1 m2)
   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
@@ -54,18 +54,18 @@
 
 (define (augend s)
   (if (sum? s)
-   (let ((as (cddr s))) 
-     (if (= (length as) 1) 
-         (car as) 
+   (let ((as (cddr s)))
+     (if (= (length as) 1)
+         (car as)
          (make-sums as)))
-   (error "not a sum"))) 
+   (error "not a sum")))
 
 (define (multiplier p) (if (product? p)(cadr p) (error "not a product")))
 (define (multiplicand p)
   (if (product? p)
       (let ((ps (cddr p)))
-        (if (= (length ps) 1) 
-         (car ps) 
+        (if (= (length ps) 1)
+         (car ps)
          (make-products ps)))
       (error "not a product")))
 
@@ -88,7 +88,7 @@
                          (multiplicand exp))))
          ((exponentiation? exp)
           (make-product (exponent exp)
-                        (make-product (make-exponentiation (base exp) (- (exponent exp) 1))
+                        (make-product (make-exponentiation (base exp) (make-sum (exponent exp) -1))
                                       (deriv (base exp) var))))
         (else
          (error "unknown expression type -- DERIV" exp))))

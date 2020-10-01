@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="776d0c21-8975-497c-8f74-b33471733b4e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../docs/String-Interpolation.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/String-Interpolation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_58/ex02_58.rkt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rtjvm/beginners/src/main/scala/section2/002-ValuesVariablesTypes.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../rtjvm/beginners/src/main/scala/section2/002-ValuesVariablesTypes.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rtjvm/beginners/src/main/scala/section2/005-Type-Interference.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../rtjvm/beginners/src/main/scala/section2/005-Type-Interference.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_58/ex02_58.sc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_58/ex02_58.sc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_56/ex02_56.rkt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_56/ex02_56.rkt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_57/ex02_57.rkt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/chapter02/section03/subsection02/ex02_57/ex02_57.rkt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +86,17 @@
     </key>
   </component>
   <component name="RunManager" selected="ScalaTest.SchemeMathSpecs.smallestDivisor when when used with numeric data should succeed for doubles">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PrimitivesSpecs" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="sicp-scala" />
       <option name="allowRunningInParallel" value="false" />
@@ -196,6 +210,7 @@
       <workItem from="1599837385877" duration="6763000" />
       <workItem from="1600121931183" duration="7569000" />
       <workItem from="1600950305625" duration="1904000" />
+      <workItem from="1601576593013" duration="4280000" />
     </task>
     <servers />
   </component>
@@ -287,6 +302,10 @@
     </state>
     <state width="1878" height="352" key="GridCell.Tab.1.right/0.23.1440.797/-1920.23.1920.1057@-1920.23.1920.1057" timestamp="1595617081160" />
     <state width="1878" height="352" key="GridCell.Tab.1.right/0.23.1440.797/-1920.23.1920.1057@0.23.1440.797" timestamp="1595854163477" />
+    <state x="335" y="42" key="NewModule_or_Project.wizard" timestamp="1601581600119">
+      <screen x="0" y="23" width="1440" height="804" />
+    </state>
+    <state x="335" y="42" key="NewModule_or_Project.wizard/0.23.1440.804/-1920.23.1920.1057@0.23.1440.804" timestamp="1601581600119" />
     <state x="439" y="47" key="RollbackChangesDialog" timestamp="1600127220680">
       <screen x="0" y="23" width="1440" height="808" />
     </state>

@@ -24,3 +24,4 @@ cucumber/npm-debug.log
 .bloop/
 .metals/
 codacy-results/
+sicp/.idea

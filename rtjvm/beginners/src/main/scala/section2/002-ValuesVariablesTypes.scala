@@ -28,4 +28,5 @@ object ValuesVariablesTypes extends App {
   aVariable = 6 // here we are able to reassign data to a variable via a side effect.
 
   // In general we prefer vals to vars.  This is a major concept in functional programming
+
 }

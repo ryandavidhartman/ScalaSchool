@@ -11,5 +11,5 @@ object TypeInterference extends App {
 
   // type required for recursive functions
   def sum1ToN(n: Int): Int = if(n<=1) 1 else n + sum1ToN(n-1)
-  
+
 }
