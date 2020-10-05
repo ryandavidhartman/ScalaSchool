@@ -1,4 +1,4 @@
-package old.lectures.part01basics
+package section2
 
 import scala.annotation.tailrec
 
@@ -13,14 +13,15 @@ object Recursion extends App {
       result
     }
 
-  println(s"factorial(10=${factorial(10)}")
+  println(s"factorial(10=${factorial(10)})")
 
 
   def factorialTailRec(n: Int): BigInt = {
 
     @tailrec
-    def helper(n:Int, acc:BigInt): BigInt =
-    if(n <= 1) acc
+    def helper(n:Int, acc: BigInt): BigInt =
+    if(n <= 1)
+      acc
     else {
       println(s"Computing helper($n, $acc)")
       helper(n-1, acc*n)
@@ -31,4 +32,12 @@ object Recursion extends App {
 
   println(s"factorial(10)= ${factorialTailRec(10)}")
 
+
+
+  //val bigNum = factorialTailRec(5000)
+  //val exponent = bigNum.toString.length
+  //println(f"factorial(5000) ~ 10^$exponent")
+
 }
+
+
