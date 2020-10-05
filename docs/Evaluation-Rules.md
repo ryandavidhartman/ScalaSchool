@@ -30,3 +30,5 @@
    // bindings is a sequence of int, containing a varying # of arguments 
    def myFct(bindings: Int*) = { ... } 
 ```
+
+![CBVvsCBN](./imgs/rtjvmCBVvsCBN.png) 
