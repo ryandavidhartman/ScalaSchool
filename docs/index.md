@@ -23,6 +23,7 @@
 * [Class Hierarchies](././Basics-OOP.md#class-hierarchies)
 * [Collections](./Collections.md)
 * [Currying](./Currying.md)
+* [Default Parameters](./Default-Parameters.md)
 * [Evaluation Rules](./Evaluation-Rules.md)
 * [For Comprehensions](./For-Comprehensions.md)
 * [Generics](./Generics.md)
