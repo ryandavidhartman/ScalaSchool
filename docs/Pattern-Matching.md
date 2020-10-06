@@ -1,3 +1,5 @@
+## Pattern matching
+
 Pattern matching is used for decomposing data structures:
 
 <!-- code -->

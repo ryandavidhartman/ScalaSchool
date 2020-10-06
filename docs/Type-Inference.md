@@ -26,7 +26,7 @@ automatically by the compiler.
 ## For Functions
 
 For most functions it is also optional to explicitly specify a type.  However, you must
-specify the type for recursive functions.
+specify the type for [recursive functions](./Recursive-Functions.md).
 
  ![inference for recursive functions](./imgs/rtjvmTypeInference2.png) 
  
