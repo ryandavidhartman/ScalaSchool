@@ -39,6 +39,8 @@ So far so good, this looks pretty standard!  However, Scala provides
 [multiple string interpolators](https://docs.scala-lang.org/overviews/core/string-interpolation.html),
 `s, f, raw, """` and easily allows you to write custom interpolators!
 
+![F Interpolator](./imgs/rtjvmFInterpolator.png)
+
 ```scala
 
 /* Custom Interpolator

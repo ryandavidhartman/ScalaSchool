@@ -2,7 +2,7 @@ package section2
 
 // https://ryandavidhartman.github.io/ScalaSchool/Type-Inference.html
 
-object TypeInterference extends App {
+object TypeInference extends App {
 
   val x1: Int = 1
   val x2 = 1
