@@ -1,5 +1,6 @@
-class Person(val name: String, favoriteMovie: String, val age: Int = 18) {
+import scala.language.postfixOps
 
+class Person(val name: String, favoriteMovie: String, val age: Int = 18) {
 
   // Starting with this
   def likes(movie: String): Boolean = movie == favoriteMovie
@@ -10,7 +11,7 @@ class Person(val name: String, favoriteMovie: String, val age: Int = 18) {
 
   /*
   1)
-  Overload the + operator
+  Overload the + operator, this an infix operator
   so mary + "the rockstart" => new person with name = original name + (the rockstar) and same favorite movie
   */
   def +(nickName: String): Person = new Person(s"$name ($nickName)", favoriteMovie)
@@ -18,7 +19,7 @@ class Person(val name: String, favoriteMovie: String, val age: Int = 18) {
   /*
   2)
   // Add an age to the Person class
-  // Add a unary + operator that returns a new person with an incremented age
+  // Add a unary + operator that returns a new person with an incremented age, prefix operator
   */
   def unary_+ : Person = new Person(name, favoriteMovie, age+1)
 
