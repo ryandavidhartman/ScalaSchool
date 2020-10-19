@@ -1,4 +1,4 @@
-package old.lectures.exercises.part02oop
+package section3
 
 object BasicList {
 
@@ -11,7 +11,7 @@ object BasicList {
         head = returns first element of the list
         tail = remainder of the list
         isEmpty = is this list empty
-        add(int) = new list with this element add to the head
+        add(int) => new list with this element add to the head
         toString => a string representation of the list
      */
 
@@ -22,7 +22,7 @@ object BasicList {
     def ++: (x:Int): MyList
 
     protected def printElements: String
-    override def toString: String = s"[ $printElements]"
+    override def toString: String = s"[$printElements]"
   }
 
   object Empty extends MyList {
@@ -34,7 +34,7 @@ object BasicList {
     def printElements: String = "Nil"
   }
 
-  class Cons(h: Int, t:MyList = Empty) extends MyList {
+  class Cons(h: Int, t: MyList = Empty) extends MyList {
 
     def head: Int = h
     def tail: MyList = t
@@ -42,19 +42,18 @@ object BasicList {
     def add(x: Int): MyList = new Cons(x, this)
     def ++: (x: Int): MyList = new Cons(x, this)
 
-
     def printElements: String = {
-
       @scala.annotation.tailrec
       def helper(n: MyList, acc: String): String = n match {
         case _: Empty.type => acc
-        case ns:Cons => helper(ns.tail, s"$acc ${ns.head} ")
+        case ns: Cons => helper(ns.tail, s"$acc ${ns.head} ")
       }
-
       helper(n = this, acc ="")
     }
   }
+
 }
+
 
 object BasicListRunner extends App {
   import BasicList._

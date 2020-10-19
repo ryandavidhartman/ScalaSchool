@@ -43,9 +43,27 @@ c: java.lang.Object{def set: Int; def set_=(Int): Unit} = $anon$1@95a253
 scala> c.set = 5
 5
 ```
-* ```-a``` corresponds to ```a.unary_-```. Likewise for ```+a```,```~a```, and ```!a```
 
-```a <operator>= b```, where <operator> is some set of special characters, is equivalent to ```a = a <operator> b``` only if ```a``` doesn't have the ```<operator>= method```, for example:
+* Infix Operators
+You can write ```a identifier b``` where *identifier* denotes a method with two parameters
+(one implicit, one explicit).  For example:
+
+```scala
+1 to 10
+```
+
+is actually a method call:
+```scala
+1.to(10)
+```
+
+This is called an *infix* expression because the operator is between the arguments.
+
+* Unary Operators
+```-a``` corresponds to ```a.unary_-```. Likewise for ```+a```,```~a```, and ```!a```
+
+* Assignment Operators
+```a <operator>= b``` is equivalent to ```a = a <operator> b``` e.g.
 
 ```scala
 class test(val x:Int) {
@@ -57,6 +75,13 @@ a.x // 10
 a %%= 5 // Equivalent to a = a %% 5
 a.x // 50
 ```
+Notes on Assignment Operators:
+
+- <=, >=, and != are NOT assignment operators
+- An operator starting with =, is never an assignment operator (==, ===. =/= etc.)
+- If ```a``` has a method called ```operator=```, then that method is called directly
+
+
 ![Methods](./imgs/rtjvmMethods.png)
 
 ## Traits
