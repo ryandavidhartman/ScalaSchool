@@ -33,13 +33,20 @@ object AbstractDataTypes extends App {
 
     override def eat(): Unit = println("nomnomnom")
 
-    override def eat(animal: Animal): Unit = println(s"I'm a croq and I'm eating ${animal.creatureType}")
+    override def eat(animal: Animal): Unit = println(s"I'm a croq and I'm eating a ${animal.creatureType}")
   }
 
   val dog = new Dog
   val croc = new Crocodile
   croc.eat(dog)
   println(croc.preferredMeal)
-
-
 }
+
+// traits vs abstract classes
+// both can have abstract and non-abstract members!
+// traits can NOT have constructor parameters
+// abstract classes can have constructor parameters
+// a class can implement multiple traits
+// a class can only implement a single class
+
+// generally traits describe a "behavior" or property, and classes describes a "thing"

@@ -116,8 +116,6 @@ In Scala, everything can be imported, not only class names. So for instance if y
     object MyObject extends TopLevel { ... } // defines a singleton object. No other instance can be created
 ```
 
-
-
 ## Class Organization
 
 - Classes and objects are organized in packages (`package myPackage`).
@@ -135,6 +133,9 @@ In Scala, everything can be imported, not only class names. So for instance if y
   - `scala.AnyVal` base type of all primitive types. (`scala.Double`, `scala.Float`, etc.)
   - `scala.AnyRef` base type of all reference types. (alias of `java.lang.Object`, supertype of `java.lang.String`, `scala.List`, any user-defined class)
   - `scala.Null` is a subtype of any `scala.AnyRef` (`null` is the only instance of type `Null`), and `scala.Nothing` is a subtype of any other type without any instance.
+
+
+![Scala Class Hierarchy](./imgs/class-hierarchy-of-scala.png)
 
 ## Type Parameters
 
