@@ -75,7 +75,7 @@ a.x // 10
 a %%= 5 // Equivalent to a = a %% 5
 a.x // 50
 ```
-#####Notes on Assignment Operators:
+##### Notes on Assignment Operators:
 
 - <=, >=, and != are NOT assignment operators
 - An operator starting with =, is never an assignment operator (==, ===. =/= etc.)
