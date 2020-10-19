@@ -24,6 +24,7 @@ object ScalaObjects extends App {
 
   }
 
+
   // class Person and object Person are "companions"
   // Instance data is in the class Person, class level data in the object
 
