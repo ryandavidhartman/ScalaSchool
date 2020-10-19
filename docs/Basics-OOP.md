@@ -129,10 +129,12 @@ In Scala, everything can be imported, not only class names. So for instance if y
 
 - General object hierarchy:
 
-  - `scala.Any` base type of all types. Has methods `hashCode` and `toString` that can be overridden
+  - `scala.Any` base type of all types. Has methods `hashCode` and `toString` that can be overridden 
   - `scala.AnyVal` base type of all primitive types. (`scala.Double`, `scala.Float`, etc.)
   - `scala.AnyRef` base type of all reference types. (alias of `java.lang.Object`, supertype of `java.lang.String`, `scala.List`, any user-defined class)
-  - `scala.Null` is a subtype of any `scala.AnyRef` (`null` is the only instance of type `Null`), and `scala.Nothing` is a subtype of any other type without any instance.
+  - `scala.Null` is a subtype of any `scala.AnyRef` (`null` is the only instance of type `Null`)
+  - `scala.Nothing` is a subtype of any other type without any instance.
+  
 
 
 ![Scala Class Hierarchy](./imgs/class-hierarchy-of-scala.png)
