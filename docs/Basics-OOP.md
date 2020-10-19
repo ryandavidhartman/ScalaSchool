@@ -43,8 +43,8 @@ c: java.lang.Object{def set: Int; def set_=(Int): Unit} = $anon$1@95a253
 scala> c.set = 5
 5
 ```
-
-* Infix Operators
+### Operator Notation
+#### Infix Operators
 You can write ```a identifier b``` where *identifier* denotes a method with two parameters
 (one implicit, one explicit).  For example:
 
@@ -59,10 +59,10 @@ is actually a method call:
 
 This is called an *infix* expression because the operator is between the arguments.
 
-* Unary Operators
+#### Unary Operators
 ```-a``` corresponds to ```a.unary_-```. Likewise for ```+a```,```~a```, and ```!a```
 
-* Assignment Operators
+#### Assignment Operators
 ```a <operator>= b``` is equivalent to ```a = a <operator> b``` e.g.
 
 ```scala
@@ -75,7 +75,7 @@ a.x // 10
 a %%= 5 // Equivalent to a = a %% 5
 a.x // 50
 ```
-Notes on Assignment Operators:
+#####Notes on Assignment Operators:
 
 - <=, >=, and != are NOT assignment operators
 - An operator starting with =, is never an assignment operator (==, ===. =/= etc.)
