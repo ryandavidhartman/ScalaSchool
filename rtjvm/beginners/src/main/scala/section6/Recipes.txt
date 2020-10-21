@@ -1,0 +1,7 @@
+This example is from "Programming in Scala" 4th Edition.
+Chapter 29:  Modular Programming Using Objects
+
+Interesting to note this was probably inspired by
+"Structure and Interpretation of Computer Programs" 2nd Edition
+Chapter 3: Modularity, Objects and State, especially section
+3.5.5 Modularity of Functional Programs and Modularity of Objects
