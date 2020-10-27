@@ -1,10 +1,10 @@
-package old.lectures.exercises.part02oop
+package section3
 
 object GenericList2 {
 
   /*
   1. Generic trait MyPredicate[-T] with a method def test(t:T): Boolean
-  2. Generic trait MyTransformer[-T, U] with a method def tranform(t:T): U
+  2. Generic trait MyTransformer[-T, U] with a method def transform(t:T): U
   3. Add to MyList
       - map(transformer) => MyList
       - filter(predicate) => MyList
@@ -19,29 +19,28 @@ object GenericList2 {
    */
 
   trait MyPredicate[-T] {
-    def test(t:T): Boolean
+    def test(t: T): Boolean
   }
 
   trait MyTransformer[-T, U] {
-    def transform(t:T): U
+    def transform(t: T): U
   }
 
 
   abstract class MyList[+T] {
-
     def head: T
     def tail: MyList[T]
     def isEmpty: Boolean
-    def add[U >: T](x:U): MyList[U]
-    def +: [U >: T](x:U): MyList[U]
-    def ++ [U >: T](xs:MyList[U]): MyList[U]
+    def add[U >: T](x: U): MyList[U]
+    def +: [U >: T](x: U): MyList[U]
+    def ++ [U >: T](xs: MyList[U]): MyList[U]
 
     protected def printElements: String
-    override def toString: String = s"[ $printElements]"
+    override def toString: String = s"[$printElements]"
 
     def map[U](t: MyTransformer[T,U]): MyList[U]
+    def flatMap[U](t: MyTransformer[T, MyList[U]]): MyList[U]
     def filter(p: MyPredicate[T]): MyList[T]
-    def flatMap[U](t: MyTransformer[T,MyList[U]]): MyList[U]
   }
 
   object Empty extends MyList[Nothing] {
@@ -55,8 +54,8 @@ object GenericList2 {
     def printElements: String = "Nil"
 
     def map[U](t: MyTransformer[Nothing,U]): MyList[U]  = Empty
-    def filter(p: MyPredicate[Nothing]): MyList[Nothing] = Empty
     def flatMap[U](t: MyTransformer[Nothing,MyList[U]]): MyList[U] = Empty
+    def filter(p: MyPredicate[Nothing]): MyList[Nothing] = Empty
 
   }
 
@@ -71,7 +70,6 @@ object GenericList2 {
 
 
     def printElements: String = {
-
       @scala.annotation.tailrec
       def helper(n: MyList[T], acc: String): String = n match {
         case _: Empty.type => acc
@@ -81,22 +79,21 @@ object GenericList2 {
       helper(n = this, acc ="")
     }
 
-    override def map[U](t: MyTransformer[T, U]): MyList[U] =
-      t.transform(this.head) +: tail.map(t)
-
-    override def filter(p: MyPredicate[T]): MyList[T] =
-      if(p.test(h))
-        h +: tail.filter(p)
-      else
-        tail.filter(p)
-
+    override def map[U](t: MyTransformer[T, U]): MyList[U] = {
+      t.transform(head) +: tail.map(t)
+    }
 
     override def flatMap[U](t: MyTransformer[T, MyList[U]]): MyList[U] = {
-      val result:MyList[U] = t.transform(head)
-      val rest:MyList[U] = tail.flatMap(t)
+      val result: MyList[U] = t.transform(head)
+      val rest: MyList[U] = tail.flatMap(t)
       result ++ rest
     }
 
+    override def filter(p: MyPredicate[T]): MyList[T] =
+      if(p.test(head))
+        head +: tail.filter(p)
+      else
+        tail.filter(p)
   }
 }
 
