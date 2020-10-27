@@ -16,6 +16,7 @@
 * [Akka Streams](Akka-Streams/Akka-Streams-Intro.md)
 
 ## Glossary of Scala Terms
+* [Anonymous Classes](./Anonymous-Classes.md)
 * [Anonymous Functions](./Anonymous-Functions.md)
 * [Call by Name and Call by Value](./Evaluation-Rules.md)
 * [Case Classes](./Case-Classes.md)

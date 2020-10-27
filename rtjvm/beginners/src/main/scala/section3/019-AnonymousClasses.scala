@@ -1,6 +1,4 @@
-package old.lectures.exercises.part02oop
-
-import scala.runtime.java8.JFunction0$mcB$sp
+package section3
 
 object AnonymousClasses extends App {
 
@@ -12,17 +10,28 @@ object AnonymousClasses extends App {
     override def eat(): Unit = println("funny1")
   }
 
+  /* The above is equivalent to
+  class AnonymousClasses$$anon$1 extends Animal {
+    override def eat(): Unit = println("funny1")
+  }
+
+  val funnyAnimal1: Animal = new class AnonymousClasses$$anon$1
+
+   */
+
   class Anon2 extends Animal {
     override def eat(): Unit = println("funny2")
   }
 
   val funnyAnimal2: Animal = new Anon2
 
+  // Single Method Abstract Classes!
   val funnyAnimal3: Animal = () => println("funny3")
+  println(s"What does funnyAnimal3 eat: ${funnyAnimal3.eat()}")
 
-  val funnyFunction1:Function0[Unit] = () => println("funny4")
+  val funnyFunction1: Function0[Unit] = () => println("funny4")
 
-  val funnyFunction2:Function0[Unit] = new Function0[Unit] {
+  val funnyFunction2: Function0[Unit] = new Function0[Unit] {
     override def apply(): Unit = println("funny5")
   }
 
