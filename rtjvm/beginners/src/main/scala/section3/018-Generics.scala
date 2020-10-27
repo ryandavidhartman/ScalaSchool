@@ -1,8 +1,9 @@
-package old.lectures.part02oop
+package section3
 
 object Generics extends  App {
 
-  class MyList[T] {
+  // here is a "generic" class
+  class MyList[T] {  // here T is a type parameter
     // use the type T in the class
   }
 
@@ -44,7 +45,7 @@ object Generics extends  App {
   val animalList: CovariantList[Animal] = new CovariantList[Cat]
 
   // OK NOW given our animalList above QUESTION: should I be able to add a
-  // Dog to this this??????  TURNS OUT NO!!!!!  But this is not immediately clear
+  // Dog to this animalList??????  TURNS OUT NO!!!!!  But this is not immediately clear
   // why!!!!!!!  This is the Second BIG QUESTION
 
 
@@ -69,17 +70,18 @@ object Generics extends  App {
   // is called CONTRAVARIANT and we write it like List[-T] with the - sign
   // on the type parameter
 
-  // Ok contravariance doesn't make alot of intuitive sense for lists...
+  // Ok contravariance doesn't make alot of intuitive sense for lists... (but it does for other stuff)
   // but you can do it
   class ContravariantList[-T]
   val animalList3: ContravariantList[Cat] = new ContravariantList[Animal]
 
-  //but consider some another types:
+  //but consider some another types, where contravariance makes more sense
   class Cook[-T]
   class CanCookAnything
-  class CanCookVeggies extends CanCookAnything
+  class CanCookVeggies extends CanCookAnything  // CanCookVeggies :< CanCookAnything
   // here contravariance makes more sense!
-  val cook: Cook[CanCookVeggies] = new Cook[CanCookAnything]
+  val cook: Cook[CanCookVeggies] = new Cook[CanCookAnything] //  Cook[CanCookVeggies] :>  Cook[CanCookAnything]
+
 
   // type bounds
   class Cage[T <: Animal](animal: T)  //here we have a type parameter that can take a generic T
