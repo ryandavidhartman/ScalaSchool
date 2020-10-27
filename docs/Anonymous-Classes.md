@@ -35,8 +35,4 @@ trait HasGrade {
 
 //  this function literal can be used anywhere an instance of HasGrade it required
 val reportGrade = () => "A"
-
-
-
-
 ``` 
