@@ -2,15 +2,15 @@
 
 Given `A <: B`  (i.e. A is a subtype of B)
 
-* If `C[A] <: C[B]`, `C` is covariant
-* If `C[A] >: C[B]`, `C` is contravariant
-* Otherwise C is invariant
+* If `C[A] <: C[B]`, `C` is called _covariant_
+* If `C[A] >: C[B]`, `C` is called _contravariant_
+* Otherwise if there is no subtype relationship between `C[A]` and `C[B]` `C` is called _invariant_
 
 <!-- code -->
 ```scala
-   class C[+A] { ... } // C is covariant
-   class C[-A] { ... } // C is contravariant
-   class C[A]  { ... } // C is nonvariant
+   class C[+A] { ... } // Is how we define C to be covariant
+   class C[-A] { ... } // Is how we define C to be contravariant
+   class C[A]  { ... } // Is how we define C to be invariant.  Notice this is the default
 ```
 
 Examples:
