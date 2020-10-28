@@ -15,22 +15,24 @@ Given `A <: B`  (i.e. A is a subtype of B)
 
 Examples:
 1. Should `List[T]` be covariant or contravariant?
-Well given `Cat <: Animal` Now can I use a `List[Cat]` anywhere a `List[Animal]` is used?  Yes.
-This means `List[Cat] <: List[Animal]`.  So `List[T]` follows with subtype arrangement of `T`.  Therefore List is covariant.
+Well given `Cat <: Animal` should I be able to use a `List[Cat]` anywhere a `List[Animal]` is used?  Yes, that makes
+sense intuitively, and it turns out to be correct.
+
+This means `List[Cat] <: List[Animal]`.  So `List[T]` follows with subtype arrangement of `T`.  Therefore `List` is
+covariant.
 
 2. Ok should `Array[T]` also be covariant?
-Turns out no!  Why?  Well arrays are mutable, so if Array[T] *was* covariant you could do:
+Turns out *no*!  Why?  Well arrays are mutable, so if Array[T] *was* covariant you could do:
 
 <!-- code -->
 ```scala
-   val bob = Array[Cat](cat1, cat2, cat3)
-   val sally: Array[Any] = bob
-   sally(0) = "string"
+   val bobCat = Array[Cat](cat1, cat2, cat3)
+   val sally: Array[Any] = bobCat
+   sally(0) = "string"  //now we have just added a "string" val to our list of cats! Bad!
 ```
-This would be possible since `Cat <: Any` and if `Array[T]` was covariant then we could use a `Array[Cat]` in a place where an `Array[Any]` was required.
+So for `Arrays` we need to make them `invariant`.
 
 3. So in general *mutable* containers are `invariant` and *immutable* containers are `covariant`
-
 
 
 # Variance for function parameters and return types
