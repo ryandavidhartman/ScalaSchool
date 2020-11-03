@@ -54,7 +54,7 @@ object GenericList2 {
     def printElements: String = "Nil"
 
     def map[U](t: MyTransformer[Nothing,U]): MyList[U]  = Empty
-    def flatMap[U](t: MyTransformer[Nothing,MyList[U]]): MyList[U] = Empty
+    def flatMap[U](t: MyTransformer[Nothing, MyList[U]]): MyList[U] = Empty
     def filter(p: MyPredicate[Nothing]): MyList[Nothing] = Empty
 
   }
@@ -118,4 +118,3 @@ object GenericListRunner2 extends App {
   println(l6)
 
 }
-
