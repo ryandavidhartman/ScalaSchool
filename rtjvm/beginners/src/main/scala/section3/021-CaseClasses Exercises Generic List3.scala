@@ -1,8 +1,6 @@
-package old.lectures.exercises.part02oop
+package section3
 
-/*
-Same as GenericList2 just using case classes and case objects
- */
+// Same as GenericList2 just using case classes and case objects
 
 object GenericList3 {
 
@@ -115,4 +113,3 @@ object GenericListRunner3 extends App {
   println(l7 == l6)
 
 }
-

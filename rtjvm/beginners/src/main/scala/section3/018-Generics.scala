@@ -12,10 +12,11 @@ object Generics extends  App {
 
   // you can have multiple type parameters
   class MyMap[T, U]
+  val myMap = new MyMap[Int, String]
 
   // generic methods -- make a companion object to MyList
-  object MyList {
-    class emptyList[T] extends MyList[T]
+  object MyList {  //objects can't take class parameters or type parameters
+    class emptyList[T] extends MyList[T] //but definitions inside an object can
     def empty[T]: MyList[T] = new emptyList[T]()
   }
 
@@ -31,7 +32,7 @@ object Generics extends  App {
   //
 
   //
-  // BIG QUESTION possible answer #1
+  // BIG QUESTION possible answer #1 => i.e. Cat <: Animal implies  List[Cat] <: List[Animal]
   //
   // If we say YES, then List is said to be COVARIANT and we denote that
   // by saying MyList[+T]  where the + on the type parameter tells us we
@@ -45,12 +46,15 @@ object Generics extends  App {
   val animalList: CovariantList[Animal] = new CovariantList[Cat]
 
   // OK NOW given our animalList above QUESTION: should I be able to add a
-  // Dog to this animalList??????  TURNS OUT NO!!!!!  But this is not immediately clear
-  // why!!!!!!!  This is the Second BIG QUESTION
+  // Dog to this animalList??????
+  // ANSWER YES, but if you added a `Dog` to a list of Cats you'd get back a new list
+  // of Animals i.e. the lowest common type.  This means you add function must be contravariant.
+  // more on this later
 
 
   //
-  // BIG QUESTION possible answer #2
+  // BIG QUESTION possible answer #2 Cat <: Animal doesn't say anything about the  subtype relationship
+  // between List[Cat] and  List[Animal]
   //
   // If we say the fact the Cat <: Animal doesn't tell us anything about
   // the sub/super type relationship between List[Cat] and List[Animal]
@@ -63,7 +67,7 @@ object Generics extends  App {
 
 
   //
-  // BIG QUESTION possible answer #3
+  // BIG QUESTION possible answer #3 => Cat <: Animal implies List[Cat] >: List[Animal]
   //
   // If we say the fact the Cat <: Animal means List[Cat] >: List[Animal]
   // This seems REALLY WEIRD!!! But it actually makes sense sometimes, this case
@@ -94,11 +98,9 @@ object Generics extends  App {
   /*
   BACK to BIG QUESTION TWO
   NOW given our animalList above QUESTION: should I be able to add a
-  Dog to this this??????  TURNS OUT NO!!!!!  But this is not immediately clear
-  why!!!!!!!  This is the Second BIG QUESTION
-   */
+  Dog to this this??????   Well yes but you need to make your add function contravariant
 
-  /*  This won't compile!
+  This won't compile!
   class CovariantList2[+T] {
     def addElement(a:T): CovariantList2[T] = ???
   }

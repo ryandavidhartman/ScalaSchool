@@ -48,4 +48,19 @@ object ScalaObjects extends App {
   //Scala Application = Scala Object with a main function
   // def main(args: Array[String]): Unit
 
+  import scala.math._
+
+  class Circle(radius: Double) {
+    import Circle._
+    def area: Double = calculateArea(radius)
+  }
+
+  object Circle {
+    private def calculateArea(radius: Double): Double = Pi * pow(radius, 2.0)
+  }
+
+  val circle1 = new Circle(5.0)
+
+  print(circle1.area)
+
 }
