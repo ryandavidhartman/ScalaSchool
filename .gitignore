@@ -25,3 +25,4 @@ cucumber/npm-debug.log
 .metals/
 codacy-results/
 sicp/.idea
+rtjvm/beginners/.bsp/sbt.json

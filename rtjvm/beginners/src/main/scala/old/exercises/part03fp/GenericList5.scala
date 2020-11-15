@@ -1,6 +1,6 @@
 package old.lectures.exercises.part03fp
 
-import old.lectures.exercises.part02oop.Generics.MyList
+//import old.lectures.exercises.part02oop.Generics.MyList
 import old.lectures.exercises.part03fp.GenericList5.Empty5
 
 
