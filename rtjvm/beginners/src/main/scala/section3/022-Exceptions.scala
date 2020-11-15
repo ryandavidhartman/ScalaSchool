@@ -33,25 +33,37 @@ object Exceptions extends App {
 
   // Java style
   // If the pattern match misses in the catch, the program will crash
-  val mytry: Int = try  {
+  val myJavaTry: Int = try  {
     getInt(true)
   } catch {
-    case _: RuntimeException => println("caught a Runtime exception in a try"); 101
+    case _: RuntimeException => println("caught a Runtime exception in a try"); 43
   } finally {
     // code that will get executed no matter what
     println("finally")
   }
 
-  println(s"myTry: $mytry")
+  println(s"myTry: $myJavaTry")
 
   // Scala style
   // If the pattern match misses we'll get a "failed" Try
-  val myTry: Try[Int] = Try {
+  val myScalaTry: Try[Int] = Try {
     getInt(true)
   }.recover {
-    case _: RuntimeException => println("caught a Runtime exception in a Try"); 101
+    case _: RuntimeException => println("caught a Runtime exception in a Try"); 43
   }
 
-  println(s"myTry: $myTry")
+  println(s"myTry: $myScalaTry")
+
+  /*
+  Part Three Defining your own exceptions:
+   */
+
+  class MyException extends Exception
+
+  val catcher = Try {
+    throw new MyException
+  }
+
+  
 
 }
