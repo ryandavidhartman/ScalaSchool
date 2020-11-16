@@ -40,23 +40,23 @@ case object MyNone extends MyOption[Nothing] {
   def flatMap[U](f: Nothing => MyOption[U]): MyOption[U] = MyNone
 }
 
-case class MySome[+T](data: T) extends MyOption[T] {
+class MySome[+T](data: T) extends MyOption[T] {
   def get(): T = data
-  def map[U](f: T => U): MyOption[U] = MySome(f(data))
+  def map[U](f: T => U): MyOption[U] = new MySome(f(data))
   def flatMap[U](f: T => MyOption[U]): MyOption[U] = f(data)
 }
 
-val maybeInt: MyOption[Int] = MySome(5)
+val maybeInt: MyOption[Int] = new MySome(5)
 val getInt: Int = maybeInt.get()
 val maybeString: MyOption[String] = maybeInt.map(i => s"Int $i now a string")
 val getString = maybeString.get()
 
 def getBigNumbers(i: Int): MyOption[Int] = {
   if(i > 1000)
-    MySome(i)
+    new MySome(i)
   else MyNone
 }
 
 val maybeBig1 = maybeInt.flatMap(getBigNumbers)
-val maybeInt2 = MySome(1001)
+val maybeInt2 = new MySome(1001)
 val maybeBig2 = maybeInt2.flatMap(getBigNumbers)
