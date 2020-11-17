@@ -1,6 +1,6 @@
 package section3  // Here we use the section3 package
 
-object PackingAndImports extends App {
+object PackagingAndImports extends App {
 
   //
   // Packages
