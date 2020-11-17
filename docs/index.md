@@ -38,6 +38,7 @@
 * [Reactive Systems](./Reactive-Systems.md)
 * [Recursive Functions](./Recursive-Functions.md)
 * [String Interpolation](./String-Interpolation.md)
+* [Try](./Try.md)
 * [Tuples](./Tuples.md)
 * [Type Inference](./Type-Inference.md)
 * [Variance](./Variance.md)

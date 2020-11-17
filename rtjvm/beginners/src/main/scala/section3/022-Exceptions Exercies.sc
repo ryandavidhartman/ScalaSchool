@@ -1,4 +1,5 @@
 import scala.annotation.tailrec
+import scala.util.{Failure, Try}
 
 //
 // Problem 1
@@ -48,31 +49,47 @@ class UnderflowException extends Exception
 class DivideByZeroException extends Exception
 
 object PocketCalculator {
-  def add(x:  Int, y: Int): Int = {
+  def add(x:  Int, y: Int): Try[Int] = Try {
     val result = x + y
     if(x > 0 && y > 0 && result < 0) throw new OverflowException
     if(x < 0 && y < 0 && result > 0) throw new UnderflowException
     result
   }
 
-  def subtract(x: Int, y: Int): Int = add(x, -y)
+  def subtract(x: Int, y: Int): Try[Int] = add(x, -y)
 
-  def multiple(x:  Int, y: Int): Int = {
+  def multiple(x:  Int, y: Int): Try[Int] = Try {
     val result = x * y
     if(x > 0 && y > 0 && result < 0) throw new OverflowException
     if(x < 0 && y < 0 && result < 0) throw new OverflowException
     if(x > 0 && y < 0 && result > 0) throw new UnderflowException
-    if(x > 0 && y < 0 && result > 0) throw new UnderflowException
+    if(x < 0 && y > 0 && result > 0) throw new UnderflowException
     result
   }
 
-  def divide(x: Int, y: Int): Double = {
+  def divide(x: Int, y: Int): Try[Double] = Try {
     if(y == 0) throw new DivideByZeroException
     x/(y*1.0)
   }
 }
 
-//PocketCalculator.add(Int.MaxValue,  1)
-//PocketCalculator.add(Int.MinValue,  -10)
-//PocketCalculator.subtract(Int.MinValue,  10)
-//PocketCalculator.subtract(Int.MaxValue,  -10)
+// Smoke tests
+assert(PocketCalculator.add(1,5).get == 6)
+assert(PocketCalculator.subtract(1,5).get == -4)
+assert(PocketCalculator.multiple(1,5).get == 5)
+assert(PocketCalculator.divide(1,5).get == 0.2)
+
+// Ok check the exceptions
+
+assert(PocketCalculator.add(1,Int.MaxValue) match {
+    case Failure(e) => e.isInstanceOf[OverflowException]
+    case _ => false
+  }
+)
+
+assert(PocketCalculator.add(-1,Int.MinValue) match {
+    case Failure(e) => e.isInstanceOf[UnderflowException]
+    case _ => false
+  }
+)
+
