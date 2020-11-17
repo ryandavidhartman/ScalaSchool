@@ -121,9 +121,22 @@ Object in Scala are like classes, but for every object definition there is only 
 is not met. See `scala.Predef` for `require`, `assume` and `assert`.
 
 ## Packages
-Adding a statement such as package foo.bar at the top of a file makes the code in a file part of the package foo.bar. You can then do import foo.bar._ to make everything from package foo.bar available in your code. The content of a package can be scattered across many files. If you define a class MyClass in package foo.bar, you can import that specific class (and not anything else from that package) with import foo.bar.MyClass.
+Adding a statement such as package `foo.bar` at the top of a file makes the code in a file part of the package `foo.bar`.
+You can then do `import foo.bar._` to make everything from package `foo.bar` available in your code. The content of a
+package can be scattered across many files. If you define a class `MyClass` in package `foo.bar`, you can import that
+specific class (and not anything else from that package) with `import foo.bar.MyClass`.
 
-In Scala, everything can be imported, not only class names. So for instance if you have an object baz in package foo.bar, then import foo.bar.baz._ would import all the members of that object.
+In Scala, everything can be imported, not only class names. So for instance if you have an object `baz` in package `foo.bar`,
+ then `import foo.bar.baz._` would import all the members of that object.
+ 
+ ```scala
+  import package_name.{A, B}    // imports A and B from the package called `package_name`
+  import package_name._         // imports everything from the package called `package_name`
+  import package_name.{A => B}  // imports A from the package called `package_name` and aliases it as B
+                                //  This can be useful if you want to import 2 classes that have the same name.
+```
+
+![Packages](./imgs/rtjvmPackages.png)
 
 ## Class hierarchies
 <!-- code -->
