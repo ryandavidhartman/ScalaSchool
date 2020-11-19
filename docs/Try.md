@@ -78,4 +78,8 @@ where the catch block contains a series of `case` statements that attempt to mat
 using the `scala.util.Try()`  exclusively because it offers a safer, more expressive, and fully monadic
 approach to handling errors.
 
+Since `Try` and its subtypes are also monadiac collections, you can expect to find a number of thrilling and 
+yet familiar methods for error handling.  You may find that selecting the right error handling approach (including
+whether to handle them at all!) for your application will depend on the requirements and context.
+
 
