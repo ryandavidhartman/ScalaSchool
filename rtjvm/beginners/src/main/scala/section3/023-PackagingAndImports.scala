@@ -45,7 +45,7 @@ object PackagingAndImports extends App {
   //  This can be useful if you want to import 2 classes that have the same name.
 
   import java.util.Date
-  import java.sql.Date
+  //import java.sql.Date
 
   val javaDate = new Date() // this is a java date
   val sqlDate = new java.sql.Date(1223232L)  // you can get a SQL Date using a FQDN
