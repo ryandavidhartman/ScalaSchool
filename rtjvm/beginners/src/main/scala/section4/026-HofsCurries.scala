@@ -1,4 +1,4 @@
-package old.lectures.part03fp
+package section4
 
 object  HofsCurries extends App {
 
@@ -9,16 +9,17 @@ object  HofsCurries extends App {
     (y: Int) => f("hi", y => y > x)
   }
 
-  /* this is a function
-  That takes:
-  1 Int
-  2 A function that takes:
+  /* What is the type of superFunction?  It is a function
+  That takes two parameters:
+  Param1 Int
+  Param2 A function that takes:
       1 String
-      2 A function takes
+      2 A function that takes
         1 an Int
         2 returns a Boolean
-      3 returns an Int
-  3 returns a function that takes an int and returns an int
+      returns an Int
+
+  and returns a function that takes an int and returns an int
    */
 
   // map, flatMap, and filter are common HOFs
@@ -35,17 +36,17 @@ object  HofsCurries extends App {
 
   val plusOne = (x:Int) => x + 1
 
-  println(nTimes(plusOne, 10, 1))
+  println(s"nTimes(plusOne, 10, 1) = ${nTimes(plusOne, 10, 1)}")
 
   // lets move towards currying
   def nTimesBetter(f: Int => Int, n: Int): Int => Int =
-    if(n <= 0) (x:Int) => x
-    else (x:Int) => nTimesBetter(f, n-1)(f(x))
+    if(n <= 0) (x: Int) => x
+    else (x: Int) => nTimesBetter(f, n-1)(f(x))
 
-  print(nTimesBetter(plusOne, 10)(1))
+  print("nTimesBetter(plusOne, 10)(1)" + nTimesBetter(plusOne, 10)(1))
 
   val plus10 = nTimesBetter(plusOne, 10)
-  println(plus10(1))
+  println("plus10(1) = " + plus10(1))
 
 
   // here we do it with currying (and multiple parameter lists)
@@ -61,8 +62,8 @@ object  HofsCurries extends App {
 
 
   // more curried functions
-  val superAdderVersion1: Int => (Int => Int) = (x:Int) => (y:Int) => x + y
-  val superAdderVersion2: Int => Int => Int = (x:Int) => (y:Int) => x + y
+  val superAdderVersion1: Int => (Int => Int) = (x: Int) => (y: Int) => x + y
+  val superAdderVersion2: Int => Int => Int = (x: Int) => (y: Int) => x + y
   val superAdderVersion3 = (x:Int) => (y:Int) => x + y
   val superAdder = superAdderVersion3
 
@@ -70,18 +71,18 @@ object  HofsCurries extends App {
   println(add3(5))
   println(superAdder(3)(5))
 
-  // again currying with multiple parameter lists
+  // again currying but this time via multiple parameter lists
   def curriedFormatter(c: String)(x: Double): String = c.format(x)
 
-  val standardFormat: (Double => String) = curriedFormatter("%4.2f")
-  val preciseFormat: (Double => String) = curriedFormatter("%10.8f")
+  val standardFormat: Double => String = curriedFormatter("%4.2f")
+  val preciseFormat: Double => String = curriedFormatter("%10.8f")
   println(standardFormat(Math.PI))
   println(preciseFormat(Math.PI))
 
 
 
   // or again regular currying
-  def curriedFormatter2(c: String): (Double) => String = (d: Double) => c.format(d)
+  def curriedFormatter2(c: String): Double => String = d => c.format(d)
 
   val standardFormat2 = curriedFormatter2("%4.2f")
   val preciseFormat2 = curriedFormatter2("%10.8f")
