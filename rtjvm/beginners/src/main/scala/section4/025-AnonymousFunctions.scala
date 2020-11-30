@@ -1,4 +1,4 @@
-package old.lectures.part03fp
+package section4
 
 object AnonymousFunctions extends App {
 
@@ -7,7 +7,7 @@ object AnonymousFunctions extends App {
  }
 
   val doublerAnonymous1 = new (Int => Int) {
-    override def apply(x:Int): Int = x*2
+    override def apply(x: Int): Int = x*2
   }
 
   /*
@@ -17,11 +17,11 @@ object AnonymousFunctions extends App {
   This is the way we usually write anonymous functions
   We also call this a Lambda
    */
-  val doublerAnonymous2 = (x:Int) => x*2
+  val doublerAnonymous2 = (x: Int) => x*2
 
   val doublerAnonymous3: Int => Int = x => x*2 //this will work too
 
-  val doublerAnonymous4 = { (x:Int) =>  // you can also put the lambda definition in a block
+  val doublerAnonymous4 = { (x: Int) =>  // you can also put the lambda definition in a block
     x*2
   }
 
@@ -32,10 +32,10 @@ object AnonymousFunctions extends App {
 
 
   // There are all valid.  #3 is my favorite
-  val adderAnonymous1: (Int, Int) => Int = (x:Int,y:Int) => x+y
+  val adderAnonymous1: (Int, Int) => Int = (x: Int, y: Int) => x+y
   val adderAnonymous2: (Int, Int) => Int = (x,y) => x+y
-  val adderAnonymous3 = (x:Int,y:Int) => x+y
-  val adderAnonymous4 = { (x:Int,y:Int) =>
+  val adderAnonymous3 = (x: Int,y: Int) => x+y
+  val adderAnonymous4 = { (x: Int,y: Int) =>
     x+y
   }
 
@@ -58,21 +58,13 @@ object AnonymousFunctions extends App {
   val niceIncrementer2 = (x: Int) => x + 1
   val niceIncrementer3: Int => Int = _ + 1
 
-  val niceAdder1: (Int, Int) => Int = (x:Int, y:Int) => x+y
+  val niceAdder1: (Int, Int) => Int = (x: Int, y: Int) => x+y
   val niceAdder1_5: (Int, Int) => Int = (x, y) => x+y
   val niceAdder2: (Int, Int) => Int = _ + _
 
   val bob1 = niceAdder1(4,5)
   var bob2 = niceAdder1(5,5)
 
-  /**
-   * Exercises
-   * 1 -> Replace all FunctionX calls with lambdas in the Generic List
-     oops I already did that!
-   * 2 -> rewrite the "special" adder as an anonymous function
-   *
-   */
-
-  def bob(x:Int): String = x.toString
+ def bob(x:Int): String = x.toString
 
 }

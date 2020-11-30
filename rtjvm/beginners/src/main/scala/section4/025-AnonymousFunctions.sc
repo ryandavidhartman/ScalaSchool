@@ -1,3 +1,12 @@
+/**
+ * Exercises
+ * 1 -> Replace all FunctionX calls with lambdas in the Generic List
+ *      See 025-Generic List 5.scala
+ * 2 -> rewrite the "special" adder as an anonymous function
+ *
+ **/
+
+
 // rewrite the "special" adder as an anonymous function
 
 
@@ -18,3 +27,4 @@ val add5 = anonymousAdder(5)
 add5(4)
 
 val niceAnonymousAdder1 = (i:Int) => (j:Int) => i + j
+val lessNiceAnonymousAdder2: Int => Int => Int = i => _ + i
