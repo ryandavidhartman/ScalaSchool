@@ -7,21 +7,18 @@ import scala.annotation.tailrec
 /*
 Same as GenericList5 but now we have added:
 
-  // Expand MyList to include a foreach method T => Unit
-  // [1,2,3].foreach(x => println(x)
+  Expand MyList to include a foreach method T => Unit
+  [1,2,3].foreach(x => println(x)
 
-  // Expand MyList to include a sort function ((A, A) => Int) => MyList
-  // [1,2,3].sort((x,y) => y - x) => [3,2,1]
-  // see exercises/part3fp/GenericList5.scala
+  Expand MyList to include a sort function ((A, A) => Int) => MyList
+  [1,2,3].sort((x,y) => y - x) => [3,2,1]
 
-  // Expand MyList to include a zipWith (list, (A, A) => B => MyList[B]
-  // [1,2,3].zipWith[4,5,6], x*y) => [1*4, 2*5, 3*6]
-  // see exercises/part3fp/GenericList5.scala
+  Expand MyList to include a zipWith (list, (A, A) => B => MyList[B]
+  [1,2,3].zipWith[4,5,6], x*y) => [1*4, 2*5, 3*6]
 
-  // Expand MyList to include a fold. fold(start)(function) => a value
-  // [1,2,3].fold(0)(x+y) = 0+1 => 1 (1+2) => 3 (3+3) = 6
-  // see exercises/part3fp/GenericList5.scala
 
+  Expand MyList to include a fold. fold(start)(function) => a value
+  [1,2,3].fold(0)(x+y) = 0+1 => 1 (1+2) => 3 (3+3) = 6
  */
 
 object GenericList6 {
@@ -51,6 +48,8 @@ object GenericList6 {
 
     def foreach(f: T => Unit): Unit
     def sort(ordering: (T,T) => Int): MyList6[T]
+    def zipWith[U,V](list: MyList6[U], f: (T,U) => V): MyList6[V]
+    def fold[U >: T](zero:U)(op: (U, U )=> U): U
   }
 
   case object Empty6 extends MyList6[Nothing] {
@@ -71,6 +70,8 @@ object GenericList6 {
 
     def foreach(f: Nothing => Unit): Unit = ()
     def sort(ordering: (Nothing, Nothing) => Int): MyList6[Nothing] = Empty6
+    def zipWith[U, V](list: MyList6[U], f: (Nothing, U) => V): MyList6[Nothing] = Empty6
+    def fold[U >: Nothing](zero: U)(op: (U, U) => U): U = zero
   }
 
   case class Cons6[+T](h: T, t:MyList6[T] = Empty6) extends MyList6[T] {
@@ -81,7 +82,6 @@ object GenericList6 {
     def add[U >: T](x: U): MyList6[U] = Cons6(x, this)
     def +: [U >:T](x: U): MyList6[U] = Cons6(x, this)
     def ++ [U >: T](xs: MyList6[U]): MyList6[U] = Cons6(head, tail ++ xs)
-
 
     def printElements: String = {
 
@@ -94,16 +94,16 @@ object GenericList6 {
       helper(n = this, acc ="")
     }
 
-    override def map[U](t: T => U): MyList6[U] =
-      t(this.head) +: tail.map(t)
+    def map[U](t: T => U): MyList6[U] =  t(this.head) +: tail.map(t)
 
-    override def filter(p: T => Boolean): MyList6[T] =
+    def filter(p: T => Boolean): MyList6[T] = {
       if(p(h))
         h +: tail.filter(p)
       else
         tail.filter(p)
+    }
 
-    override val length: Int = {
+    val length: Int = {
       @tailrec
       def helper[U](acc: Int, l: MyList6[U]): Int =
         if(l.isEmpty)
@@ -114,8 +114,7 @@ object GenericList6 {
       helper(acc = 0, this)
     }
 
-
-    override def flatMap[U](t: T => MyList6[U]): MyList6[U] = {
+    def flatMap[U](t: T => MyList6[U]): MyList6[U] = {
       val result:MyList6[U] = t(head)
       val rest:MyList6[U] = tail.flatMap(t)
       result ++ rest
@@ -154,6 +153,27 @@ object GenericList6 {
         merge(left.sort(ordering), right.sort(ordering))
       }
     }
+
+    def zipWith[U, V](list: MyList6[U], f: (T, U) => V): MyList6[V] = {
+      //We probably should add some checks for lists of different lengths!
+
+      @tailrec
+      def helper(acc: MyList6[V], l: MyList6[T], r: MyList6[U]): MyList6[V] = r match {
+        case Empty6 => acc
+        case Cons6(rH, rT) => helper(acc ++ Cons6(f(l.head, rH), Empty6), l.tail, rT)
+      }
+      helper(Empty6, this, list)
+
+    }
+
+    def fold[U >: T](zero: U)(op: (U, U) => U): U = {
+      @tailrec
+      def helper(acc: U, list: MyList6[T]): U = list match {
+        case Empty6 => acc
+        case Cons6(x, xs) => helper(op(acc, x), xs)
+      }
+      helper(zero, this)
+    }
   }
 }
 
@@ -191,5 +211,10 @@ object GenericListRunner6 extends App {
 
   println(unSorted.length)
   println(unSorted.sort(standardOrder))
+
+  def adder(i1: Int, i2: Int): Int = i1+i2
+  val zLeft  = 1 +: 2 +: 3 +: Empty6
+  val zRight = 4 +: 5 +: 6 +: Empty6
+  println(zLeft.zipWith(zRight, adder))
 
 }

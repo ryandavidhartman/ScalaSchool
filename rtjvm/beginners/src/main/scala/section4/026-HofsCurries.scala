@@ -89,15 +89,6 @@ object  HofsCurries extends App {
   println(standardFormat2(Math.PI))
   println(preciseFormat2(Math.PI))
 
-
-
-  // toCurry(f: (Int, Int) => Int) yields (Int => Int => Int)
-  // fromCurry(f: (Int => Int => Int)) yields (Int, Int) => Int
-  // compose(f,g) yields  x => f(g(x))
-  // andThen(f,g) yields x => g(f(x))
-  // see lectures/part3fp/026-HofsCurries.scala
-
-
 }
 
 
