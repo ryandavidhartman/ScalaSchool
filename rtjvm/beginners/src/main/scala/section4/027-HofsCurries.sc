@@ -2,9 +2,6 @@
 // fromCurry(f: (Int => Int => Int)) yields (Int, Int) => Int
 // compose(f,g) yields  x => f(g(x))
 // andThen(f,g) yields x => g(f(x))
-// see lectures/part3fp/026-HofsCurries.scala
-
-
 
 
 def toCurry(f: (Int, Int) => Int) = (x:Int) => f(x, _)
