@@ -89,22 +89,7 @@ object  HofsCurries extends App {
   println(standardFormat2(Math.PI))
   println(preciseFormat2(Math.PI))
 
-  // Exercises
-  // Expand MyList to include a foreach method T => Unit
-  // [1,2,3].foreach(x => println(x)
-  // see exercises/part3fp/GenericList5.scala
 
-  // Expand MyList to include a sort function ((A, A) => Int) => MyList
-  // [1,2,3].sort((x,y) => y - x) => [3,2,1]
-  // see exercises/part3fp/GenericList5.scala
-
-  // Expand MyList to include a zipWith (list, (A, A) => B => MyList[B]
-  // [1,2,3].zipWith[4,5,6], x*y) => [1*4, 2*5, 3*6]
-  // see exercises/part3fp/GenericList5.scala
-
-  // Expand MyList to include a fold. fold(start)(function) => a value
-  // [1,2,3].fold(0)(x+y) = 0+1 => 1 (1+2) => 3 (3+3) = 6
-  // see exercises/part3fp/GenericList5.scala
 
   // toCurry(f: (Int, Int) => Int) yields (Int => Int => Int)
   // fromCurry(f: (Int => Int => Int)) yields (Int, Int) => Int
