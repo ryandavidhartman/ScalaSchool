@@ -23,7 +23,7 @@ These are the major immutable classes we use.
 
 ### Mutable Collections
 
-[colection mutables](imgs/rtjvmCollections3.png)
+![colection mutables](imgs/rtjvmCollections3.png)
 
 Typically `Array` is the only mutable collection we use.~~~~~~~~
 - [`Array`](http://www.scala-lang.org/api/current/index.html#scala.Array) (Scala arrays are native JVM arrays at runtime, therefore they are very performant)
