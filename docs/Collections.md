@@ -6,7 +6,13 @@ Scala defines several collection classes:
 - [`Set`](http://www.scala-lang.org/api/current/index.html#scala.collection.Set)
 - [`Map`](http://www.scala-lang.org/api/current/index.html#scala.collection.Map) (lookup data structure)
 
+![colection overview](imgs/rtjvmCollections1.png)
+
 ### Immutable Collections
+
+![colection immutables](imgs/rtjvmCollections2.png)
+
+These are the major immutable classes we use.
 - [`List`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List) (linked list, provides fast sequential access)
 - [`Stream`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Stream) (same as List, except that the tail is evaluated only on demand)
 - [`Vector`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Vector) (array-like type, implemented as tree of blocks, provides fast random access)
@@ -16,8 +22,17 @@ Scala defines several collection classes:
 - [`Set`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set) (collection without duplicate elements)
 
 ### Mutable Collections
+
+[colection mutables](imgs/rtjvmCollections3.png)
+
+Typically `Array` is the only mutable collection we use.~~~~~~~~
 - [`Array`](http://www.scala-lang.org/api/current/index.html#scala.Array) (Scala arrays are native JVM arrays at runtime, therefore they are very performant)
 - Scala also has mutable maps and sets; these should only be used if there are performance issues with immutable types
+
+### Traversable
+Most of the behavior we will use is described in the the top-level collections class `Traversable`
+
+![colection common_behavior](imgs/rtjvmCollections4.png)
 
 ### Examples
 <!-- code -->
