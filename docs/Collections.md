@@ -25,7 +25,7 @@ These are the major immutable classes we use.
 
 ![colection mutables](imgs/rtjvmCollections3.png)
 
-Typically `Array` is the only mutable collection we use.~~~~~~~~
+Typically `Array` is the only mutable collection we use.
 - [`Array`](http://www.scala-lang.org/api/current/index.html#scala.Array) (Scala arrays are native JVM arrays at runtime, therefore they are very performant)
 - Scala also has mutable maps and sets; these should only be used if there are performance issues with immutable types
 
