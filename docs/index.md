@@ -37,6 +37,7 @@
 * [Pattern Matching](./Pattern-Matching.md)
 * [Reactive Systems](./Reactive-Systems.md)
 * [Recursive Functions](./Recursive-Functions.md)
+* [Sequences](./Sequences.md)
 * [String Interpolation](./String-Interpolation.md)
 * [Try](./Try.md)
 * [Tuples](./Tuples.md)

@@ -1,16 +1,20 @@
 Scala defines several collection classes:
 
-### Base Classes
+### Sequences
+Two of the most popular collections `List` and `vector` are subtypes of `Seq` see [Sequences](./Sequences.md) for more details
+on these classes.
+
+### Popular Base Classes
 - [`Iterable`](http://www.scala-lang.org/api/current/index.html#scala.collection.Iterable) (collections you can iterate on)
 - [`Seq`](http://www.scala-lang.org/api/current/index.html#scala.collection.Seq) (ordered sequences)
 - [`Set`](http://www.scala-lang.org/api/current/index.html#scala.collection.Set)
 - [`Map`](http://www.scala-lang.org/api/current/index.html#scala.collection.Map) (lookup data structure)
 
-![colection overview](imgs/rtjvmCollections1.png)
+![collection overview](imgs/rtjvmCollections1.png)
 
 ### Immutable Collections
 
-![colection immutables](imgs/rtjvmCollections2.png)
+![collection immutables](imgs/rtjvmCollections2.png)
 
 These are the major immutable classes we use.
 - [`List`](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.List) (linked list, provides fast sequential access)
@@ -23,7 +27,7 @@ These are the major immutable classes we use.
 
 ### Mutable Collections
 
-![colection mutables](imgs/rtjvmCollections3.png)
+![collection mutables](imgs/rtjvmCollections3.png)
 
 Typically `Array` is the only mutable collection we use.
 - [`Array`](http://www.scala-lang.org/api/current/index.html#scala.Array) (Scala arrays are native JVM arrays at runtime, therefore they are very performant)
@@ -32,7 +36,7 @@ Typically `Array` is the only mutable collection we use.
 ### Traversable
 Most of the behavior we will use is described in the the top-level collections class `Traversable`
 
-![colection common_behavior](imgs/rtjvmCollections4.png)
+![collection common_behavior](imgs/rtjvmCollections4.png)
 
 ### Examples
 <!-- code -->
