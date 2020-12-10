@@ -37,7 +37,7 @@ object Sequence extends App {
   println(threeElements.mkString(","))  //ha!  we have a default value of zero!
 
   // Mutation
-  numbers(2) = 0 // syntactic sugar for numbers.update(2,5)!
+  numbers(2) = 0 // syntactic sugar for numbers.update(2,0)!
 
   // Arrays and Seqs
   val numberSeq: Seq[Int] = numbers  //this works!  Arrays can be implicitly converted to a
