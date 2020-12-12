@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 /*
 Exercises:
 
@@ -17,7 +19,7 @@ Exercises:
       e) number of friends of a person
       f) person with the most friends
       g) how many people have no friends
-      h) if there is a social connect between two people
+      h) if there is a social connection between two people
          (direct or not)
  */
 
@@ -36,19 +38,100 @@ assert(test("jim") == 999)
 type SocialNetwork = Map[String, Set[String]]
 
 // a) Add new person to the network
-def addUser(sc: SocialNetwork, person: String): SocialNetwork = sc + (person -> Set.empty)
+def addUser(sn: SocialNetwork, person: String): SocialNetwork = {
+  if(sn.contains(person))
+    sn
+  else
+    sn + (person -> Set.empty)
+}
+
+def addUsers(sn: SocialNetwork, people: Set[String]): SocialNetwork = {
+  if(people.isEmpty)
+    sn
+  else
+    addUsers(addUser(sn, people.head), people.tail)
+}
 
 // b) Remove a person from the network
-def removeUser(sc: SocialNetwork, person: String): SocialNetwork = {
-  sc.removed(person).map(p => p._1 -> p._2.filter(_ != person))
+def removeUser(sn: SocialNetwork, person: String): SocialNetwork = {
+  sn.removed(person).map(p => p._1 -> p._2.filter(_ != person))
+}
+
+// c) add a friend to someone (friends are mutual)
+def addFriend(sn: SocialNetwork, user: String, newFriend: String): SocialNetwork = {
+  val newSN = addUsers(sn, Set(user, newFriend))
+
+  newSN.updated(user, newSN(user) + newFriend)
+       .updated(newFriend, newSN(newFriend) + user)
+}
+
+// d) remove a friend from someone (mutual)
+def removeFriend(sn: SocialNetwork, user: String, exFriend: String): SocialNetwork = {
+  sn.updated(user, sn(user) - exFriend)
+    .updated(exFriend, sn(exFriend) - user)
+}
+
+// e) number of friends of a person
+def numberOfFriend(sn: SocialNetwork, user: String): Int = {
+  sn(user).size
+}
+
+// f) person with the most friends
+def mostPopular(sn: SocialNetwork): String = {
+  sn.toList.sortWith((r, l) => r._2.size > l._2.size).head._1
+}
+
+// g) how many people have no friends
+def numberOfPeopleWithNoFriends(sn: SocialNetwork): Int = {
+  sn.filter(p => p._2.isEmpty).size
+}
+
+//  h) if there is a social connection between two people
+def isConnectedTo(sn: SocialNetwork, user: String, target: String): Boolean = {
+
+  @tailrec
+  def helper(friends: Set[String], alreadyLookedAt: Set[String]): Boolean = friends match {
+    case f if f.isEmpty => false
+    case f if f.contains(target) => true
+    case _ => {
+      val first = friends.head
+      val rest = friends.tail
+      if(alreadyLookedAt.contains(first))
+        helper(rest, alreadyLookedAt)
+      else
+        helper(rest ++ sn(first), alreadyLookedAt + first)
+    }
+  }
+
+  helper(sn(user) + user, Set.empty)
 }
 
 //
 // Tests!
 //
-val test1 = addUser(Map.empty, "Bob")
-val test2 = addUser(test1, "Sally")
+val testSocialNetwork = addUsers(Map.empty,Set("Sally", "Bob"))
 
-assert(test2.keys.toList.length == 2)
-assert(test2.contains("Bob"))
-assert(test2.contains("Sally"))
+assert(testSocialNetwork.keys.toList.length == 2)
+assert(testSocialNetwork.contains("Bob"))
+assert(testSocialNetwork.contains("Sally"))
+
+val removeUserTest = removeUser(testSocialNetwork, "Sally")
+assert(removeUserTest.keys.toList.length == 1)
+assert(removeUserTest.contains("Bob"))
+assert(!removeUserTest.contains("Sally"))
+
+val addTest1 = addFriend(testSocialNetwork, "Bob", "Sally")
+val addTest2  = addFriend(addTest1,"Bob", "Jim")
+val addTest3 = addFriend(addTest2, "Keith", "Brad")
+
+val removeFriendTest1 = removeFriend(addTest3, "Bob", "Jim")
+
+assert(mostPopular(addTest3) == "Bob")
+
+val noFriendsTest = addUsers(addTest3, Set("Dan", "Steve"))
+assert(numberOfPeopleWithNoFriends(noFriendsTest) == 2)
+
+assert(isConnectedTo(addTest3, "Bob", "Sally") == true)
+
+val connectedTest = addFriend(addTest3, "Jim", "Keith")
+assert(isConnectedTo(connectedTest, "Bob", "Brad") == true)
