@@ -30,6 +30,7 @@
 * [Generics](./Generics.md)
 * [Higher Order Functions](./Higher-order-functions.md) 
 * [Lazy Evaluation](./Evaluation-Rules.md)
+* [Maps](./Maps.md)  
 * [Object Oriented Programming](./Basics-OOP.md)
 * [Operators](./Operators.md)
 * [Ordering](./Ordering.md)
