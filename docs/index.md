@@ -33,6 +33,7 @@
 * [Maps](./Maps.md)  
 * [Object Oriented Programming](./Basics-OOP.md)
 * [Operators](./Operators.md)
+* [Options](./Options.md) 
 * [Ordering](./Ordering.md)
 * [Packages](./Basics-OOP.md#class-hierarchies)
 * [Pattern Matching](./Pattern-Matching.md)
