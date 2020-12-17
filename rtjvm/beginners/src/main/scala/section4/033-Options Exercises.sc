@@ -27,7 +27,7 @@ object Connection {
   }
 }
 
-def connectionStatus():Option[String] = for {
+def connectionStatus(): Option[String] = for {
   host <- config.get("host")
   port <- config.get("port")
   connection <- Connection(host, port)

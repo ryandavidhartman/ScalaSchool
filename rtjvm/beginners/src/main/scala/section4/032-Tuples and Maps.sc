@@ -106,6 +106,19 @@ def isConnectedTo(sn: SocialNetwork, user: String, target: String): Boolean = {
   helper(sn(user) + user, Set.empty)
 }
 
+def isFriendAConnectedTo(friendB: String, traversedList: Set[String]) : Boolean = {
+  val curMappings = mappings(friendB)
+  if (curMappings.isEmpty) false
+  else if (curMappings.contains(friendA)) true
+  else curMappings.aggregate(false)(
+    (_, entry) => {
+      if (traversedList.contains(entry)) false
+      else isFriendAConnectedTo(entry, traversedList + friendB )
+    },
+    (currentState, entry) => currentState || entry)
+}
+isFriendAConnectedTo(friendB, Set[String]())
+
 //
 // Tests!
 //
