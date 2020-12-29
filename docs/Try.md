@@ -7,6 +7,9 @@ The result of a computation wrapped in a `Try` will be one of its subclasses: `S
 If the computation succeeds, a `Success` instance is returned; if an exception was thrown, a `Failure`
 will be returned, and the `Failure` will contain the exception which was thrown.
 
+![Try Overview](imgs/rtjvmTry1.png)
+
+
 Example:
 
 ```scala
@@ -82,4 +85,4 @@ Since `Try` and its subtypes are also monadiac collections, you can expect to fi
 yet familiar methods for error handling.  You may find that selecting the right error handling approach (including
 whether to handle them at all!) for your application will depend on the requirements and context.
 
-
+![Try review](imgs/rtjvmTry2.png)
