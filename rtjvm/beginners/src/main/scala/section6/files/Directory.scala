@@ -5,6 +5,8 @@ class Directory(
   override val name: String,
   val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
 
+  def hasEntry(name: String): Boolean = ???
+
 }
 
 object Directory {
