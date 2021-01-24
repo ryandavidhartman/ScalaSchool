@@ -1,5 +1,5 @@
 package section6.commands
-import section6.files.Directory
+import section6.files.{DirEntry, Directory}
 import section6.filesystem.State
 
 class MkDir(name: String) extends Command {
@@ -21,8 +21,37 @@ class MkDir(name: String) extends Command {
     case _ => false
   }
 
+  def updateStructure(currentDirectory: Directory, relativePath: List[String], newEntry: DirEntry): Directory = {
+    if(relativePath.isEmpty)
+      currentDirectory.addEntry(newEntry)
+
+    ???
+  }
+
   def doMkDir(state: State, name: String): State = {
 
-    state
+    /* Steps:
+    1. get all the directories in the full path (i.e. all parent directories from root to wd)
+    2. create a new directory entry in the wd
+    3. update the whole directory structure starting from the root recall the directory structure is immutable
+    4. find the new working directory instance given the wd's full path, in the NEW directory structure.
+    */
+
+    val wd = state.wd
+
+
+    // step 1
+    val path = wd.pathAsList
+
+    // step 2
+    val newDir = Directory.empty(wd.path, name)
+
+    // step 3
+    val newRoot = updateStructure(state.root, path, newDir)
+
+    // step 4
+    val newWd = newRoot.findDescendant(path)
+
+    State(newRoot, newWd)
   }
 }

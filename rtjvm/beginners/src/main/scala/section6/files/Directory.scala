@@ -7,6 +7,15 @@ class Directory(
 
   def hasEntry(name: String): Boolean = ???
 
+  lazy val pathAsList: List[String] = {
+    // path string "/a/b/c/d" goes to path list of List("a", "b", "c", "d")
+    path.split(Directory.SEPARATOR).toList.tail
+  }
+
+  def findDescendant(path: List[String]): Directory = ???
+
+  def addEntry(newEntry: DirEntry): Directory = ???
+
 }
 
 object Directory {
