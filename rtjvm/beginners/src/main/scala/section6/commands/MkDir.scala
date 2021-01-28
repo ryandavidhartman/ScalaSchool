@@ -21,13 +21,18 @@ class MkDir(name: String) extends Command {
     case _ => false
   }
 
+  def throwMkDirError(name: String): Nothing =
+    throw new RuntimeException(s"Mkdir error: $name can not be created")
+
   def doMkDir(state: State, name: String): State = {
 
     def updateStructure(currentDirectory: Directory, pathList: List[String], newEntry: DirEntry): Directory = {
       if(pathList.isEmpty)
         currentDirectory.addEntry(newEntry)
       else {
-        val nextSubDir = currentDirectory.findEntry(pathList.head).asDirectory
+        val nextSubDir = currentDirectory.findEntry(pathList.head)
+          .getOrElse(throwMkDirError(newEntry.name))
+          .asDirectory
         currentDirectory.replaceEntry(nextSubDir.name, updateStructure(nextSubDir, pathList.tail, newEntry))
       }
     }
@@ -51,7 +56,7 @@ class MkDir(name: String) extends Command {
     val newRoot = updateStructure(state.root, pathList, newDir)
 
     // step 4
-    val newWd = newRoot.findDescendant(pathList)
+    val newWd = newRoot.findDescendant(pathList).getOrElse(throwMkDirError(name))
 
     State(newRoot, newWd)
   }
