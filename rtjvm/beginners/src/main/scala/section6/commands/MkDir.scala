@@ -21,14 +21,16 @@ class MkDir(name: String) extends Command {
     case _ => false
   }
 
-  def updateStructure(currentDirectory: Directory, relativePath: List[String], newEntry: DirEntry): Directory = {
-    if(relativePath.isEmpty)
-      currentDirectory.addEntry(newEntry)
-
-    ???
-  }
-
   def doMkDir(state: State, name: String): State = {
+
+    def updateStructure(currentDirectory: Directory, pathList: List[String], newEntry: DirEntry): Directory = {
+      if(pathList.isEmpty)
+        currentDirectory.addEntry(newEntry)
+      else {
+        val nextSubDir = currentDirectory.findEntry(pathList.head).asDirectory
+        currentDirectory.replaceEntry(nextSubDir.name, updateStructure(nextSubDir, pathList.tail, newEntry))
+      }
+    }
 
     /* Steps:
     1. get all the directories in the full path (i.e. all parent directories from root to wd)
@@ -39,18 +41,17 @@ class MkDir(name: String) extends Command {
 
     val wd = state.wd
 
-
     // step 1
-    val path = wd.pathAsList
+    val pathList = wd.pathAsList
 
     // step 2
     val newDir = Directory.empty(wd.path, name)
 
     // step 3
-    val newRoot = updateStructure(state.root, path, newDir)
+    val newRoot = updateStructure(state.root, pathList, newDir)
 
     // step 4
-    val newWd = newRoot.findDescendant(path)
+    val newWd = newRoot.findDescendant(pathList)
 
     State(newRoot, newWd)
   }

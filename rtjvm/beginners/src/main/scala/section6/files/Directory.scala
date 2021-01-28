@@ -5,6 +5,8 @@ class Directory(
   override val name: String,
   val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
 
+  def findEntry(entryName: String): DirEntry = ???
+
   def hasEntry(name: String): Boolean = ???
 
   lazy val pathAsList: List[String] = {
@@ -16,6 +18,9 @@ class Directory(
 
   def addEntry(newEntry: DirEntry): Directory = ???
 
+  def replaceEntry(entryName: String, newEntry: DirEntry): Directory = ???
+
+  def asDirectory: Directory = this
 }
 
 object Directory {
