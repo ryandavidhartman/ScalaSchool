@@ -12,6 +12,8 @@ object Command {
 
   val MKDIR = "mkdir"
   val LS = "ls"
+  val PWD = "pwd"
+  val TOUCH = "touch"
 
   def emptyCommand: Command = (state: State) => state
 
@@ -27,7 +29,14 @@ object Command {
         else
           new MkDir(tokens.head)
       }
+      case TOUCH +: tokens => {
+        if (tokens.isEmpty)
+          incompleteCommand(TOUCH)
+        else
+          new Touch(tokens.head)
+      }
       case LS +: _ => new Ls
+      case PWD +: _ => new Pwd
       case _ => new UnknownCommand
     }
   }

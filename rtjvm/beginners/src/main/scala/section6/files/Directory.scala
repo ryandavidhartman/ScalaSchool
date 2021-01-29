@@ -6,8 +6,8 @@ class Directory(
   val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
 
   def asDirectory: Directory = this
-
-  def getType: String = Directory.DIRECTORY
+  def asFile: File = throw new FileSystemException("A directory cannot be converted to a file")
+  lazy val getType: String = Directory.DIRECTORY_TYPE
 
   def findEntry(entryName: String): Option[DirEntry] = contents.find(_.name == entryName)
 
@@ -33,7 +33,7 @@ class Directory(
 object Directory {
   val SEPARATOR = "/"
   val ROOT_PATH = "/"
-  val DIRECTORY = "Directory"
+  val DIRECTORY_TYPE = "Directory"
 
   def ROOT: Directory = Directory.empty("", "")
 
