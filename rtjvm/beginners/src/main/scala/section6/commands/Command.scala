@@ -10,8 +10,9 @@ trait Command {
 
 object Command {
 
-  val MKDIR = "mkdir"
+  val CD = "cd"
   val LS = "ls"
+  val MKDIR = "mkdir"
   val PWD = "pwd"
   val TOUCH = "touch"
 
@@ -23,6 +24,12 @@ object Command {
     val tokens = input.split(" ").toList
     tokens match {
       case List("") => emptyCommand
+      case CD +: tokens => {
+        if (tokens.isEmpty)
+          incompleteCommand(CD)
+        else
+          new Cd(tokens.head)
+      }
       case MKDIR +: tokens => {
         if (tokens.isEmpty)
           incompleteCommand(MKDIR)

@@ -10,6 +10,8 @@ class File(
   def asDirectory: Directory = throw new FileSystemException("A file cannot be converted to a directory")
   def asFile: File = this
   lazy val getType: String = FILE_TYPE
+  lazy val isDirectory: Boolean = false
+  lazy val isFile: Boolean = true
 }
 
 object File {
