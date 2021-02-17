@@ -42,7 +42,7 @@ object Directory {
 
   def pathStringToList(pathString: String): List[String] = {
     // path string "/a/b/c/d" goes to path list of List("a", "b", "c", "d")
-    pathString.split(Directory.SEPARATOR).toList.filterNot(_.isBlank)
+    pathString.split(Directory.SEPARATOR).toList.map(_.trim).filterNot(_.isBlank).filterNot(_.equals("."))
   }
 
 }
