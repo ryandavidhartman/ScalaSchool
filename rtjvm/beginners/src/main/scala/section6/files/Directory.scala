@@ -1,5 +1,7 @@
 package section6.files
 
+import section6.files.Directory.pathStringToList
+
 class Directory(
   override val parentPath: String,
   override val name: String,
@@ -42,7 +44,16 @@ object Directory {
 
   def pathStringToList(pathString: String): List[String] = {
     // path string "/a/b/c/d" goes to path list of List("a", "b", "c", "d")
-    pathString.split(Directory.SEPARATOR).toList.map(_.trim).filterNot(_.isBlank).filterNot(_.equals("."))
+    val path1 = pathString.split(Directory.SEPARATOR).toList.map(_.trim).filterNot(_.isBlank).filterNot(_.equals("."))
+
+    // handle ..
+    def cleaner(acc: List[String], remainder: List[String]): List[String] = remainder match {
+      case l if l.isEmpty => acc
+      case ".." :: _ :: ls => cleaner(acc, ls)
+      case l :: ls => cleaner(acc ++ List(l), ls)
+    }
+
+    cleaner(List.empty, path1.reverse).reverse
   }
 
 }
