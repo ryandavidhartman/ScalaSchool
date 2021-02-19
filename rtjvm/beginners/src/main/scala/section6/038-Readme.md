@@ -2,9 +2,10 @@
 
 ## Commands:
 
-* mkdir
-* ls
 * cd
-* pwd
-* echo
+* ls  
+* mkdir
+* pwd  
+* rm
+* rmdir  
 * touch
