@@ -1,5 +1,5 @@
 package section6.commands
-import section6.files.Directory
+import section6.files.{Directory, FileSystemException}
 import section6.filesystem.State
 
 abstract class RmEntry(name: String) extends Command {
@@ -15,9 +15,18 @@ abstract class RmEntry(name: String) extends Command {
     else
       s"${wd.path}${Directory.SEPARATOR}$name"
 
-    doRemove(state, absolutePath)
+    val newRoot = doRemove(state.root, Directory.pathStringToList(absolutePath))
+
+    if(newRoot == state.root)
+      state.setMessage(s"$absolutePath: no such file or directory")
+    else {
+      val newWd =  newRoot.findDescendant(Directory.pathStringToList(state.wd.path))
+        .getOrElse(throw new FileSystemException(s"Can not set WD  tp ${state.wd.path}"))
+      State(newRoot, newWd)
+    }
+
   }
 
-  def doRemove(state: State, absolutePath: String): State
+  def doRemove(currentDirectory: Directory, path: List[String]): Directory
 
 }

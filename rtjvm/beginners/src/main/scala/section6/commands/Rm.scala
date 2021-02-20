@@ -4,5 +4,7 @@ import section6.files.Directory
 
 class Rm(name: String) extends RmEntry(name) {
 
-  def doRemove(state: State, absolutePath: String): State = ???
+  override def doRemove(currentDirectory: Directory, path: List[String]): Directory = {
+     currentDirectory
+  }
 }
