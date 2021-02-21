@@ -10,7 +10,9 @@ class Directory(
 
 
   def asDirectory: Directory = this
+
   def asFile: File = throw new FileSystemException("A directory cannot be converted to a file")
+
   lazy val getType: String = Directory.DIRECTORY_TYPE
   lazy val isDirectory: Boolean = true
   lazy val isFile: Boolean = false
@@ -22,7 +24,7 @@ class Directory(
   lazy val pathAsList: List[String] = Directory.pathStringToList(path)
 
   def findDescendant(path: List[String]): Option[Directory] = {
-    if(path.isEmpty)
+    if (path.isEmpty)
       Some(this)
     else findEntry(path.head).flatMap(e => e.asDirectory.findDescendant(path.tail))
   }
@@ -31,6 +33,23 @@ class Directory(
 
   def replaceEntry(entryName: String, newEntry: DirEntry): Directory =
     new Directory(parentPath, name, contents.filterNot(_.name == entryName) :+ newEntry)
+
+  def removeEntry(entry: DirEntry): Directory = {
+    val nameToDelete = entry.name
+
+    if(!hasEntry(nameToDelete))
+      this
+    else {
+      val newContents = contents.filterNot(_.name == nameToDelete)
+      new Directory(parentPath, name, newContents)
+    }
+  }
+
+  def removeFile(fileName: String): Directory =
+    findEntry(fileName).filter(_.isFile).map(removeEntry).getOrElse(this)
+
+  def removeDirectory(fileName: String): Directory =
+    findEntry(fileName).filter(_.isDirectory).map(removeEntry).getOrElse(this)
 }
 
 object Directory {

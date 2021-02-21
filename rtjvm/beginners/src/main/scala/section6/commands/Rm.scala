@@ -3,8 +3,7 @@ import section6.filesystem.State
 import section6.files.Directory
 
 class Rm(name: String) extends RmEntry(name) {
+  override  val failMessage: String => String = (f:String) => s"No such file: $f"
 
-  override def doRemove(currentDirectory: Directory, path: List[String]): Directory = {
-     currentDirectory
-  }
+  override val remover: Directory => String => Directory = (d: Directory) => (name: String) => d.removeFile(name)
 }

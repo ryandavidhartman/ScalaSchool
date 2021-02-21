@@ -18,15 +18,32 @@ abstract class RmEntry(name: String) extends Command {
     val newRoot = doRemove(state.root, Directory.pathStringToList(absolutePath))
 
     if(newRoot == state.root)
-      state.setMessage(s"$absolutePath: no such file or directory")
+      state.setMessage(failMessage(absolutePath))
     else {
       val newWd =  newRoot.findDescendant(Directory.pathStringToList(state.wd.path))
         .getOrElse(throw new FileSystemException(s"Can not set WD  tp ${state.wd.path}"))
       State(newRoot, newWd)
     }
-
   }
 
-  def doRemove(currentDirectory: Directory, path: List[String]): Directory
+  val remover: Directory => String => Directory
+  val failMessage: String => String
+
+  def doRemove(currentDirectory: Directory, path: List[String]): Directory = {
+    // this will return a new root directory with the file removed
+    if(path.isEmpty)
+      currentDirectory
+    else if(path.tail.isEmpty)
+      remover(currentDirectory)(path.head)
+    else {
+      currentDirectory.findEntry(path.head).filter(_.isDirectory).map{nd =>
+        val newNextDir = doRemove(nd.asDirectory, path.tail)
+        if(newNextDir == nd)
+          currentDirectory
+        else
+          currentDirectory.replaceEntry(path.head, newNextDir)
+      }.getOrElse(currentDirectory)
+    }
+  }
 
 }
