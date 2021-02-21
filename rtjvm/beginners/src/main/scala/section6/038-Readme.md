@@ -3,6 +3,7 @@
 ## Commands:
 
 * cd
+* echo  
 * ls  
 * mkdir
 * pwd  

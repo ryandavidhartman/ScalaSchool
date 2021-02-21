@@ -11,6 +11,7 @@ trait Command {
 object Command {
 
   val CD = "cd"
+  val ECHO = "echo"
   val LS = "ls"
   val MKDIR = "mkdir"
   val PWD = "pwd"
@@ -32,6 +33,8 @@ object Command {
         else
           new Cd(tokens.head)
       }
+      case ECHO +: tokens =>
+        new Echo(tokens)
       case MKDIR +: tokens => {
         if (tokens.isEmpty)
           incompleteCommand(MKDIR)
