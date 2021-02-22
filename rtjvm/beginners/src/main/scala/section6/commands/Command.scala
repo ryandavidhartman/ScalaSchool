@@ -24,8 +24,7 @@ object Command {
   def incompleteCommand(name: String): Command = _.setMessage(s"$name needs more parameters")
 
   def from(input: String): Command = {
-    val tokens = input.split(" ").toList
-    tokens match {
+    input.split(" ").toList match {
       case List("") => emptyCommand
       case CD +: tokens => {
         if (tokens.isEmpty)

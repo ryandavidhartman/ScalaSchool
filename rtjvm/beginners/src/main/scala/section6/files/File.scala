@@ -12,6 +12,9 @@ class File(
   lazy val getType: String = FILE_TYPE
   lazy val isDirectory: Boolean = false
   lazy val isFile: Boolean = true
+
+  def setContents(newContents: String): File = new File(parentPath, name, newContents)
+  def appendContents(contendToAdd: String): File = new File(parentPath, name, contents + "\n"  + contendToAdd)
 }
 
 object File {
