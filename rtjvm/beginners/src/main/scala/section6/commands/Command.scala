@@ -24,7 +24,8 @@ object Command {
   def incompleteCommand(name: String): Command = _.setMessage(s"$name needs more parameters")
 
   def from(input: String): Command = {
-    input.split(" ").toList match {
+    val pattern = "(?<=\")[^\"]*(?=\")|[^\" ]+".r  // split by words, and have quoted text is a single "word"
+    (pattern findAllIn input).toList match {
       case List("") => emptyCommand
       case CD +: tokens => {
         if (tokens.isEmpty)
