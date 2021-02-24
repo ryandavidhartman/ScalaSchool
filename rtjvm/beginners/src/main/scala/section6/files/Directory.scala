@@ -13,9 +13,9 @@ class Directory(
 
   def asFile: File = throw new FileSystemException("A directory cannot be converted to a file")
 
-  lazy val getType: String = Directory.DIRECTORY_TYPE
-  lazy val isDirectory: Boolean = true
-  lazy val isFile: Boolean = false
+  val getType: String = Directory.DIRECTORY_TYPE
+  val isDirectory: Boolean = true
+  val isFile: Boolean = false
 
   def findEntry(entryName: String): Option[DirEntry] = contents.find(_.name == entryName)
 
