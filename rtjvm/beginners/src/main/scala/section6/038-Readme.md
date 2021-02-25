@@ -2,6 +2,7 @@
 
 ## Commands:
 
+* cat
 * cd
 * echo  
 * ls  

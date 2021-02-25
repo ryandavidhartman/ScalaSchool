@@ -9,7 +9,7 @@ trait Command {
 }
 
 object Command {
-
+  val CAT = "cat"
   val CD = "cd"
   val ECHO = "echo"
   val LS = "ls"
@@ -27,6 +27,12 @@ object Command {
     val pattern = "(?<=\")[^\"]*(?=\")|[^\" ]+".r  // split by words, and have quoted text is a single "word"
     (pattern findAllIn input).toList match {
       case List("") => emptyCommand
+      case CAT +: tokens => {
+        if (tokens.isEmpty)
+          incompleteCommand(CAT)
+        else
+          new Cat(tokens.head)
+      }
       case CD +: tokens => {
         if (tokens.isEmpty)
           incompleteCommand(CD)
