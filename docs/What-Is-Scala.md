@@ -51,13 +51,52 @@ val newArr = arr.map(_ * 2)
 
 ```
 
-## Compatible with Java
+## Pros and Cons of Functional Programming
 
-Since Scala is a JVM language, it compiles to Java bytecode, and can just use standard Java libraries.  This is similar
-to [Kotlin](https://kotlinlang.org/), [Clojure](https://clojure.org/) and [Groovy](https://groovy-lang.org/)
+Functional Programming Benefits:
+* Functional code is more concise and easy to reason about.
+* Functional abstractions make writing complex code easier. Especially concurrent, asynchronous, distributed, and multi service code.
+* Functional programming is closely related to many powerful mathematical abstractions, such as Monads, Monoids, etc…
+
+Functional Programming Downsides:
+
+* Functional code might have performance penalties, especially in the case of lower level code.  (This is one of the reasons Scala supports imperative as well.)
+* It takes time to adjust to the functional programming paradigm.
+
+Still not convinced? [Read the Benefits of Functional Programming](https://alvinalexander.com/scala/fp-book/benefits-of-functional-programming).
+
+## Scala
+While Scala is a functional programming language, it supports imperative programming as well. While a pure functional language does not have loops,
+loops are part of the Scala language, though are generally used infrequently.
+
+*Scala is a strongly-typed, object-oriented, functional programming language.*
+
+Scala Features:
+* Fully functional
+* Functions are objects
+* Hierarchical type system
+* Interoperable with Java code
+
+Scala Benefits:
+* Functional code is easy to reason about
+* Service composition maps well to functional concepts
+* The JVM is high-performance and well understood
+* Reuse existing Java code
+* Easier to write parallelizable code that scales
+* Easier to model asynchronous operations
+* Do more with less code
+
+Scala Downsides:
+* Slow to compile
+* Functional thinking new to some
+* Learn a new programming language
+* Not as widely used as Java and Python
+* Subject to the limitations of the JVM – for example, type erasure for generics
 
 ## What most people use Scala For
 
 Popular enterprise frameworks like [Spark](https://spark.apache.org/docs/0.9.1/scala-programming-guide.html), 
 [Akka](https://akka.io/) and [Kafka](https://kafka.apache.org/) were written in Scala.  Many scala developers work
 on building apps on top of these frameworks.
+
+Scala is used heavily at Twitter, Netflix, and [many others](https://sysgears.com/articles/how-tech-giants-use-scala/)
