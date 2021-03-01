@@ -19,7 +19,7 @@ can lead to cleaner more concise code.
 
 Compare the two styles to declar an array and double each element of the array
 
-```java```
+```java
 val arr = new Array[Int](100)
 
 {
