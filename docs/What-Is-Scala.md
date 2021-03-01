@@ -20,6 +20,7 @@ can lead to cleaner more concise code.
 Compare the two styles to declar an array and double each element of the array
 
 ```java
+// Imerative Style
 val arr = new Array[Int](100)
 
 {
@@ -42,9 +43,10 @@ val arr = new Array[Int](100)
 ```
 
 ```scala
+// Functional style
 val arr = (0 until 100)
 
-\\ Use map and make a new Array
+// Use map and make a new Array
 val newArr = arr.map(_ * 2)
 
 ```
