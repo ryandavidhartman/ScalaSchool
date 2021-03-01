@@ -17,6 +17,38 @@ can lead to cleaner more concise code.
 * functions has first class data types
 * Using immutable data and _maps_ instead of looing and data mutation.
 
+Compare the two styles to declar an array and double each element of the array
+
+```java```
+val arr = new Array[Int](100)
+
+{
+  var i = 0
+  while (i < 100) {
+    arr(i) = i
+    i = i + 1
+  }
+}
+
+// mutate the original array
+
+{
+  var i = 0
+  while (i < 100) {
+    arr(i) = arr(i) * 2
+    i = i + 1
+  }
+}
+```
+
+```scala
+val arr = (0 until 100)
+
+\\ Use map and make a new Array
+val newArr = arr.map(_ * 2)
+
+```
+
 ## Compatible with Java
 
 Since Scala is a JVM language, it compiles to Java bytecode, and can just use standard Java libraries.  This is similar
