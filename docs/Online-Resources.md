@@ -11,11 +11,14 @@
 * [A Scala tutorial from Twitter](http://twitter.github.io/scala_school/)
 * [Scala training from 47 Degrees](https://www.scala-exercises.org/)
 * [Scala training from Data Flair](https://data-flair.training/blogs/scala-tutorial/)
+* [Coursera's Functional Programming in Scala Specialization](https://www.coursera.org/specializations/scala) 
 
 ## Scala Books
-* [Programming in Scala book (my personal recommendation for an intro to Scala)](https://people.cs.ksu.edu/~schmidt/705a/Scala/Programming-in-Scala.pdf)
+* [Programming in Scala book (my personal recommendation for an intro to Scala)](https://www.amazon.com/dp/098153161X)
 * [Scala for the Impatient (an alternative to Programming in Scala for those with Java experience)](https://fileadmin.cs.lth.se/scala/scala-impatient.pdf)
 * [Functional Programming in Scala (for those who want a rigorous approach to learning functional programming with Scala)](https://www.manning.com/books/functional-programming-in-scala)
+* [Scala for the Impatient](https://www.amazon.com/dp/0134540565)
+* [Scala Cookbook](https://www.amazon.com/dp/1449339611)
 
 ## Online Programming Tools:
 * [Scastie](https://scastie.scala-lang.org/)
