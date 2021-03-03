@@ -35,6 +35,6 @@ At the REPL prompt, you can enter and evaluate any Scala expression. Additionall
 
 ## Alternative REPLs
 
-* [Ammonite](https://ammonite.io/#Ammonite-REPL)an advanced Scala REPL
+* [Ammonite](https://ammonite.io/#Ammonite-REPL) an advanced Scala REPL
 * [Scala](https://www.jetbrains.com/help/idea/run-debug-configuration-scala-console.html) REPL from inside IntelliJ
 * [Scala Worksheets]()https://www.jetbrains.com/help/idea/work-with-scala-worksheet-and-ammonite.html form inside IntelliJ
