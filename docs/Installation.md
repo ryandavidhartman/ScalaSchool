@@ -23,8 +23,10 @@ If you are running OSX and a [Homebrew Cask](https://github.com/caskroom/homebre
 
 
 ```bash
-$  brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+$  brew cask install adoptopenjdk/openjdk/adoptopenjdk11
 ```
+
+[Here](https://github.com/AdoptOpenJDK/homebrew-openjdk/blob/master/README.md) is more info on installing the adopt open jdk
 
 or if you prefer to, you can get the installer from Oracle
 
