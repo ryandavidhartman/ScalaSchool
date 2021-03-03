@@ -7,6 +7,7 @@
 * [Back to the code](https://github.com/ryandavidhartman/ScalaSchool)
 
 ## Basics
+* [Repl](./repl.md)
 * [Basics](./Basics.md)
 * [Basics - OOP](./Basics-OOP.md)
 
