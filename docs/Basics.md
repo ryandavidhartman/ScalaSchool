@@ -4,7 +4,7 @@
 * A _function literal_ (or anonymous function) Is function with no name in source code, specified with the function literal syntax.  e.g. ```(x:Int) => x```
 * A _value_ is an immutable, typed storage unit. A value can be assigned data when it is defined, but can never be reassigned.  ```val x = 1```
 * A _variable_ is a mutable, typed storage unit.  A variable can be assigned data when it is defined and can be reassigned data at any time.  ```var a = 1```
-* A _type_ is the kind of data you are working with, a definition or classification of data.  All data in Scala corresponds to a specific type, and all Scala types are defined as classes with methods that operate on the data.  ```var x:Int = 1``` Here Int is the type.  You can use the scala (repl)[.repl.md] to entery these commands
+* A _type_ is the kind of data you are working with, a definition or classification of data.  All data in Scala corresponds to a specific type, and all Scala types are defined as classes with methods that operate on the data.  ```var x:Int = 1``` Here Int is the type.  You can use the scala [repl](./repl.md) to entery these commands
 
 ```scala
   val x: Int = 42
