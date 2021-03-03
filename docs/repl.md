@@ -30,7 +30,7 @@ At the REPL prompt, you can enter and evaluate any Scala expression. Additionall
 * :load – Read and evaluate Scala commands from a file
 * :reset – Reset the REPL to initial state, deleting all variables, etc.
 * :quit – I’m outta here! <Control+D> works as well.
-* :paste - Let you paste in multiple lines of code
+* :paste - Lets you paste in multiple lines of code
 * :paste -raw - paste with code wrapping disabled
 
 ## Alternative REPLs
