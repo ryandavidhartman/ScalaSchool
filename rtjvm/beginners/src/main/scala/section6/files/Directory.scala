@@ -75,4 +75,19 @@ object Directory {
     cleaner(List.empty, path1.reverse).reverse
   }
 
+  def updateStructure(
+    currentDirectory: Directory,
+    pathList: List[String],
+    newEntry: DirEntry,
+    e: String => Nothing): Directory = {
+    if(pathList.isEmpty)
+      currentDirectory.addEntry(newEntry)
+    else {
+      val nextSubDir = currentDirectory.findEntry(pathList.head)
+        .getOrElse(e(newEntry.name))
+        .asDirectory
+      currentDirectory.replaceEntry(nextSubDir.name, updateStructure(nextSubDir, pathList.tail, newEntry, e))
+    }
+  }
+
 }

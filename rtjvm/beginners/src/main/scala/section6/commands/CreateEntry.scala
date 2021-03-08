@@ -21,18 +21,6 @@ abstract class CreateEntry(name: String) extends Command {
     throw new FileSystemException(s"Mkdir error: $name can not be created")
 
   def doMakeDirectoryEntry(state: State, name: String): State = {
-
-    def updateStructure(currentDirectory: Directory, pathList: List[String], newEntry: DirEntry): Directory = {
-      if(pathList.isEmpty)
-        currentDirectory.addEntry(newEntry)
-      else {
-        val nextSubDir = currentDirectory.findEntry(pathList.head)
-          .getOrElse(throwMkDirError(newEntry.name))
-          .asDirectory
-        currentDirectory.replaceEntry(nextSubDir.name, updateStructure(nextSubDir, pathList.tail, newEntry))
-      }
-    }
-
     /* Steps:
     1. get all the directories in the full path (i.e. all parent directories from root to wd)
     2. create a new directory entry in the wd
@@ -46,10 +34,10 @@ abstract class CreateEntry(name: String) extends Command {
     val pathList = wd.pathAsList
 
     // step 2
-   val newEntry: DirEntry = createEntry(state)
+    val newEntry: DirEntry = createEntry(state)
 
     // step 3
-    val newRoot = updateStructure(state.root, pathList, newEntry)
+    val newRoot = Directory.updateStructure(state.root, pathList, newEntry, throwMkDirError)
 
     // step 4
     val newWd = newRoot.findDescendant(pathList).getOrElse(throwMkDirError(name))
