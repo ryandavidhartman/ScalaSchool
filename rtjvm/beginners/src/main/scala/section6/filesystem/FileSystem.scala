@@ -3,18 +3,12 @@ package section6.filesystem
 import section6.commands.Command
 import section6.files.Directory
 
-import java.util.Scanner
-
 object FileSystem extends App {
 
   val root = Directory.ROOT
-  var state = State(root, root)
-  val scanner = new Scanner(System.in)
+  val inputStream = io.Source.stdin.getLines()
 
-  while(true) {
-    state.show
-    val input = scanner.nextLine()
-    state = Command.from(input).apply(state)
-  }
+  val startingState = State(root, root)
 
+  inputStream.foldLeft(startingState.show)( (currentState, line) => Command.from(line).apply(currentState).show)
 }
