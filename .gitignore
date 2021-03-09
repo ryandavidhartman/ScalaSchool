@@ -1,5 +1,6 @@
 # Ignore Play! working directory #
 .idea*
+.bsp*
 logs
 project/project
 project/target
