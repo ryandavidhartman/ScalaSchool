@@ -104,7 +104,7 @@ object Recap extends App {
   val order = x match {
     case 1 => "first"
     case 2 => "second"
-    case 1 => "third"
+    case 3 => "third"
   }
 
   val bob = Person("Bob", 22)
