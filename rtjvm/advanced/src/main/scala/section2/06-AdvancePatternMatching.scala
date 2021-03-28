@@ -64,6 +64,7 @@ object AdvancedPatternMatching extends App {
 
   //
   // unapply methods that return a boolean
+  // they "hit" if the Boolean is true!
   //
 
   object even {
