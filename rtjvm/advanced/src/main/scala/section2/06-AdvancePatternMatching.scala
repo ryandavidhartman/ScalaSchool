@@ -62,5 +62,26 @@ object AdvancedPatternMatching extends App {
     case LegalPerson(s: String) => s
   }
 
+  //
+  // unapply methods that return a boolean
+  //
+
+  object even {
+    def unapply(arg: Int): Boolean = arg % 2 == 0
+  }
+
+  object singleDigit {
+    def unapply(arg: Int): Boolean = arg > -10 && arg < 10
+  }
+
+  val n: Int = 8
+  val mathProperty = n match {
+    case singleDigit() => "single digit"
+    case even() => "an even number"
+    case _ => "no property"
+  }
+
+  println(mathProperty)
+
 
 }
