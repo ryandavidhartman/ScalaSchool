@@ -80,3 +80,56 @@ Instead of `p => p match { case ... }`, you can simply write `{case ...}`, so th
       case (ch, num) => ch
     }
 ```
+
+### How does it all work?
+
+Behind the scenes the Scala compiler looks for a special method called `unapply` to see if a match can be found.
+
+#### If the unapply method  returns an Option[T] you have an extractor
+
+<!-- code -->
+```scala
+  class Person(val name: String, val age: Int)
+
+  object Person {
+    def unapply(person: Person): Option[(String, Int)] = Option(person).map{p => (p.name, p.age)}
+  }
+
+  val bob = new Person("Bob", 25)
+  val greeting = bob match {
+    case Person(n, a) => s"Hi, my name is $n and I'm $a years old."
+  }
+  
+  "Hi, my name is Bob and I'm 25 years old" is printed
+```
+
+Here in the pattern match above, the compiler sees there exists a method called `unapply` in the `Person` *object*, that takes a person intance and optionally returns a tuple
+of (Int, String).  Person.unapply(bob) = Some("Bob", 25).  Since the Option is not empty the "pattern" is matched.  And n is given the value "Bob" and a is given the value 25.
+
+#### If the unapply method  returns an Boolean, then your unapply just tests true vs false
+
+<!-- code -->
+```scala
+  class Person(val name: String, val age: Int)
+
+  object Person {
+    def unapply(person: Person): Option[(String, Int)] = Option(person).map{p => (p.name, p.age)}
+  }
+  
+  object LegalPerson {
+    def unapply(person: Person): Boolean = person.age > 21
+  }
+
+  val bob = new Person("Bob", 25)
+  val greeting = bob match {
+    case LegalPerson() => "They are legal"
+    case Person(n, a) => s"Hi, my name is $n and I'm $a years old."
+  }
+  
+  "They are legal" is printed
+```
+
+Here in the pattern match above, the compiler sees there exists a method called `unapply` in the `LegalPerson` *object*, that takes a person intance and returns boolean.  LegalPerson.unapply(bob) = True.  Since the boolean is true the "pattern" is matched.
+
+
+
