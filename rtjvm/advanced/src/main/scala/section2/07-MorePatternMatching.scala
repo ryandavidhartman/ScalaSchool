@@ -1,14 +1,12 @@
 package section2
 
-import scala.annotation.tailrec
-
 object MorePatternMatching extends App {
 
   ///////////////////////////////////////////////////////
   // infix patterns  here below is an infix pattern:
   ///////////////////////////////////////////////////////
   val numbers = List(1)
-  val description = numbers match {
+  val description: Unit = numbers match {
     case head :: Nil => println(s"the only element is $head")  // infix patten
   }
 
@@ -74,4 +72,33 @@ object MorePatternMatching extends App {
 
   println(varArgPattern2)
 
+  ///////////////////////////////////////////////////////
+  // custom return types for unapply:
+  //  You can return any object from an apply, as long
+  //  it has an `isEmpty` method and a `get` method
+  ///////////////////////////////////////////////////////
+
+  abstract class Wrapper[T] {
+    def isEmpty: Boolean
+    def get: T
+  }
+
+
+  class Person(val name: String, val age: Int)
+
+  object PeronWrapper {
+    def unapply(person: Person): Wrapper[String] = new Wrapper[String] {
+      def isEmpty = false
+
+      def get: String = person.name
+    }
+  }
+
+  val bob = new Person("Bob", age = 51)
+
+  val whatHappened: String = bob match {
+    case PeronWrapper(n) => s"wow $n it worked!"
+  }
+
+  println(whatHappened)
 }
