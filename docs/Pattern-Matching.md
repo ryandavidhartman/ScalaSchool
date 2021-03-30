@@ -133,6 +133,32 @@ of (Int, String).  Person.unapply(bob) = Some("Bob", 25).  Since the Option is n
 
 Here in the pattern match above, the compiler sees there exists a method called `unapply` in the `LegalPerson` *object*, that takes a person intance and returns boolean.  LegalPerson.unapply(bob) = True.  Since the boolean is true the "pattern" is matched.
 
+#### But actually you can destructure (i.e. pattern) match via an object that has a get() and isEmpty() method
+
+```scala
+  abstract class Wrapper[T] {
+    def isEmpty: Boolean
+    def get: T
+  }
+
+
+  class Person(val name: String, val age: Int)
+
+  object PeronWrapper {
+    def unapply(person: Person): Wrapper[String] = new Wrapper[String] {
+      def isEmpty = false
+
+      def get: String = person.name
+    }
+  }
+
+  val bob = new Person("Bob", age = 51)
+
+  val whatHappened: String = bob match {
+    case PeronWrapper(n) => s"wow $n it worked!"
+  }
+  ```
+
 ![generics](imgs/rtjvm_PatternMatching2.jpg)
 
 
