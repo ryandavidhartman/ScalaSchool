@@ -81,6 +81,8 @@ Instead of `p => p match { case ... }`, you can simply write `{case ...}`, so th
     }
 ```
 
+![generics](imgs/rtjvm_PatternMatching1.jpg)
+
 ### How does it all work?
 
 Behind the scenes the Scala compiler looks for a special method called `unapply` to see if a match can be found.
@@ -130,6 +132,8 @@ of (Int, String).  Person.unapply(bob) = Some("Bob", 25).  Since the Option is n
 ```
 
 Here in the pattern match above, the compiler sees there exists a method called `unapply` in the `LegalPerson` *object*, that takes a person intance and returns boolean.  LegalPerson.unapply(bob) = True.  Since the boolean is true the "pattern" is matched.
+
+![generics](imgs/rtjvm_PatternMatching2.jpg)
 
 
 
