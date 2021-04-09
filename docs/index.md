@@ -37,6 +37,7 @@
 * [Options](./Options.md) 
 * [Ordering](./Ordering.md)
 * [Packages](./Basics-OOP.md#class-hierarchies)
+* [Partial Functions](./Partial-Functions.md)
 * [Pattern Matching](./Pattern-Matching.md)
 * [Reactive Systems](./Reactive-Systems.md)
 * [Recursive Functions](./Recursive-Functions.md)
