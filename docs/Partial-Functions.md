@@ -73,3 +73,26 @@ names.collect(scores)  // Yields Array(10, 7)
 
 List(2,1,0).collect(names)  // Yields List("Sally", "Bob", "Alice")
 ```
+
+### Lift and Unlift
+
+The `lift` method turns a `PartialFunction[T,R]` into a regular function from `T => Option[R]`
+
+```scala
+val f: PartialFunction[String, Int] = {
+  case "one" => 1
+  case "two" => 2
+  case "three" => 3
+}
+
+val g: f.lift // A Function1[String, Option[Int]]
+
+g("one") // returns Some(1)
+g("four") // returns None
+```
+
+Conversly, you can turn a function returning `Option[R]` into a partial function by calling
+`Function.unlift`
+
+![partial_functions](imgs/rtjvmPartialFunctions.png)
+
