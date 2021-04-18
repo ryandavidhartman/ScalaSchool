@@ -1,19 +1,38 @@
+# Operators
+
+## Cheat Sheet
+
+* Infix notation `x _op_ y` is `x.op(y)`
+* Postfix notation `x op` is `x.op()`
+* Only + - ! ~ can be Prefix operators  define method unary_op
+* Right associativity if the _last_ character is a colon :
+* `x(i) = x(j)` is `x.update(i, x.apply(j))`
+* There is no `++` or `--` for numbers.  Use `x += 1` and `y -= 1`
+* Use `x == y` to compare object -- it calls `equals`
+
+## Methods as operators
+
 `myObject myMethod 1` is the same as calling `myObject.myMethod(1)`
 
 Operator (i.e. function) names can be alphanumeric, symbolic (e.g. `x1`, `*`, `+?%&`, `vector_++`, `counter_=`)
+
+## Operator Precedence
     
 The precedence of an operator is determined by its first character, with the following increasing order of priority:
 
-    (all letters)
+    Assigment Operations (lowest priority)
+    Non-operator characters (all letters)
     |
     ^
     &
-    < >
     = !
+    < >
     :
     + -
     * / %
-    (all other special characters)
+    All other special characters (highest priority)
+
+## Operation Associativity
    
 The associativity of an operator is determined by its last character: Right-associative if ending with `:`, Left-associative otherwise.
    

@@ -91,7 +91,7 @@ g("one") // returns Some(1)
 g("four") // returns None
 ```
 
-Conversly, you can turn a function returning `Option[R]` into a partial function by calling
+Conversely, you can turn a function returning `Option[R]` into a partial function by calling
 `Function.unlift`
 
 ![partial_functions](imgs/rtjvmPartialFunctions.png)

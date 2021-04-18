@@ -108,7 +108,7 @@ Behind the scenes the Scala compiler looks for a special method called `unapply`
 Here in the pattern match above, the compiler sees there exists a method called `unapply` in the `Person` *object*, that takes a person intance and optionally returns a tuple
 of (Int, String).  Person.unapply(bob) = Some("Bob", 25).  Since the Option is not empty the "pattern" is matched.  And n is given the value "Bob" and a is given the value 25.
 
-#### If the unapply method  returns an Boolean, then your unapply just tests true vs false
+#### If the unapply method returns an Boolean, then your unapply just tests true vs false
 
 <!-- code -->
 ```scala

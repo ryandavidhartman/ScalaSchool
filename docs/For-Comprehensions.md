@@ -1,3 +1,39 @@
+# For Comprehensions
+
+### Cheat Sheet
+
+```scala
+for ( i <- 1 to n) println(i)
+// i iterates through all values in 1 to n
+
+for {
+  i <- 1 to 9
+  j <- 1 to 9
+} println(s"($i,$j)")
+// Multiple iterates
+
+for {
+  i <- 1 to 9
+  j <- 1 to 9 if i != j
+} println(s"($i,$j)")
+// Guards
+
+for {
+  i <- 1 to 3
+  from = 4 - i
+  j <- from to 3
+} println(s"($i,$j)")
+// Variables
+
+val r = for (i <- 1 to n) yield i*i
+// r will be a sequence 1, 4, 9, 25, ...
+
+for ( (x,y) <- pairs) println( x + "" y)
+// Destructures pairs with extractors
+
+```
+
+### What is a For Comprehensions?
 A for-comprehension is syntactic sugar for `map`, `flatMap` and `filter` operations on collections.
 
 The general form is `for (s) yield e`
