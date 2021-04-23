@@ -1,4 +1,4 @@
-## Classes
+# Classes
 _Classes_ in Scala are very similar to classes in Java.
 
 They are templates containing fields and methods. Like in Java, classes can be instantiated using the new construct,
@@ -29,6 +29,30 @@ static members in Java.
 ```
 
 ![Classes](./imgs/rtjvm_oopBasics.png)
+
+## Inheritance
+
+```scala
+class Employee(name: String) extends Person(name) {
+  // Calls the primary constructor of superclass
+  var salary = 0.0
+  override def toString = super.toString + s"[salary=$salary]"
+  // Use override when overriding a method
+}
+```
+
+## Java Type operations on Scala classes
+
+```scala
+// You *can* do Java like type operations (but usually Scala has better alternatives
+if(p.isInstanceOf[Employee]) {  // Java isInstanceOf
+  val e  = p.asInstanceOf[Employee]  // Like a Java cast
+}
+
+if(p.getClass == classOf[Employee]) ... // Like Java Employee.class
+
+// Again you normally will use pattern matching instead of doing this type of  thing
+```
 
 ## Class methods
 A _method_ is a function that is a member of some class, trait, or singleton object.  Scala has some interesting
@@ -118,8 +142,22 @@ definitions.
 
 <!-- code -->
 ```scala
-        trait Planar { ... }
-        class Square extends Shape with Planar
+trait Logger {  // Traits can't have constructors
+  def log(msg: String)  // abstract method
+  def info(msg: String) = log(s"INFO $msg")  // traits can have concrete methods too
+}
+
+class App extends Logger with Auth { ... } // Mix in any number of traits
+
+trait TimestampLogger extends Logger {  // Traits can extend Traits too
+  abstract override def log(msg: String) = {  // Still abstract!
+    super.log(s"${System.currentTimeMillis} $msg")
+  }
+}
+
+object App extends ConsoleLogger with TimestampLogger
+   // App.log("Hi") calls log of LAST Trait mixed in; super.log calls the super of that trait
+
 ```
 ![Traits and Abstract Classes](./imgs/rtjvmAbstractClassesAndTraits.png)
 
