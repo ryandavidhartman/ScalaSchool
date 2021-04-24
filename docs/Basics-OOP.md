@@ -155,6 +155,10 @@ trait TimestampLogger extends Logger {  // Traits can extend Traits too
   }
 }
 
+trait ConsoleLogger extends Logger {
+  override def log(msg: String): Unit = println(msg)
+}
+
 object App extends ConsoleLogger with TimestampLogger
    // App.log("Hi") calls log of LAST Trait mixed in; super.log calls the super of that trait
 
@@ -182,6 +186,16 @@ In Scala, everything can be imported, not only class names. So for instance if y
   import package_name._         // imports everything from the package called `package_name`
   import package_name.{A => B}  // imports A from the package called `package_name` and aliases it as B
                                 //  This can be useful if you want to import 2 classes that have the same name.
+  import package_name.{List => _, _}  // imports everything *except* List 
+
+  // scala, scala.Predef, and java.lang are always imported
+
+  def square(x): Double = {
+    import scala.math._  // imports can be inside blocks
+    pow(x,2)
+  }
+  
+  import math._ // same as import scala.math._  Imports nest in Scala
 ```
 
 ![Packages](./imgs/rtjvmPackages.png)
