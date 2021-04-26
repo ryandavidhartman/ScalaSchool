@@ -1,5 +1,7 @@
 package section3
 
+import scala.annotation.tailrec
+
 object FunctionalCollections extends App {
 
   val set = Set(1, 2, 3)  // An instance of the Set class from the standard Scala collections library
@@ -16,15 +18,37 @@ object FunctionalCollections extends App {
   // So the actual type definition of a set in Scala is a function type.
 
   // Lets play around with this ourselves.  Exercise Functional Set
-  // Implement this trait:  trait MySet[T] extends (T => Boolean)
   //   It should have: contains(), +, ++, map, flatMap, filter, and foreach
 
-  trait MySet[T] extends (T => Boolean) {
-    def contains(e: T): Boolean = this(e)
-    def +(e: T): MySet[T] = (x: T) => this(x) || x == e
-    def ++(s: MySet[T]): MySet[T] = (x: T) => this(x) || s(x)
-    def map[U](f: T => U): MySet[U] = ???
+  case class MySet[T](f: T => Boolean) extends (T => Boolean) with Iterable[T] {
+    override def apply(e: T): Boolean = f(e)
+
+    override def iterator: Iterator[T] = ???
   }
+
+  def contains[T](s: MySet[T], e: T): Boolean = s(e)
+
+  def singletonSet[T](e: T): MySet[T] = MySet((x: T) => x == e)
+
+  // Set that is all elements in s1 or  s2
+  def union[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet(x => s1(x) || s2(x))
+
+  // Set that is all elements in both s1 and s2
+  def intersection[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet(x => s1(x) && s2(x))
+
+  // Set that is all elements in s1 not in s2
+  def diff[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet((x:T) => s1(x) && !s2(x))
+
+  // Set of elements from s where some predicate is true
+  def filter[T](s: MySet[T], p: T => Boolean): MySet[T] = MySet(x => s(x) && p(x))
+
+  // Returns whether all bounded integers within `s` satisfy `p`.
+  def forall[T <: Iterable[T]](s: MySet[T], p: T => Boolean): Boolean = {
+   false
+  }
+
+
+
 
 
 }
