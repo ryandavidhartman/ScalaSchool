@@ -18,36 +18,42 @@ object FunctionalCollections extends App {
   // So the actual type definition of a set in Scala is a function type.
 
   // Lets play around with this ourselves.  Exercise Functional Set
-  //   It should have: contains(), +, ++, map, flatMap, filter, and foreach
+  // It should have: contains(), +, ++, map, flatMap, filter, and foreach
+  // Ok for technical reasons it is very difficult to simply make Set == T => Boolean  AND implement
+  // map and flatMap.
+  // You either need to be able to iterate over all of T.  (which is computationally impossible to do this
+  // completely)  OR your function f from T to U in the map must be invertible (i.e. a bijection)
+  //
+  // To avoid this complications we'll simply fall-back to a cons list implementation.
 
-  case class MySet[T](f: T => Boolean) extends (T => Boolean) with Iterable[T] {
-    override def apply(e: T): Boolean = f(e)
+  trait MySet[T] extends (T => Boolean) {
+    def contains(e: T): Boolean = this(e)
 
-    override def iterator: Iterator[T] = ???
+    def +(e: T): MySet[T]
+    def ++(s: MySet[T]): MySet[T]
+
+    def map[U](f: T => U): MySet[U]
+    def flatMap[U](f: T => MySet[U]): MySet[U]
+    def filter(p : T => Boolean): MySet[T]
   }
 
-  def contains[T](s: MySet[T], e: T): Boolean = s(e)
-
-  def singletonSet[T](e: T): MySet[T] = MySet((x: T) => x == e)
-
-  // Set that is all elements in s1 or  s2
-  def union[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet(x => s1(x) || s2(x))
-
-  // Set that is all elements in both s1 and s2
-  def intersection[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet(x => s1(x) && s2(x))
-
-  // Set that is all elements in s1 not in s2
-  def diff[T](s1: MySet[T], s2: MySet[T]): MySet[T] = MySet((x:T) => s1(x) && !s2(x))
-
-  // Set of elements from s where some predicate is true
-  def filter[T](s: MySet[T], p: T => Boolean): MySet[T] = MySet(x => s(x) && p(x))
-
-  // Returns whether all bounded integers within `s` satisfy `p`.
-  def forall[T <: Iterable[T]](s: MySet[T], p: T => Boolean): Boolean = {
-   false
+  case class EmptySet[T]() extends MySet[T] {
+    def apply(e: T): Boolean = false
+    def +(e: T): MySet[T] = ConsSet(e, this)
+    def ++(s: MySet[T]): MySet[T] = s
+    def map[U](f: T => U): MySet[U] = EmptySet[U]()
+    def flatMap[U](f: T => MySet[U]): MySet[U] = EmptySet[U]
+    def filter(p: T => Boolean): MySet[T] = this
   }
 
-
+  case class ConsSet[T](h: T, tail: MySet[T]) extends MySet[T] {
+    def apply(e: T): Boolean = if(e == h) true else tail.contains(e)
+    override def +(e: T): MySet[T] = ConsSet(e, this)
+    override def ++(s: MySet[T]): MySet[T] = ???
+    override def map[U](f: T => U): MySet[U] = ???
+    override def flatMap[U](f: T => MySet[U]): MySet[U] = ???
+    override def filter(p: T => Boolean): MySet[T] = ???
+  }
 
 
 
