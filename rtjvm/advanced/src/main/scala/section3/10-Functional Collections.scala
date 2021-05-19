@@ -175,9 +175,16 @@ object FunctionalCollections extends App {
   val set3 = set1.flatMap(e => MySet(e, e*2))
   println(s"set3: $set3")
 
-  val myFuncSet = FunSet((x:Int) => x%2 == 0)
+  val myFuncSet1 = FunSet((x:Int) => x%2 == 0)
 
-  println(s"Does myFuncSet contain 102?  ${myFuncSet(102)}")
-  println(s"Does !myFuncSet contain 102?  ${!myFuncSet(102)}")
+  println(s"Does myFuncSet1 contain 102?  ${myFuncSet1(102)}")
+  println(s"Does !myFuncSet1 contain 102?  ${!myFuncSet1(102)}")
+
+  val myFuncSet2 = myFuncSet1.filter(_ != 4)
+  println(s"Does myFuncSet2 contain 2?  ${myFuncSet2(2)}")
+  println(s"Does myFuncSet2 contain 4?  ${myFuncSet2(4)}")
+
+  val myFuncSet3 = myFuncSet2 + 4
+  println(s"Does myFuncSet3 contain 4?  ${myFuncSet3(4)}")
 
 }
