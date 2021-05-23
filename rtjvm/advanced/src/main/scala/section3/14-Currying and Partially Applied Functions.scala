@@ -11,22 +11,35 @@ object CurriesPAF extends App {
   val supperAdder: Int => Int => Int =
   x => y => x + y // Here is an an example implementation of that.
 
-  val add1 = supperAdder(1)
+  val add1 = supperAdder(1)  // Int => Int = y => 1 + y
   println(s"add1(3) = ${add1(3)}")
   val add11 = supperAdder(11)
   println(s"add11(3) = ${add11(3)}")
 
-  // Here is the same with a partial function application.  Partially Applied functions also have multiple
-  // parameter lists but they can possibly have multiple parameters.
+  // Note we can also call supperAdder and get a value by supplying 2 parameter lists
+
+  println(s"supperAdder(4)(3): ${supperAdder(4)(3)}")
+
+  // In Scala we can also create curried methods (again methods that take multiple parameter lists)
   def curriedAdder(x: Int)(y: Int): Int = x + y
 
-  val cAdd1 = curriedAdder(1)(_)
-  println(s"caAd1(3) = ${cAdd1(3)}")
-  val cAdd11 = curriedAdder(11)(_)
-  println(s"cAdd11(3) = ${cAdd11(3)}")
 
+  val cAdd1: Int => Int = curriedAdder(1)
+  println(s"cAdd1(3) = ${cAdd1(3)}")
 
+  val cAdd1_noTypeAnnotation = curriedAdder(1)(_)  // Here we need to manually supply a "fake" parameter list
+                                                   // when we don't supply the type annotation.
+  println(s"cAdd1_noTypeAnnotation(3) = ${cAdd1_noTypeAnnotation(3)}")
 
+  // Under the covers here we are lifting the method curriedAdder into a function literal type
+  // This is more technically defined as a ETA EXPANSION
+  // check out https://stackoverflow.com/questions/39445018/what-is-the-eta-expansion-in-scala
+
+  // The point is the in Scala (and probably in all JVM languages) methods and functions are not the same
+  // but methods can be "lifted" via the eta expansion process into functions
+
+  def inc(x: Int): Int = x +1
+  List(1,2,3).map(inc)  // needs a function inc goes to  x => inc(x)  which is a lambda (function)
 
 
 }
