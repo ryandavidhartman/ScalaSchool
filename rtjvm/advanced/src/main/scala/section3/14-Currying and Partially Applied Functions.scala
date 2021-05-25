@@ -128,4 +128,16 @@ object CurriesPAF extends App {
     if (add7_32(i) != i + 7) throw new Exception("add7_32 breaks at " + i)
     if (add7_33(i) != i + 7) throw new Exception("add7_33 breaks at " + i)
   }
+
+  // More on partially applied  functions.  Underscores are powerful.
+
+  def concatenator(a: String, b: String, c: String): String = a + b + c
+
+  def insertName = concatenator("Hello, I'm ", _, " how are you?")
+  // insertName is s => concatenator("Hello, I'm ", s, " how are you?")
+
+  println(insertName("Ryan"))
+  println(s"is insertName a function? ${insertName.isInstanceOf[(String) => String]}")
+  println(s"is concatenator a function? ${insertName.isInstanceOf[(String, String, String) => String]}")
+
 }
