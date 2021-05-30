@@ -8,3 +8,5 @@ single argument that returns another function.
 ```
 
 ![currying](imgs/rtjvmCurrying.png)
+
+![currying2](imgs/rtjvmCurrying_2.png)

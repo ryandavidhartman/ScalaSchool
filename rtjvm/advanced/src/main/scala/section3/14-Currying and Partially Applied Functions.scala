@@ -140,4 +140,55 @@ object CurriesPAF extends App {
   println(s"is insertName a function? ${insertName.isInstanceOf[(String) => String]}")
   println(s"is concatenator a function? ${insertName.isInstanceOf[(String, String, String) => String]}")
 
+  // you can us multiple underscores too
+  val fillInTheBlanks = concatenator(_, " and ", _)  // (s1, s2) => concatentor(s1, "and", s2)
+  println(fillInTheBlanks("one", "two"))
+
+
+  /*******************************************************************************************
+   * MORE EXERCISES!!!
+   * 1. Process a list of numbers and return their string representation with different formats
+   *    Use %4.2f, %8.6f and %14.12f with a curried formatter function
+   *
+   * 2. Explore the differences between call by name and call by value
+   *    Given:
+   *        def methodByName(n: => Int): Int = n +1
+   *        def methodByValue(n: () => Int): Int = n() +1
+   *
+   *        def someMethod: Int = 42 and def parenMethod(): Int = 42
+   *
+   *    Call you apply methodByName using:
+   *    an Int, someMethod, parenMethod, a lambda, or a PAF?
+   *    How about methodByValue?
+   *******************************************************************************************/
+
+  // exercise 1
+  val frmtr = (formatStr: String) => (n: Double) => formatStr.format(n)
+  val pi = Math.PI
+
+  val simpleFormatter = frmtr("%4.2f")
+  val seriousFormatter = frmtr("%8.6f")
+  val preciseFormatter = frmtr("%14.12f")
+
+  val numbers = Seq(Math.PI, Math.E, 1, 9.8, 1.3e-12)
+  numbers.foreach(n => println(s"${simpleFormatter(n)}, ${seriousFormatter(n)}, ${preciseFormatter(n)}"))
+
+  // exercise 2
+  def methodByName(n: => Int): Int = n + 1
+  def methodByValue(n: () => Int): Int = n() +1
+  def someMethod: Int = 42
+  def parenMethod(): Int = 42
+  val someLambda = () => 1
+
+  methodByName(1)             // No problem
+  methodByName(someMethod)    // No problem
+  methodByName(parenMethod)   // No problem
+  methodByName(parenMethod()) // No problem BUT parenMethod() will be evaluated eagerly!  remember that!
+  methodByName(someLambda())  // This works but methodByName(lambda) does NOT work
+
+  methodByValue(() => 1)      // No problem, but methodByValue(1) does not work
+  methodByValue(() => someMethod)    // No problem but  methodByValue(someMethod) does not work
+  methodByValue(parenMethod)   // No problem
+  methodByValue(() =>parenMethod()) // No problem  methodByValue(parenValue()) does not work
+  methodByValue(someLambda)  // No problem
 }
