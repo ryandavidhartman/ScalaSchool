@@ -71,3 +71,7 @@ After starting IntelliJ IDEA use the **Next:..** button on the **Customize Intel
 **Install** Scala plugin
 
 [Here](https://stackoverflow.com/questions/38973049/how-to-install-scala-plugin-for-intellij) are some more hints on installing the plugin
+
+### Official Scala Docs on Getting Started:
+
+[docs.scala-lang.org](https://docs.scala-lang.org/getting-started/)
