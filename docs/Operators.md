@@ -1,5 +1,19 @@
 # Operators
 
+## Examples of Scala Operations
+
+```scala
+1 > 0                   true                greater than (a comparison operation)
+1 == 0                  false               equals to (another comparision operation)
+1.max(0)                1                   max operation returns the greater value between the left and right argument
+-5.abs                  5                   absolute value operation
+"Hello, " + "world!"    "Hello, world!"     concatentation operation
+"#" * 3                 "###"               times operation
+"Alice".toUpperCase     "ALICE"             to upper case operation
+true && true            true                logical and operation with infix notation
+true.&&(true)           true                logical and operator with dot notatation
+```
+
 ## Cheat Sheet
 
 * Infix notation `x _op_ y` is `x.op(y)`
@@ -16,7 +30,23 @@
 
 Operator (i.e. function) names can be alphanumeric, symbolic (e.g. `x1`, `*`, `+?%&`, `vector_++`, `counter_=`)
 
-## Operator Precedence
+## Arithmetic Operators
+
+* Arithmetic operators have the same _precedence_ as in mathematics.  The following expressions are equivalent:
+
+```scala
+1 + 2 * 3
+1.+(2.*(3))
+```
+
+* The result of arithmetic operations has the type of the widest operand:
+```scala
+
+1 + 2     // Int
+1 + 2.0   // Double
+```
+
+## Operator Precedence in General
     
 The precedence of an operator is determined by its first character, with the following increasing order of priority:
 

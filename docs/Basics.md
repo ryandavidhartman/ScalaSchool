@@ -1,4 +1,75 @@
+# Basic Vocabulary of Programming Terms
+
+## What Are programs Made of?
+
+A program *expresses* a *computation*.  For instance:
+What is the result of adding one to one?
+
+```scala
+1 + 1
+```
+
+*Evaluating* the program "1+1" returns the value "2".
+
+## Literals and Expressions
+In the program 1+1 we say:
+
+* We say that 1 is a _literal_
+* and 1 + 1 is an _expression_ combining two literals with the _operation_ +
+
+## 2nd Example
+
+How many letters are in the text "Hello, world1!"?
+
+```scala
+"Hello, world1!".length
+```
+
+* Here "Hello, world1!" is a literal
+* We _apply_ the operation (that is the `.` or dot notation), _length_ to it
+
+## Puzzle
+
+Consider the following scala program:
+
+```scala
+"length".length
+```
+* _Text Literals_ are distinguished from _names_ by enclosing double quotes
+
+## Examples of Scala Operations
+
+```scala
+1 > 0                   true                greater than (a comparison operation)
+1 == 0                  false               equals to (another comparision operation)
+1.max(0)                1                   max operation returns the greater value between the left and right argument
+-5.abs                  5                   absolute value operation
+"Hello, " + "world!"    "Hello, world!"     concatentation operation
+"#" * 3                 "###"               times operation
+"Alice".toUpperCase     "ALICE"             to upper case operation
+true && true            true                logical and operation with infix notation
+true.&&(true)           true                logical and operator with dot notatation
+```
+
+## Definitions
+
+Large expressions are hard to read and write.  We can _give names_ to fragments of expressions and then refer to them by using these names.
+
+```scala
+val facade = 5 * 3
+val door = 1 * 2
+var areaToPaint = facade - door
+```
+
+In Scala names are introduced with the _val_ keyword.
+
+## Summary
+* Programs _express_ computations
+* Programs are made of _values_ combined together with  _operations_
+* Intermediate results can be _named_ to be easily reused.
+
 # Literals, Values, Variables, and Types
+Let's now define these terms slightly more formally
 
 * A _literal_ (or literal data) is data that appears directly in the source code, e.g. the number ```42```, the character ``` 'B'```, and the text ```"Hello, World"```, or the function ```(a:String, b:String) => a + a```
 * A _function literal_ (or anonymous function) Is function with no name in source code, specified with the function literal syntax.  e.g. ```(x:Int) => x```
