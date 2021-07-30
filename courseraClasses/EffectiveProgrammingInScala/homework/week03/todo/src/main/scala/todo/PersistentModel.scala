@@ -18,6 +18,8 @@ import todo.data.*
 object PersistentModel extends Model:
   import Codecs.given
 
+  private val idGenerator = IdGenerator(Id(3))
+
   /** Path where the tasks are saved */
   val tasksPath = Paths.get("tasks.json")
   /** Path where the next id is saved */
@@ -96,28 +98,42 @@ object PersistentModel extends Model:
    */
 
   def create(task: Task): Id =
-    ???
+    val currentTasks: Map[Id, Task] = loadTasks().toMap
+    val nextTask: (Id, Task) = idGenerator.nextId() -> task
+    saveTasks(Tasks( currentTasks + nextTask))
+    nextTask._1
 
   def read(id: Id): Option[Task] =
-    ???
+    loadTasks().tasks.find((i, _) => i == id).map(_._2)
 
   def update(id: Id)(f: Task => Task): Option[Task] =
-    ???
+    val updatedTasks = loadTasks().toMap.updatedWith(id)({
+      case Some(t: Task) => Some(f(t))
+      case _ => None
+    })
+    saveTasks(Tasks(updatedTasks))
+    read(id)
+
 
   def delete(id: Id): Boolean =
-    ???
+    val currentTasks = loadTasks().toMap
+    if currentTasks.get(id).isDefined then
+      saveTasks(Tasks(currentTasks.removed(id)))
+      true
+    else
+      false
 
   def tasks: Tasks =
-    ???
+    loadTasks()
 
   def tasks(tag: Tag): Tasks =
-    ???
+    Tasks(loadTasks().toMap.filter((_, t: Task) => t.tags.contains(tag)))
 
   def complete(id: Id): Option[Task] =
-    ???
+    update(id)(t => t.complete)
 
   def tags: Tags =
-    ???
+    Tags(loadTasks().tasks.flatMap((_, t: Task) => t.tags).toList.distinct)
 
   def clear(): Unit =
-    ???
+    saveTasks(Tasks(List.empty))
