@@ -73,7 +73,8 @@ located in a subdirectory project, and build.sbt.
 Here a video of my code editor with an sbt project, an empty sbt project with the file build.properties, and the file
 build.sbt.  The video will walk you through making a simple sbt project.
 
-![sbt video1](https://github.com/ryandavidhartman/ScalaSchool/issues/10)
+
+https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4
  
 Here, I'm using this milestone release, but you should 
 use stable release. It's just that at the time we record this video, the support for Scala 3 is only available in this 
