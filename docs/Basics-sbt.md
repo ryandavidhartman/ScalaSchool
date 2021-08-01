@@ -69,9 +69,13 @@ located in a subdirectory project, and build.sbt.
 
 ![Sbt Hello](./imgs/effective-build-tool8.png)
 
- So here is 
-my code editor with an sbt project, an empty sbt project with the file build.properties, and the file build.sbt. The 
-file build.properties defines the version of sbt we want to use. Here, I'm using this milestone release, but you should 
+
+Here a video of my code editor with an sbt project, an empty sbt project with the file build.properties, and the file
+build.sbt.  The video will walk you through making a simple sbt project.
+
+![sbt video1](./videos/Sbt-1.m4v)
+ 
+Here, I'm using this milestone release, but you should 
 use stable release. It's just that at the time we record this video, the support for Scala 3 is only available in this 
 milestone release. And the file build.sbt defines the configuration of the project. For now, we just indicate the 
 version of Scala that we want to use, 3.0.0-RC1, which is the latest version of Scala at the time this video was 
