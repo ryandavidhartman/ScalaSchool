@@ -10,6 +10,7 @@
 * [Repl](./repl.md)
 * [Basics](./Basics.md)
 * [Basics - OOP](./Basics-OOP.md)
+* [Basics - sbt](./Basics-sbt.md)
 
 ## Frameworks
 * [Play](./Play.md)
