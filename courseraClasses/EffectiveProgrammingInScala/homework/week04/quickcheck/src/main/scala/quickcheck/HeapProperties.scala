@@ -34,7 +34,7 @@ class HeapProperties(heapInterface: HeapInterface) extends Properties("Heap"):
       val heap0: List[Node] = deleteMin(heap1)
       // check that heap0 is empty
       heap0 == List.empty[Node]
-      
+
     }
 
   property("continually finding and deleting the minimal element of a heap should return a sorted sequence") =
@@ -66,7 +66,74 @@ class HeapProperties(heapInterface: HeapInterface) extends Properties("Heap"):
 
   // TODO Write more properties here to detect the bugs
   // in bogus BinomialHeap implementations
-  
+
+  property("Given an empty heap and a sequence of integers, insert all the "
+    + "integers into the heap. Then, repeatedly finding and deleting the minimum "
+    + "should give you back a sorted version of the initial sequence of integers") =
+    def check2(list: List[Int]): Boolean =
+      def buildHeap(heap: List[Node], data: List[Int]): List[Node] =
+        if data.isEmpty then
+          heap
+        else
+          buildHeap(insert(data.head, heap), data.tail)
+
+      def tearDownHeap(acc: List[Int], data: List[Node]): List[Int] =
+        if data.isEmpty then
+          acc
+        else
+          tearDownHeap(findMin(data) +: acc, deleteMin(data))
+
+      val testHeap = buildHeap(List.empty[Node], list)
+      val testlist = tearDownHeap(List.empty[Int], testHeap).reverse
+
+      testlist == list.sorted
+
+    forAll { (list: List[Int]) =>
+      check2(list)
+    }
+
+  property("Given two arbitrary heaps, and the heap that results from melding " +
+           "them together, finding the minimum of the melded heap should return " +
+           "the minimum of one or the other of the initial heaps. Then, continuously " +
+           "deleting that minimum element (from both, the melded heap and the initial " +
+           "heap that contained it), should always give back a melded heap whose minimum " +
+           "element is the minimum element of none or the other of the initial heaps, " +
+           "until the melded heap is empty.") =
+    def check3(left: List[Node], right: List[Node]): Boolean =
+
+      def safeCheck(min: Int, h: List[Node]): Boolean =
+        if(h.isEmpty) then
+          false
+        else
+          min == findMin(h)
+
+      def safeDelete(found: Boolean, h: List[Node]): List[Node] =
+        if(found && h.nonEmpty) then
+          deleteMin(h)
+        else
+          h
+
+      def checkHeaps(l: List[Node], r: List[Node], m: List[Node]): Boolean =
+        if(m.isEmpty) then
+          true
+        else
+          val min = findMin(m)
+          val foundLeft = safeCheck(min, l)
+          val foundRight = safeCheck(min, r)
+          if(foundLeft || foundRight)
+            checkHeaps(safeDelete(foundLeft, l), safeDelete(foundRight && !foundLeft, r), deleteMin(m))
+          else
+            false
+
+      if(left.isEmpty && right.isEmpty) then
+        true
+      else
+        checkHeaps(left, right, meld(left, right))
+
+
+    forAll { (heap1: List[Node], heap2: List[Node]) =>
+      check3(heap1, heap2)
+    }
 
   // random heap generator --- DO NOT MODIFY
   private lazy val genHeap: Gen[List[Node]] = oneOf(const(empty),
