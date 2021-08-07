@@ -1,5 +1,7 @@
 package codecs
 
+import scala.util.Try
+import scala.util.control.NonFatal
 /**
   * A data type modeling JSON values.
   *
@@ -82,10 +84,11 @@ trait EncoderInstances:
 
   /** An encoder for `String` values */
   given stringEncoder: Encoder[String] =
-    ??? // TODO Implement the `Encoder[String]` given instance
+    Encoder.fromFunction(s => Json.Str(s))
 
   /** An encoder for `Boolean` values */
-  // TODO Define a given instance of type `Encoder[Boolean]`
+  given booleanEncoder: Encoder[Boolean] =
+    Encoder.fromFunction(b => Json.Bool(b))
 
   /**
     * Encodes a list of values of type `A` into a JSON array containing
@@ -188,13 +191,16 @@ trait DecoderInstances:
     Decoder.fromPartialFunction { case Json.Null => () }
 
   /** A decoder for `Int` values. Hint: use the `isValidInt` method of `BigDecimal`. */
-  // TODO Define a given instance of type `Decoder[Int]`
+  given intDecoder: Decoder[Int] =
+    Decoder.fromPartialFunction { case n: Json.Num if n.value.isValidInt => n.value.toInt }
 
   /** A decoder for `String` values */
-  // TODO Define a given instance of type `Decoder[String]`
+  given stringDecoder: Decoder[String] =
+    Decoder.fromPartialFunction { case s: Json.Str => s.value }
 
   /** A decoder for `Boolean` values */
-  // TODO Define a given instance of type `Decoder[Boolean]`
+  given booleanDecoder: Decoder[Boolean] =
+    Decoder.fromPartialFunction { case b: Json.Bool => b.value }
 
   /**
     * A decoder for JSON arrays. It decodes each item of the array
@@ -213,8 +219,15 @@ trait DecoderInstances:
     * should return `None`.
     */
   given listDecoder[A](using decoder: Decoder[A]): Decoder[List[A]] =
-    Decoder.fromFunction {
-      ???
+    Decoder.fromFunction{
+      case a: Json.Arr => a.items.foldLeft(Option(List.empty[A])){ (acc, j) =>
+        val maybeDecoded = decoder.decode(j)
+        if (maybeDecoded.isDefined) then
+          acc.map(_ ++ List(maybeDecoded.get))
+        else
+          None
+      }
+      case _ => None
     }
 
   /**
@@ -264,6 +277,8 @@ end ContactsCodecs
 // the REPL (use the `console` sbt task).
 import Util.*
 
+import scala.util.Try
+
 @main def run(): Unit =
   println(renderJson(42))
   println(renderJson("foo"))
@@ -272,8 +287,8 @@ import Util.*
   val maybeJsonObj    = parseJson(""" { "name": "Alice", "age": 42 } """)
   val maybeJsonObj2   = parseJson(""" { "name": "Alice", "age": "42" } """)
   // Uncomment the following lines as you progress in the assignment
-  // println(maybeJsonString.flatMap(_.decodeAs[Int]))
-  // println(maybeJsonString.flatMap(_.decodeAs[String]))
-  // println(maybeJsonObj.flatMap(_.decodeAs[Person]))
+  println(maybeJsonString.flatMap(_.decodeAs[Int]))
+  println(maybeJsonString.flatMap(_.decodeAs[String]))
+  //println(maybeJsonObj.flatMap(_.decodeAs[Person]))
   // println(maybeJsonObj2.flatMap(_.decodeAs[Person]))
   // println(renderJson(Person("Bob", 66)))
