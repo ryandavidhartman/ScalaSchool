@@ -235,7 +235,10 @@ trait DecoderInstances:
     * the supplied `name` using the given `decoder`.
     */
   def field[A](name: String)(using decoder: Decoder[A]): Decoder[A] =
-    ???
+    Decoder.fromFunction{
+      case j: Json.Obj => j.fields.get(name).flatMap{(js: Json) => decoder.decode(js)}
+      case _ => None
+    }
 
 end DecoderInstances
 
@@ -253,7 +256,13 @@ trait PersonCodecs:
 
   /** The corresponding decoder for `Person` */
   given Decoder[Person] =
-    ???
+    Decoder.fromFunction{
+      case js: Json.Obj => for {
+        name <- Decoder.field[String]("name").decode(js)
+        age <- Decoder.field[Int]("age").decode(js)
+      } yield Person(name, age)
+      case _ => None
+    }
 
 end PersonCodecs
 
@@ -267,8 +276,12 @@ trait ContactsCodecs:
   // The JSON representation of a value of type `Contacts` should be
   // a JSON object with a single field named “people” containing an
   // array of values of type `Person` (reuse the `Person` codecs)
-  given Encoder[Contacts] = ???
+  given Encoder[Contacts] =
+    val personEncoder:  Encoder[List[Person]] = Encoder.listEncoder[Person]
+    Encoder.fromFunction(c => Json.Obj(Map("people" -> personEncoder.encode(c.people))))
+
   // ... then implement the decoder
+  given Decoder[Contacts] = ???
 
 end ContactsCodecs
 
@@ -289,6 +302,6 @@ import scala.util.Try
   // Uncomment the following lines as you progress in the assignment
   println(maybeJsonString.flatMap(_.decodeAs[Int]))
   println(maybeJsonString.flatMap(_.decodeAs[String]))
-  //println(maybeJsonObj.flatMap(_.decodeAs[Person]))
-  // println(maybeJsonObj2.flatMap(_.decodeAs[Person]))
-  // println(renderJson(Person("Bob", 66)))
+  println(maybeJsonObj.flatMap(_.decodeAs[Person]))
+  println(maybeJsonObj2.flatMap(_.decodeAs[Person]))
+  println(renderJson(Person("Bob", 66)))
