@@ -281,7 +281,17 @@ trait ContactsCodecs:
     Encoder.fromFunction(c => Json.Obj(Map("people" -> personEncoder.encode(c.people))))
 
   // ... then implement the decoder
-  given Decoder[Contacts] = ???
+  given Decoder[Contacts] =
+  Decoder.fromFunction {
+    case js: Json.Obj => {
+      val personDecoder: Decoder[List[Person]] = Decoder.listDecoder[Person]
+      for {
+        maybePeople <- js.fields.get("people")
+        people <- personDecoder.decode(maybePeople)
+      } yield Contacts(people)
+    }
+    case _ => None
+  }
 
 end ContactsCodecs
 
@@ -305,3 +315,5 @@ import scala.util.Try
   println(maybeJsonObj.flatMap(_.decodeAs[Person]))
   println(maybeJsonObj2.flatMap(_.decodeAs[Person]))
   println(renderJson(Person("Bob", 66)))
+
+  val bob: Encoder[List[Person]] = Encoder.listEncoder[Person]
