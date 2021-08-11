@@ -90,8 +90,21 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     * Hint: The async part has been handled for you. You need to zip the two Either 
     */
   def zip[B](that: WikiResult[B])(using ExecutionContext): WikiResult[(A, B)] =
+
     def zipEithersAcc(a: Either[Seq[WikiError], A], b: Either[Seq[WikiError], B]): Either[Seq[WikiError], (A, B)] =
-      ???
+      (a, b) match {
+        case (Left(a_error), b) => b match {
+          case Left(b_error) => Left(a_error ++ b_error)
+          case _ => Left(a_error)
+        }
+        case (a, Left(b_error)) => a match {
+          case Left(a_error) => Left(a_error ++ b_error)
+          case _ => Left(b_error)
+        }
+        case (Right(a), Right(b)) => Right((a,b))
+      }
+    end zipEithersAcc
+
     WikiResult(this.value.flatMap { thisEither =>
       that.value.map { thatEither =>
         zipEithersAcc(thisEither, thatEither)
