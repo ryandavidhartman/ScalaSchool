@@ -61,12 +61,16 @@ such as compiling, running and deploying the program. Build tools aim at simplif
 ![Task Engine](./imgs/effective-build-tool6.png)
 
 ## Creating a sbt project
+With the introduction of what a build tool is let's get started with our first SBT project. 
 
 ### Install sbt and make en empty project
-Let's create an sbt project. Before you start, make sure the sbt command-line tool is installed according to the
-[instructions]((./Installation.md)).  An sbt project is a directory with the following two files, build.properties,
-located in a subdirectory project, and build.sbt.
+Before you start, make sure the sbt command-line tool is installed according to the
+[instructions]((./Installation.md)).
 
+Ok to make an sbt project you need a directory with the following two files, _build.properties_,
+located in a subdirectory called _project_, and a top-level filed called _build.sbt_.
+
+Recap:
 ![Sbt Hello](./imgs/effective-build-tool8.png)
 
 
