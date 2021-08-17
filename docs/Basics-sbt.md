@@ -78,7 +78,8 @@ Recap:
 Here is a video shpwing the creation of an basic sbt project.   You need a director with the file _propteries/build.properties_, and the file
 _build.sbt_.  The video will walk you through making a simple sbt project.
 
-https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4)
+
  
 ### Main Sbt concepts
 
@@ -104,7 +105,7 @@ Speaking of libraryDependencies, let's see how to use a library for colorizing t
 
 
 
-![video2](https://user-images.githubusercontent.com/1116629/129651593-e9354438-5775-4936-960c-f4de62ffc2c1.mp4)
+[video2](https://user-images.githubusercontent.com/1116629/129651593-e9354438-5775-4936-960c-f4de62ffc2c1.mp4)
 
 
 
