@@ -78,7 +78,7 @@ Recap:
 Here is a video shpwing the creation of an basic sbt project.   You need a director with the file _propteries/build.properties_, and the file
 _build.sbt_.  The video will walk you through making a simple sbt project.
 
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4)
+[![Watch the video](./imgs/effective-build-tool-video1.png)](https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4)
 
  
 ### Main Sbt concepts
@@ -104,7 +104,7 @@ when you invoke the task.
 Speaking of libraryDependencies, let's see how to use a library for colorizing the text we print to the console.
 
 
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://user-images.githubusercontent.com/1116629/129651593-e9354438-5775-4936-960c-f4de62ffc2c1.mp4)
+[![Watch the video](./imgs/effective-build-tool-video2.png)](https://user-images.githubusercontent.com/1116629/129651593-e9354438-5775-4936-960c-f4de62ffc2c1.mp4)
 
 
 First, we need to declare the dependency in the build definition by appending the so-called coordinates of the library to the libraryDependencies key. So to find the coordinates of the library, I'm going to use the Scala Index. The library I want to use is named Fansi. So I just search it here, and then here, I can see it's latest version and its coordinates. So the coordinates are an organization name. Here it's com.library, and artifact name, Fansi, and a revision number, 0.2.10. I just copy the coordinates in my build definition. After I change the build definition, I need to reload the build definition to reload sbt. If I run a command like run, sbt prints a warning, because it detects that the build definition has changed. So let's reload sbt and use the library. I want to print the greeting message in red. So to achieve this, I need to call fansi.Color.Red(greeting), like this. Now if I invoke run, sbt first downloads the dependencies, then it compiles the project, and finally it runs the program, which prints this message in red. It is worth noting that the build definition itself is written in Scala. So these values here are just Scala strings, and here we apply the operator := to the value ScalaVersion. So every line here is a Scala expression which is evaluated by sbt. When it loads the build definition. Keep in mind that there are some differences between a regular Scala program and an sbt build definition. In particular, sbt files automatically import sbt keys, such as libraryDependencies and scalaVersion. Since this is just Scala code, if I want to add several library dependencies, I will just build a list of dependencies, just a Scala list. Good, now, how do we run the tests of a project? In this video, we will use a test framework named munit. First, we declare a dependency on the text framework itself. So let's look for munit,
