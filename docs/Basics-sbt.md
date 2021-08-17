@@ -71,11 +71,12 @@ Ok to make an sbt project you need a directory with the following two files, _bu
 located in a subdirectory called _project_, and a top-level filed called _build.sbt_.
 
 Recap:
+
 ![Sbt Hello](./imgs/effective-build-tool8.png)
 
 
-Here a video of my code editor with an sbt project, an empty sbt project with the file build.properties, and the file
-build.sbt.  The video will walk you through making a simple sbt project.
+Here is a video shpwing the creation of an basic sbt project.   You need a director with the file _propteries/build.properties_, and the file
+_build.sbt_.  The video will walk you through making a simple sbt project.
 
 https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4
  
