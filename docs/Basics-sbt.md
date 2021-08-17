@@ -79,31 +79,31 @@ build.sbt.  The video will walk you through making a simple sbt project.
 
 https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4
  
-Here, I'm using this milestone release, but you should 
-use stable release. It's just that at the time we record this video, the support for Scala 3 is only available in this 
-milestone release. And the file build.sbt defines the configuration of the project. For now, we just indicate the 
-version of Scala that we want to use, 3.0.0-RC1, which is the latest version of Scala at the time this video was 
-recorded. In the terminal, invoke the command sbt from the project root directory, which is the directory that contains 
-the file build.sbt. So what happens is that the sbt launcher downloads the required version of sbt if necessary, as 
-specified in the file build.properties. And it also downloads the required version of the Scala compiler, if necessary, 
-according to the project configuration. And finally, the launcher starts the sbt shell, which lets you invoke sbt task. 
-So here I'm the sbt shell, and I can invoke tasks to compile or run the project. By default, sbt compiles source files 
-that are in the directory src/main/scala. So let's define a project in the package hello-sbt. In the sbt shell, we can 
-invoke the compilation task to compile the program source files. And we see, sbt's compiling the project. The output of the 
-compilation is cached in a directory target.
+### Main Sbt concepts
+
+In the previous video we saw how to invoke the tasks compile and run. Now in the diagram below , I want to illustrate the
+fact that the _task_ run depends on the _task compile_. So if I invoke run without first invoking compile, sbt
+automatically invokes compile first. Let's introduce a few other tasks. For instance, compile depends on _update_, which
+resolves the library dependencies of the project. This task depends on a setting, named _libraryDependencies_. By
+changing the value of this setting, you change the libraries that are added to your project.
+
+So there are two main concepts in sbt, _settings_ and _tasks_. Settings parameterize the build, and they are evaluated
+only once, when sbt loads the project. And tasks perform actions such as downloading the dependencies or running the
+program. They are evaluated each time you invoke them. So each time you invoke the task run, it runs your program.
+
+Tasks can be parameterized by settings' values, and by other tasks' results. For instance, the setting
+libraryDependencies defines the libraries that your project depends on. And the task update downloads these dependencies
+when you invoke the task. 
+
+![Main Sbt Concepts](./imgs/effective-build-tool9.png)
+
+### Adding new dependencies to your project
+
+Speaking of libraryDependencies, let's see how to use a library for colorizing the text we print to the console.
+
+First, we need to declare the dependency in the build definition by appending the so-called coordinates of the library to the libraryDependencies key. So to find the coordinates of the library, I'm going to use the Scala Index. The library I want to use is named Fansi. So I just search it here, and then here, I can see it's latest version and its coordinates. So the coordinates are an organization name. Here it's com.library, and artifact name, Fansi, and a revision number, 0.2.10. I just copy the coordinates in my build definition. After I change the build definition, I need to reload the build definition to reload sbt. If I run a command like run, sbt prints a warning, because it detects that the build definition has changed. So let's reload sbt and use the library. I want to print the greeting message in red. So to achieve this, I need to call fansi.Color.Red(greeting), like this. Now if I invoke run, sbt first downloads the dependencies, then it compiles the project, and finally it runs the program, which prints this message in red. It is worth noting that the build definition itself is written in Scala. So these values here are just Scala strings, and here we apply the operator := to the value ScalaVersion. So every line here is a Scala expression which is evaluated by sbt. When it loads the build definition. Keep in mind that there are some differences between a regular Scala program and an sbt build definition. In particular, sbt files automatically import sbt keys, such as libraryDependencies and scalaVersion. Since this is just Scala code, if I want to add several library dependencies, I will just build a list of dependencies, just a Scala list. Good, now, how do we run the tests of a project? In this video, we will use a test framework named munit. First, we declare a dependency on the text framework itself. So let's look for munit,
 
 
-Play video starting at :3:10 and follow transcript3:10
-Oops, not this one, but this one. I can see the classifiers.
-Play video starting at :3:19 and follow transcript3:19
-If I try to recompile, it immediately finishes, because it has already compiled the source code. Now if I change the content of the source file, and I try to recompile, then sbt detects that the sources have changed, and it recompiles the project. When your project contains multiple Scala files, if you modify only one file, sbt will try to recompile only this file and the files that depend on it, but not more. This is called incremental computation. All right, next the task run compiles and then runs the program. Another useful task is the task console, which compiles the program and then opens a REPL, which is an interactive prompt to evaluate expressions in your program. So here I can evaluate Scala expression,
-Play video starting at :4:29 and follow transcript4:29
-Like 1 + 1, but I can refer to the definitions of my program. So I can use the value greeting defined in the package hello-sbt.
-
-
-
-Play video starting at :4:47 and follow transcript4:47
-For instance, I can call the method toUpperCase on it, good. I've just shown how to invoke the tasks compile and run. And in this diagram, I want to illustrate the fact that the task run depends on the task compile. So if I invoke run without first invoking compile, sbt automatically invokes compile first. I also show a few other tasks. For instance, compile depends on update, which reserves the library dependencies of the project. This task depend on a setting, libraryDependencies. By changing the value of this setting, you change the libraries that are added to your project. So there are two main concepts in sbt, settings and tasks. Settings parameterize the build, and they are evaluated only once, when sbt loads the project. And tasks perform actions such as downloading the dependencies or running the program. They are evaluated each time you invoke them. So each time you invoke the task run, it runs your program. Tasks can be parameterized by settings' values, and by other tasks' results. For instance, the setting libraryDependencies defines the libraries that your project depends on. And the task update downloads these dependencies when you invoke the task. Speaking of libraryDependencies, let's see how to use a library for colorizing the text we print to the console. First, we need to declare the dependency in the build definition by appending the so-called coordinates of the library to the libraryDependencies key. So to find the coordinates of the library, I'm going to use the Scala Index. The library I want to use is named Fansi. So I just search it here, and then here, I can see it's latest version and its coordinates. So the coordinates are an organization name. Here it's com.library, and artifact name, Fansi, and a revision number, 0.2.10. I just copy the coordinates in my build definition. After I change the build definition, I need to reload the build definition to reload sbt. If I run a command like run, sbt prints a warning, because it detects that the build definition has changed. So let's reload sbt and use the library. I want to print the greeting message in red. So to achieve this, I need to call fansi.Color.Red(greeting), like this. Now if I invoke run, sbt first downloads the dependencies, then it compiles the project, and finally it runs the program, which prints this message in red. It is worth noting that the build definition itself is written in Scala. So these values here are just Scala strings, and here we apply the operator := to the value ScalaVersion. So every line here is a Scala expression which is evaluated by sbt. When it loads the build definition. Keep in mind that there are some differences between a regular Scala program and an sbt build definition. In particular, sbt files automatically import sbt keys, such as libraryDependencies and scalaVersion. Since this is just Scala code, if I want to add several library dependencies, I will just build a list of dependencies, just a Scala list. Good, now, how do we run the tests of a project? In this video, we will use a test framework named munit. First, we declare a dependency on the text framework itself. So let's look for munit,
 Play video starting at :9:56 and follow transcript9:56
 And I'm interested in this line, Which I add here, and we explicitly mention that this library, munit, should be part of the class path for running the tests, but not for running the main program. And I do that by adding the trailing % Test here. Then we tell sbt that we will use this library as a test framework, which I do with this line. And next week, we will see a little bit more about how to use munit. So this is not a video about how to use munit, but more about how to use sbt. By default, sbt looks for test sources in the src/test/scala directory. So let's add a test to our program.
 Play video starting at :11:5 and follow transcript11:05
