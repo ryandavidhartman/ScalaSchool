@@ -1,7 +1,7 @@
 # sbt - The interactive build tool
 
 This is an introduction to [sbt](https://www.scala-sbt.org/), which is a common build tool for Scala projects. While
-sbt is a very popular build tool for Scala, there are many other build tools that support Scala:
+sbt is a very popular build tool for Scala, there are several other build tools which support Scala:
 
 * [Maven](https://maven.apache.org/index.html)
 * [Gradle](https://gradle.org/)
@@ -22,7 +22,7 @@ triggered on source changes. So we want a way to automate these tasks.  A build 
 ![Developer Workflow](./imgs/effective-build-tool1.png)
 
 ### Compiling
-What is it to compile the program? It consists of invoking the compiler on all the source files to turn them into 
+What is it to compile a Scala program? It consists of invoking the Scala compiler on all the source files to turn them into 
 executable JVM bytecode.  But first it requires constructing the class pass of the application by resolving and 
 fetching all its library dependencies. And possibly it may also require generating parts of the source code or 
 resources like assets, data types and serializers.
@@ -61,12 +61,14 @@ such as compiling, running and deploying the program. Build tools aim at simplif
 ![Task Engine](./imgs/effective-build-tool6.png)
 
 ## Creating a sbt project
-With the introduction of what a build tool is let's get started with our first SBT project. 
+Now that we know, in general, what a build tool is let us move on to discussing SBT, which is our build tool of
+choice for Scala projects.  Let's get started with our first SBT project using both SBT and IntelliJ. 
 
 ### Install sbt and make en empty project
 Before you start, make sure the sbt command-line tool is installed according to the
-[instructions]((./Installation.md)).
+[instructions]((./Installation.md)). Also Java, and IntelliJ!
 
+### First Project
 Ok to make an sbt project you need a directory with the following two files, _build.properties_,
 located in a subdirectory called _project_, and a top-level filed called _build.sbt_.
 
@@ -75,8 +77,7 @@ Recap:
 ![Sbt Hello](./imgs/effective-build-tool8.png)
 
 
-Here is a video shpwing the creation of an basic sbt project.   You need a director with the file _propteries/build.properties_, and the file
-_build.sbt_.  The video will walk you through making a simple sbt project.
+This video will walk you through making a simple sbt project.
 
 [![Watch the video](./imgs/effective-build-tool-video1.png)](https://user-images.githubusercontent.com/1116629/127788461-137f0a7b-fd06-4127-8daf-9c56bfb8903f.mp4)
 
