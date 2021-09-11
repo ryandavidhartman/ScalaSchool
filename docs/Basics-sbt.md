@@ -114,7 +114,10 @@ a unit test library _munit_ to our project.
 
 ### sbt plugins
 
-Let's see how you would use an sbt plugin in your project. Plugins are dependencies to the build
+sbt provides common predefined tasks and settings out of the box.  Additional tasks or predefined
+configurations can be provided by plugins.
+
+Let's see how you would use add an sbt plugin in your project. Plugins are dependencies to the build
 definition itself, not to the program. They are declared in the file project/plugins.sbt, instead
 of build.sbt.
 
@@ -128,5 +131,5 @@ in a different way.
 ## In summary
 sbt is an interactive build tool you terminal, and then you manage your project from there. The
 build definition is written in Scala. A build definition essentially assignments values to setting
-keys such as ScalaVersion or libraryDependencies.
+keys such as _scalaVersion_ or _libraryDependencies_.
 
