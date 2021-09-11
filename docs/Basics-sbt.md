@@ -122,7 +122,7 @@ As an example, let's install plugin that configures the compiler's reporter to p
 in a different way.
 
 
-[![Watch the video](./imgs/effective-build-tool-video10.png)](https://user-images.githubusercontent.com/1116629/132779543-455e9c85-7724-4a2f-9c1b-3379df905620.mp4)
+[![Watch the video](./imgs/effective-build-tool-video3.png)](https://user-images.githubusercontent.com/1116629/132779543-455e9c85-7724-4a2f-9c1b-3379df905620.mp4)
 
 
 ## In summary
