@@ -127,8 +127,141 @@ in a different way.
 
 [![Watch the video](./imgs/effective-build-tool-video3.png)](https://user-images.githubusercontent.com/1116629/132779543-455e9c85-7724-4a2f-9c1b-3379df905620.mp4)
 
+### Keys and Scopes
 
-## In summary
+In this final section on sbt, we'll explain the concept of _scopes_ in sbt, and how to use them. We 
+have already seen that _source_ directories are different for the program and its test. The source
+files of the program are in the directory _scr/main/scala_, whereas the source file of the tests are in
+_src/test/scala_.
+
+However, there is a single _key_ (or setting) called _sourceDirectory_. But there is no such key as 
+_testsourceDirectory_. How does the test task find the test sources?
+
+It turns out that a single _key_ can have different values in different _scopes_. We can see that in the
+sbt shell, if I query the sourceDirectory key in the compile scope, I get _src\main_, whereas in the test
+scope I get _src\test_.
+
+```sbt
+sbt:BuildToolDemo> Compile/sourceDirectory
+[info] /home/ryandavidhartman/dev/source/ScalaSchool/courseraClasses/EffectiveProgrammingInScala/lectures/week03/BuildToolDemo/src/main
+
+sbt:BuildToolDemo> Test/sourceDirectory
+[info] /home/ryandavidhartman/dev/source/ScalaSchool/courseraClasses/EffectiveProgrammingInScala/lectures/week03/BuildToolDemo/src/test
+```
+
+There is a single concept of source directory modeled by the key _sourceDirectory_ and re-used by both
+the compile and test configurations. By scoping the key to the corresponding configuration, each key can
+be assigned a value along with a configuration such as _Compile_, _Test_ or no specific configuration which
+is named _Zero_.
+
+When we look up the value of a key, we can specify the configuration we are interested in with the
+syntax:
+
+```sbt
+Scope / Key
+Compile/sourceDirectory (as an example)
+```
+
+If no configuration is specified. Sbt first tries with the _Compile_ configuration and falls back to
+the _Zero_ configuration. For instance, just _run_ is equivalent to _Compile \ run _, which means run
+in the _Compile_ configuration.
+
+Conversely, if we look up for _Compile \ scalaVersion_ , which means
+the value of the setting _scalaVersion_ in _Compile_ scope. That the key _scalaVersion_ has no value in
+that scope. Then sbt falls back to a more generic scope: it looks up in the zero configuration,
+
+Configurations are just one possible axis of key scoping. Keys can also have different values according
+to a particular task key. For instance, the task _unmanagedSources_ lists all the projects source files.
+
+```sbt
+sbt:BuildToolDemo> show unmanagedSources
+[info] * /home/ryandavidhartman/dev/source/ScalaSchool/courseraClasses/EffectiveProgrammingInScala/lectures/week03/BuildToolDemo/src/main/scala/hellosbt/HelloSbt.scala
+```
+
+If we invoke this task, we see that we have just one source file, HelloSbt.scala. These task can be
+configured by changing the value of the setting, _includeFilter_ in the scope of the task
+_unmanagedSources_, we can query the current value of the sitting by writing 
+_unmanagedSources \ includeFilter_.
+
+```sbt
+sbt:BuildToolDemo> unmanagedSources / includeFilter
+[info] ExtensionFilter(java,scala)
+```
+
+Here it says that sbt looks for source files with extensions that .java, and .scala
+
+let's also include .sc files. To achieve this, we assign a new value to _includeFilter_ in the scope
+of the _unmanagedSources task_ . 
+
+In the build.sbt file we add:
+
+```scala
+unmanagedSources / includeFilter := new io.ExtensionFilter(
+  "java",
+  "scala",
+  "sc"
+)
+```
+
+then
+
+```sbt
+sbt:BuildToolDemo> unmanagedSources / includeFilter
+[info] ExtensionFilter(java,scala, sc)
+```
+
+
+Finally, there is a third axis that can be used to assign values to sbt keys.
+
+When a project contains sub-projects, each sub-project can set its own values for some keys. This is
+typically the case for the setting _baseDirectory_, which defines the root directory of each sub-project.
+
+In our build definition example, we only have one project, so all our settings are scoped to this
+project. We can explicitly see that by prefixing the name of a key with the name of our project,
+BuildToolDemo.
+
+If I write _BuildToolDemo \ sourceDirectory_, I get the value of the setting sourceDirectory in the
+scope of the project BuildToolDemo.
+
+```sbt
+sbt:BuildToolDemo> BuildToolDemo / sourceDirectory
+[info] /home/ryandavidhartman/dev/source/ScalaSchool/courseraClasses/EffectiveProgrammingInScala/lectures/week03/BuildToolDemo/src
+```
+
+There is also a special project named _ThisBuild_, which means the "entire build", so a setting applies
+to the entire build rather than just a single project.
+
+Sbt falls back to _ThisBuild_ when you look for the value of a key that has not been defined for a
+specific project.
+
+This is a convenient way to define cross-project settings. For instance, to set the _scalaVersion_
+for all the projects in _ThisBuild_ definition, you write _ThisBuild / scalaVersion_ 
+
+In the build.sbt file we add:
+
+```scala
+ThisBuild / scalaVersion := "3.0.2"
+```
+
+Here are some examples of how to query the value of a key according to multiple axes.
+
+```sbt
+  // query includeFilter key in current project, no configuration, unmanagedSource task 
+  unmanagedSources / includeFilter
+  
+  // query includeFilter key in the hello-world project, no configuration, unmanagedSource task
+  hello-world / unmanagedSources / includeFilter
+
+  // query includeFilter key in the hello-world project, compile configuration, unmanagedSource task
+  hello-world / Compile / unmanagedSources / includeFilter
+```
+
+n summary, when the same concept, like a source directory is reused in several contexts such as
+configurations, projects, or tasks, sbt in courageous you to use a single sitting key for this
+concept and to scope the value you assign to it to the desired context.
+
+
+## Sbt Review
 sbt is an interactive build tool you terminal, and then you manage your project from there. The
 build definition is written in Scala. A build definition essentially assignments values to setting
 keys such as _scalaVersion_ or _libraryDependencies_.
