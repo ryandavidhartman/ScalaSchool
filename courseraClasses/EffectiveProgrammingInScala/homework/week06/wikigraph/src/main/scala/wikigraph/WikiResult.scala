@@ -161,6 +161,14 @@ object WikiResult:
     * empty, return a successful empty sequence.
     */
   def traverse[A, B](as: Seq[A])(f: A => WikiResult[B])(using ExecutionContext): WikiResult[Seq[B]] =
-    ???
+    val zero:  WikiResult[Seq[B]] = WikiResult.successful(Seq.empty[B])
+    val function: (WikiResult[Seq[B]], A) => WikiResult[Seq[B]] = (left, right) => {
+      val bob: WikiResult[(Seq[B], B)] = left.zip(f(right))
+      val sally: Future[Either[Seq[WikiError], (Seq[B], B)]] = bob.value
+      ???
+    }
+
+    as.foldLeft(zero)(function)
+  end traverse
 
 end WikiResult
