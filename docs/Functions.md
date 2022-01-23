@@ -3,9 +3,11 @@
 ## Cheat Sheet
 
 ```scala
-def triple(x: Int) = 3 * x  // How to define a function
+def triple(x: Int) = 3 * x  // How to define a method (inside  an object, trait or class)
 
-val f = (x: Int) => 3 * x   // Lambda or anonymous function style
+val tripleF = triple _  // use an underscore to convert  a method to a function (eta expansion)
+
+val f = (x: Int) => 3 * x   // Function Literal, also (Lambda or anonymous function style)
 
 (1 to 10).map(3 * _)        // Function with an anonymous parameter
 
