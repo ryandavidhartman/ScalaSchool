@@ -1,10 +1,12 @@
-Higher order functions are functions that take a function as a parameter or return functions.
+##Definition
+Higher order functions, _HOFs_, are functions that accept a function(s) as input parameter(s) 
+or return a function.
 
 <!-- code -->
 ```scala
     // sum() returns a function that takes two integers and returns an integer  
     def sum(f: Int => Int): (Int, Int) => Int = {  
-      def sumf(a: Int, b: Int): Int = { f(a) + f(b) }  
+      val sumf = (a: Int, b: Int) => { f(a) + f(b) }  
       sumf  
     } 
 
@@ -19,5 +21,9 @@ Higher order functions are functions that take a function as a parameter or retu
     sum(x => x * x * x)(1, 10) // sum of cubes 1 & 10
     sum(cube)(1, 10)           // same as above      
 ```
+
+##Notes on methods
+HOFs which are written to take *functions* as input parameters will accept *methods* as input, since
+methods can in general be converted to a function via an eta expansion.
 
 ![HOF](imgs/rtjvmHigherOrderFunctions.png)
