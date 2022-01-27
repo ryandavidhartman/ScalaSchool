@@ -4,12 +4,24 @@ or return a function.
 
 <!-- code -->
 ```scala
+    // Example 1 
+    // map() takes a function and a seq as parameters, and returns a new seq which is 
+    // the original sequence with the function applied to each elem
+    
+    def map[T,U](f: (T) => U, seq: Seq[T]): Seq[U] = {
+      for {
+        x <- seq
+      } yield f(x)
+    }
+
+    // Example 2
     // sum() returns a function that takes two integers and returns an integer  
     def sum(f: Int => Int): (Int, Int) => Int = {  
       val sumf = (a: Int, b: Int) => { f(a) + f(b) }  
       sumf  
     } 
 
+    // Example 3
     // same as above. Its type is (Int => Int) => (Int, Int) => Int  
     def sum(f: Int => Int)(a: Int, b: Int): Int = { (f(a) + f(b) } 
 
