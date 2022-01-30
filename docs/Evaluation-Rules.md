@@ -20,14 +20,20 @@
 - Variable numbers of args are also possible
 
 ## Call by Value
-This is a bit like passing a pointer to a function in C/C++.  Remember in the case of passing
-in an object that the formal function parameter is "bound" to the original object.
+A by-value parameter is like receiving a val field; its body is evaluated once, when the
+parameter is bound to the function's formal parameter 
 
-This means if the original object has mutable variables you will be changing the variables
-of the original object.
+Remember in the case of passing in an object that the formal function parameter is "bound" to
+the original object. This means if your function mutates any fields in the object you will be
+changing the variables of the original object!
+
+*Think* passing in a pointer!
 
 ## Call by Name
-This is a bit like passing in a HoF, and is often used to support lazy evaluation.
+This is a bit like passing in a def method; its body is evaluated whenever it is used inside
+the function, if ever.
+
+*Think* passing in a method that is evaluated each time it is used
 
 <!-- code -->
 ```scala
