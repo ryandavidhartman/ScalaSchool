@@ -22,11 +22,17 @@ so finally x = i(x3) = h(x2)(x3) = g(x1)(x2)(x3)
 
 Example say f(x,y,z) = x+y+z
 ```text
-f(x1,y1,z1) = g(x1)(y1)(z1) 
 
-with h(x) = g(x1) = x + x1
-i(x) = h(x2) = g(x1)(x2) = x + x1 + x2
-i(x3) = x1 + x2 + x3   
+f(x,y,z) at x=x1, y=y1, z=z1 IS  (x,y,z) => x + y + z evaluated at x=x1, y=y1, z=z1
+
+= [(x) => [(y) = [(z) => z + y + x ] at z=z1 ] at y=y1]  at x=x1
+= [(x) => [(y) = z1 + y + x] at y=y1]  at x=x1
+= [(x) => z1 + y1 + x]  at x=x1
+= z1 + y1 + x1
+
+
+ 
+
 ```
 
 <!-- code -->
