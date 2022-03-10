@@ -1,6 +1,6 @@
 # What is currying
 
-Here is one definition:
+## Here is one definition:
 
 Converting a function with multiple arguments into a function with a
 single argument that returns another function.
@@ -30,9 +30,6 @@ f(x,y,z) at x=x1, y=y1, z=z1 IS  (x,y,z) => x + y + z evaluated at x=x1, y=y1, z
 = [(x) => z1 + y1 + x]  at x=x1
 = z1 + y1 + x1
 
-
- 
-
 ```
 
 <!-- code -->
@@ -40,6 +37,32 @@ f(x,y,z) at x=x1, y=y1, z=z1 IS  (x,y,z) => x + y + z evaluated at x=x1, y=y1, z
     def f(a: Int, b: Int): Int // uncurried version (type is (Int, Int) => Int)
     def f(a: Int)(b: Int): Int // curried version (type is Int => Int => Int)
 ```
+
+##Currying in Scala
+
+```scala
+
+# Create a curried function from a regular function
+  val adder = (x: Int, y: Int ) => x + y
+  val curried_adder = adder.curried  // curried_adder: Int => (Int => Int)
+
+  curried_adder(1)(2) = 3 
+  curried_adder(1) = (x: Int) => x + 1 
+```
+
+```scala
+# Create a curried function from method
+  def adder(x: Int, y: Int ): Int  = x + y
+  // (adder _) will do an ETA expansion to create a function literal
+
+  val curried_adder = (adder _).curried  // curried_adder: Int => (Int => Int)
+
+  curried_adder(1)(2) = 3 
+  curried_adder(1) = (x: Int) => x + 1 
+
+```
+
+
 
 ![currying](imgs/rtjvmCurrying.png)
 
