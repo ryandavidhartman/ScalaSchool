@@ -19,6 +19,43 @@ def power(x: Int, exp: Int): Long = {
 }
 ```
 
+## from imperative to recursive
+
+Here is classic implementation of a function calculate the sum of a list of integers 
+
+```scala
+def imperative_sum(xs: List[Int]): Int = {
+    var sum = 0
+    for(x <- xs) sum += x
+    sum
+  }
+```
+
+A possible disadvantage of this implementation is the use of a mutable variable.  We are able
+to use only immutable variables with a recursive function.
+
+```scala
+def recursive_sum(xs: List[Int]): Int = {
+  if(xs.isEmpty)
+    0
+  else
+    xs.head + recursive_sum(xs.tail)  
+}
+```
+
+_recursive_sum_ is nice because it only uses immutable variables, but it has a very serious issue: 
+it is not tail recursive and will have memory issues with input parameters over a certain size.
+
+```scala
+def tail_recursive_sum(xs: List[Int], acc: Int = 0): Int = {
+  if(xs.isEmpty)
+    acc
+  else
+    tail_recursive_sum(xs.tail, acc + xs.head)  
+}
+```
+
+
 ## tail recursion
 
 One problem with using recursive functions is running into the dreaded "Stack Over-flow"
