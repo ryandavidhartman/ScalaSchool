@@ -109,6 +109,123 @@ def power(x: Int, exp: Int, acc: Long = 1L): Long = {
 }
 ```
 
+## Stack Usage: Non-tail vs tail recursive
+
+```scala
+  /*
+    Regular Tail Recursion
+  */
+  def sumReg(list: List[Int], count: Int = 0): Int = list match {
+    case Nil => {
+      printer(Thread.currentThread.getStackTrace, count)
+      0
+    }
+    case x :: xs => {
+      printer(Thread.currentThread.getStackTrace, count)
+      x + sumReg(xs, count + 1)
+    }
+  }
+```
+
+```scala
+  /*
+    Tail Recursion
+  */
+  def sumTail(list: List[Int], acc: Int = 0, count: Int = 0): Int = list match {
+    case Nil => {
+      printer(Thread.currentThread.getStackTrace, count)
+      acc
+    }
+    case x :: xs => {
+      printer(Thread.currentThread.getStackTrace, count)
+      sumTail(xs, x + acc, count + 1)
+    }
+  }
+```
+
+Run both of these again the list _List(1,2,3,4,5)_
+
+For the non-tail recursive function
+```text
+count: 0 Main$.sumReg(recursionChecker.scala:20)
+count: 1 Main$.sumReg(recursionChecker.scala:20)
+count: 1 Main$.sumReg(recursionChecker.scala:21)
+count: 2 Main$.sumReg(recursionChecker.scala:20)
+count: 2 Main$.sumReg(recursionChecker.scala:21)
+count: 2 Main$.sumReg(recursionChecker.scala:21)
+count: 3 Main$.sumReg(recursionChecker.scala:20)
+count: 3 Main$.sumReg(recursionChecker.scala:21)
+count: 3 Main$.sumReg(recursionChecker.scala:21)
+count: 3 Main$.sumReg(recursionChecker.scala:21)
+count: 4 Main$.sumReg(recursionChecker.scala:20)
+count: 4 Main$.sumReg(recursionChecker.scala:21)
+count: 4 Main$.sumReg(recursionChecker.scala:21)
+count: 4 Main$.sumReg(recursionChecker.scala:21)
+count: 4 Main$.sumReg(recursionChecker.scala:21)
+count: 5 Main$.sumReg(recursionChecker.scala:16)
+count: 5 Main$.sumReg(recursionChecker.scala:21)
+count: 5 Main$.sumReg(recursionChecker.scala:21)
+count: 5 Main$.sumReg(recursionChecker.scala:21)
+count: 5 Main$.sumReg(recursionChecker.scala:21)
+count: 5 Main$.sumReg(recursionChecker.scala:21)
+```
+
+For the tail recursive function
+
+```text
+count: 0 Main$.sumTail(recursionChecker.scala:34)
+count: 1 Main$.sumTail(recursionChecker.scala:34)
+count: 2 Main$.sumTail(recursionChecker.scala:34)
+count: 3 Main$.sumTail(recursionChecker.scala:34)
+count: 4 Main$.sumTail(recursionChecker.scala:34)
+```
+
+Here is the complete test code for the above:
+
+```scala
+object Main extends App {
+
+  def printer(trace: Array[StackTraceElement], count: Int): Unit = {
+    trace.foreach(t => println(s"count: $count $t"))
+    //println(s"call count: $count depth: ${trace.length}")
+  }
+
+  
+  /*
+    Regular Tail Recursion
+  */
+  def sumReg(list: List[Int], count: Int = 0): Int = list match {
+    case Nil => {
+      printer(Thread.currentThread.getStackTrace, count)
+      0
+    }
+    case x :: xs => {
+      printer(Thread.currentThread.getStackTrace, count)
+      x + sumReg(xs, count + 1)
+    }
+  }
+
+  /*
+    Tail Recursion
+  */
+  def sumTail(list: List[Int], acc: Int = 0, count: Int = 0): Int = list match {
+    case Nil => {
+      printer(Thread.currentThread.getStackTrace, count)
+      acc
+    }
+    case x :: xs => {
+      printer(Thread.currentThread.getStackTrace, count)
+      sumTail(xs, x + acc, count + 1)
+    }
+  }
+
+  val data = List(1,2,3,4,5)
+  val reg = sumReg(data)
+  val tail = sumTail(data)
+  
+}
+```
+
 ## Performance: Loops vs tail recursion
 
 Consider the following class with two methods for printing the first 10 positive integers to the
@@ -181,8 +298,3 @@ and here is the byte code for `l2()`:
 ```
 
 So the only performance difference is that of a `goto` vs `function invocation`
-
-
-
-
-
