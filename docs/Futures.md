@@ -47,7 +47,7 @@ ec: concurrent.ExecutionContext = scala.concurrent.impl.ExecutionContextImpl$$an
 @ import scala.concurrent.duration._
 import scala.concurrent.duration._
 
-@ val f6 = Future(6)
+@ val f6 = Future(6)  // create a future that resolves immediately
 f6: Future[Int] = Future(Success(6))
 
 @ Await.result(f6, Duraiton.Inf)
