@@ -74,3 +74,64 @@ pr7: Promise[Int] = Future(<not completed>)
 ```
 When you use Futures in real code, you normally don’t call Await.result(); you use callback functions instead.
 Await.result() is just handy for REPL tinkering and unit tests.
+
+## Sequential Composition
+
+Futures have combinators similar to those in the [collections APIs](./Collections.md) (e.g., map, flatMap). A
+collection-combinator, you recall, lets you express things like “I have a List of integers and a square function: map
+that to the List of the squares of my integers.” This is neat; you can put together the combinator-function with another
+function to effectively define a new function. A Future-combinator lets you express things like “I have a Future
+hypothetical-integer and a square function: map that to the Future square of my hypothetical-integer.”
+
+The most important Future combinator is _flatMap_.  (Aside If you study type systems and/or category theory flatMap is
+equivalent to a monadic bind.)
+
+```scala
+def Future[A].flatMap[B](f: A => Future[B]): Future[B]
+```
+
+_flatMap_ sequences two futures. That is, it takes a Future and an asynchronous function and returns another Future.
+The method signature tells the story: given the successful value of a future, the function _f_ provides the next Future.
+flatMap automatically calls _f_ if/when the input Future completes successfully. The result of this operation is another
+Future that is complete only when both of these futures have completed. If either Future fails, the given Future will
+also fail. This implicit interleaving of errors allow us to handle errors only in those places where they are
+semantically significant.
+
+If you have a Future and you want apply an asynchronous API to its value, use flatMap. For example, suppose you have a
+Future[User] and need a Future[Boolean] indicating whether the enclosed User has been banned. There is an isBanned API
+to determine whether a User has been banned, but it is asynchronous. You can use flatMap:
+
+```scala
+@ import scala.concurrent.{Future, Promise, Await}
+@ import scala.concurrent.duration._
+
+@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+
+@ class User(n: String) { val name = n }
+
+@ def isBanned(u: User) = { Future(false) }
+
+@ val pru = Promise[User]
+
+@ val futBan = pru.future.flatMap(u => isBanned(u))
+futBan: Future[Boolean] = Future(<not completed>)
+
+@ Await.result(futBan, DurationInt(3).seconds) 
+java.util.concurrent.TimeoutException: Future timed out after [3 seconds]
+scala.concurrent.impl.Promise$DefaultPromise.tryAwait0(Promise.scala:248)
+scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:261)
+scala.concurrent.Await$.$anonfun$result$1(package.scala:201)
+scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:62)
+scala.concurrent.Await$.result(package.scala:124) 
+ammonite.$sess.cmd12$.<clinit>(cmd12.sc:1)  
+    
+  
+  
+
+
+
+
+
+
+
+```
