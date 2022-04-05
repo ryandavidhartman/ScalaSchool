@@ -3,13 +3,29 @@ package com.alvinalexander.coinflip.v1
 import CoinFlipUtils._
 import scala.annotation.tailrec
 
+/**
+ * Instead of mutating game state (e.g. gameState.numFlips += 1)
+ * we simply make a new instance of the gate.
+ *
+ * val newState = oldState(copy = oldSate.numFlips +1)
+ */
 case class GameState(numFlips: Int, numCorrect: Int)
 
 object CoinFlip extends App {
 
     mainLoop(GameState(0, 0))
 
-    @tailrec
+
+  /**
+   * Here we "Loop" with recursion instead of something like:
+   * var input = ""
+   * while( input != "q") {
+   *   do stuff
+   *   if(input == "q")
+   *     quit
+   * }
+   */
+  @tailrec
     def mainLoop(gameState: GameState): Unit = {
 
         showPrompt()
