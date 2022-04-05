@@ -62,6 +62,8 @@ Functional Programming Downsides:
 
 * Functional code might have performance penalties, especially in the case of lower level code.  (This is one of the reasons Scala supports imperative as well.)
 * It takes time to adjust to the functional programming paradigm.
+* [Here](https://github.com/ryandavidhartman/ScalaSchool/tree/master/demos/FPCoinFlipGame) is a small app that shows how you can maintain state without using
+  mutable variables and how to "loop" in a functional style. 
 
 Still not convinced? [Read the Benefits of Functional Programming](https://alvinalexander.com/scala/fp-book/benefits-of-functional-programming).
 
