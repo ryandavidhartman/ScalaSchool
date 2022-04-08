@@ -1,5 +1,16 @@
-# Case Classes
+#Case Classes
 
+## Case Classes are regular classes with some "Free Stuff"
+___________________
+* apply
+* unapply
+* accessor methods are created for class parameter
+* copy
+* equals and hashCode
+* toString
+___________________
+
+## Description
 ```scala
 case class Person(name: String, age: Int)
 ```
@@ -7,15 +18,25 @@ case class Person(name: String, age: Int)
 Classes defined with the `case` modifier are called _case classes._  Using the modifier cases
 the Scala compiler add some syntactic sugar to the class.
 
-* It creates a `companion object` with the a factory method to create a case class without out
-requiring the `new` keyword.
+* It creates a `companion object` with a factory method to create a case class without requiring the `new` keyword.
+  Under the covers the _apply_ method is called.
 
 ```scala
 case class Person(name: String, age: Int)
 val p = Person("ryan", 21)  //instead of val p = new Person("ryan", 21)
 ```
 
-* In case classes all of the class parameters are promoted to class fields
+* Since case classes have an unapply method you can use them in [pattern matching](./Pattern-Matching.md). This is one of
+ the biggest advantages of case classes.
+
+```scala
+
+p match {
+  case Person(name, age) =>  println(s"$name and $age extracted!")
+}
+```
+
+* In case classes the class parameters are promoted to class fields
 
 ```scala
 case class Person(name: String, age: Int)
