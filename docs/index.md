@@ -1,6 +1,6 @@
 # Welcome to the Scala School Page!
 
 
-Go [here](.scala2/index.md) for Scala2
+##[For Scala 2](./scala2/index.md)
 
-Scala 3 coming soon!
+##Scala 3 coming soon!
