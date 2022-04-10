@@ -1,6 +1,6 @@
 # Welcome to the Scala School Page!
 
-## Getting Started
+## Getting Started with Scala 2.x
 * [What is Scala](./What-Is-Scala.md)
 * [Installation](./Installation.md)
 * [Online Help](./Online-Resources.md)
