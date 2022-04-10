@@ -2,4 +2,4 @@ Welcome to my little Scala School!  This started as my notes for a little Scala 
 
 In any event this repo is not endorsed by or affiliated with any company.  The mistakes are mine, and the good parts are probably stolen.  
 
-Go to school [here](https://ryandavidhartman.github.io/ScalaSchool/)
+[Go to school](https://ryandavidhartman.github.io/ScalaSchool/)
