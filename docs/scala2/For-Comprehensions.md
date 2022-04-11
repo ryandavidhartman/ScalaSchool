@@ -39,11 +39,12 @@ A for-comprehension is syntactic sugar for `map`, `flatMap` and `filter` operati
 The general form is `for (s) yield e`
 
 - `s` is a sequence of generators and filters
-- `p <- e` is a generator
-- `if f` is a filter
+- `p <- e` is a *generator*
+- `if f` is a *filter*
 - If there are several generators (equivalent of a nested loop), the last generator varies faster than the first
 - You can use `{ s }` instead of `( s )` if you want to use multiple lines without requiring semicolons
 - `e` is an element of the resulting collection
+- `d = p` is a *definition*
 
 ### Example 1
 
@@ -102,3 +103,18 @@ is equivalent to
 ```scala
     (1 until n).flatMap(i => (1 until i).filter(j => isPrime(i + j)).map(j => (i, j)))
 ```
+
+### classes in for comprehensions
+
+For a class to be used in a for comprehension it needs to have the following methods defined:
+
+```scala
+abstract class CustomClass[T] {
+  def map[U](f: T => U): CustomClass[U]
+  def flatMap[U](f: T => CustomClass[U]): CustomClass[U]
+  def withFilter(p: T => Boolean): CustomClass[T]
+}
+```
+
+Whenever a generic class has map, flatMap, and withFilter defined on it (with the signatures as above) then it can be
+used inside a for comprehension.
