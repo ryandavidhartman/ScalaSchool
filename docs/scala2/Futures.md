@@ -37,26 +37,26 @@ understanding the API. When you use the REPL, _Promise_ is a handy class. It’s
 Future class. You can use it to create a Future that has no value yet.
 
 ```scala
-@ import scala.concurrent.{Future, Promise, Await}
+ import scala.concurrent.{Future, Promise, Await}
 import scala.concurrent.{Future, Promise, Await}
 
 // More on this later!
-@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-ec: concurrent.ExecutionContext = scala.concurrent.impl.ExecutionContextImpl$$anon$3@41c89d2f[Running, parallelism = 12, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]
+ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+ec: concurrent.ExecutionContext = scala.concurrent.impl.ExecutionContextImpl$$anon$341c89d2f[Running, parallelism = 12, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]
 
-@ import scala.concurrent.duration._
+ import scala.concurrent.duration._
 import scala.concurrent.duration._
 
-@ val f6 = Future(6)  // create a future that resolves immediately
+ val f6 = Future(6)  // create a future that resolves immediately
 f6: Future[Int] = Future(Success(6))
 
-@ Await.result(f6, Duraiton.Inf)
+ Await.result(f6, Duraiton.Inf)
 6
 
-@ val pr7 = Promise[Int]() // create unresolved future
+ val pr7 = Promise[Int]() // create unresolved future
 pr7: Promise[Int] = Future(<not completed>)
   
-@ Await.result(pr7.future, DurationInt(10).seconds)
+ Await.result(pr7.future, DurationInt(10).seconds)
   java.util.concurrent.TimeoutException: Future timed out after [10 seconds]
   scala.concurrent.impl.Promise$DefaultPromise.tryAwait0(Promise.scala:248)
   scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:261)
@@ -65,11 +65,11 @@ pr7: Promise[Int] = Future(<not completed>)
   scala.concurrent.Await$.result(package.scala:124)
   ammonite.$sess.cmd8$.<clinit>(cmd8.sc:1)
 
- @ completedFuture = Future(1)   
- @ pr7.completeWith(completedFuture)
+  completedFuture = Future(1)   
+  pr7.completeWith(completedFuture)
     res12: Promise[Int] = Future(Success(1))
     
- @  Await.result(pr7.future, DurationInt(10).seconds)
+   Await.result(pr7.future, DurationInt(10).seconds)
     res13: Int = 1
 ```
 When you use Futures in real code, you normally don’t call Await.result(); you use callback functions instead.
@@ -102,36 +102,72 @@ Future[User] and need a Future[Boolean] indicating whether the enclosed User has
 to determine whether a User has been banned, but it is asynchronous. You can use flatMap:
 
 ```scala
-@ import scala.concurrent.{Future, Promise, Await}
-@ import scala.concurrent.duration._
+ import scala.concurrent.{Future, Promise, Await}
+ import scala.concurrent.duration._
 
-@ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-@ class User(n: String) { val name = n }
+ class User(n: String) { val name = n }
 
-@ def isBanned(u: User) = { Future(false) }
+ def isBanned(u: User) = { Future(false) }
 
-@ val pru = Promise[User]
+ val pru = Promise[User]
 
-@ val futBan = pru.future.flatMap(u => isBanned(u))
-futBan: Future[Boolean] = Future(<not completed>)
+ val futBan = pru.future.flatMap(u => isBanned(u))
+ //futBan: Future[Boolean] = Future(<not completed>)
 
-@ Await.result(futBan, DurationInt(3).seconds) 
-java.util.concurrent.TimeoutException: Future timed out after [3 seconds]
-scala.concurrent.impl.Promise$DefaultPromise.tryAwait0(Promise.scala:248)
-scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:261)
-scala.concurrent.Await$.$anonfun$result$1(package.scala:201)
-scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:62)
-scala.concurrent.Await$.result(package.scala:124) 
-ammonite.$sess.cmd12$.<clinit>(cmd12.sc:1)  
-    
-  
-  
+ Await.result(futBan, DurationInt(3).seconds) 
+ //java.util.concurrent.TimeoutException: Future timed out after [3 seconds]
+ 
+ pru.completeWith(Future(new User("bob")))
 
+ Await.result(futBan, DurationInt(3).seconds)
+ //res17: Boolean = false
+```
 
+Similarly, to apply a synchronous function to a Future, use map. For example, suppose you have a Future[RawCredentials]
+and need a Future[Credentials]. You have a synchronous normalize function that converts from RawCredentials to
+Credentials. You can use map:
 
+```scala
+ import scala.concurrent.{Future, Promise, Await}
+ import scala.concurrent.duration._
+ implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
+ case class RawCredentials(u: String, pw: String)
 
+ case class Credentials(u: String, pw: String)
 
+ def normailize(rawCredentials: RawCredentials) = Credentials(rawCredentials.u.toLowerCase, rawCredentials.pw)
+
+ val rawCredentialPromise = Promise[RawCredentials]
+
+ val futCred = rawCredentialPromise.future map normailize
+
+ Await.result(futCred, DurationInt(3).seconds)
+ //java.util.concurrent.TimeoutException: Future timed out after [3 seconds]
+
+ rawCredentialPromise.completeWith(Future(RawCredentials("BOB", "dfdjfk")))
+ Await.result(futCred, DurationInt(3).seconds)
+ //res10: Credentials = Credentials(u = "bob", pw = "dfdjfk")
 
 ```
+
+Scala has syntactic shorthand to invoke flatMap: the [for comprehension](For-Comprehensions.md). Suppose you want to authenticate a login request
+via an asynchronous API and then check to see whether the user is banned via another asynchronous API. With the help of
+for-comprehensions, we can write this as:
+
+```scala
+def authenticate(req: LoginRequest): Future[User]
+
+val f = for {
+  u <- authenticate(request)
+  b <- isBanned(u)
+} yield (u,b)
+//f: com.twitter.util.Future[(User, Boolean)] = Promise@35785606(...)
+
+// This is sugar for: 
+
+val f = authenticate(request).flatMap{u => isBanned(u).map(b => (u, b))}
+```
+
