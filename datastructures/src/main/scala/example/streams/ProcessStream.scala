@@ -1,5 +1,10 @@
 package example.streams
 
+/**
+ * Oof I no longer remember what I was going to do with this stuff!
+ */
+
+
 sealed trait ProcessStream[I,O]
 
 case class HaltStream[I,O]() extends ProcessStream[I,O]
