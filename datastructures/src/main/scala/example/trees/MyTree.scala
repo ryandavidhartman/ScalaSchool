@@ -11,6 +11,7 @@ sealed trait MyTree[+T] {
   def contains[U >: T](element: U)(implicit ordering: Ordering[U]): Boolean
 
   def foreach(f: T => Unit): Unit
+  def map[U](f: T => U): MyTree[U]
 }
 
 case object Leaf extends MyTree[Nothing] {
@@ -21,6 +22,7 @@ case object Leaf extends MyTree[Nothing] {
   override def contains[U >: Nothing](element: U)(implicit ordering: Ordering[U]): Boolean = false
 
   override def foreach(f: Nothing => Unit): Unit = ()
+  def map[U](f: Nothing => U): MyTree[U] = Leaf
 
 }
 
@@ -50,6 +52,9 @@ case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T
     left.foreach(f)
     right.foreach(f)
   }
+
+  override def map[U](f: T => U): MyTree[U] =
+    Node(f(node), left.map(f), right.map(f))
 }
 
 case object MyTree {

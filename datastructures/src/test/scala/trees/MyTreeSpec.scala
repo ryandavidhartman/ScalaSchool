@@ -21,4 +21,12 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
     assert(testTree2.contains(2))
     assert(!testTree2.contains(4))
   }
+
+  "MyTree" should "be able to map over elements" in {
+    val testTree = Node(4, Node(3, Leaf, Leaf), Node(5, Leaf, Leaf))
+    val expectedTree1 = Node(-4, Node(-5, Leaf, Leaf), Node(-3, Leaf, Leaf))
+
+    assert(testTree.map(x => -1*x).contains(-4) )
+    // assert(testTree.map(x => -1*x) == expectedTree1)
+  }
 }
