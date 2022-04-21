@@ -22,11 +22,18 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
     assert(!testTree2.contains(4))
   }
 
+  "MyTree" should "be convertible into a list" in {
+    val testTree1 = Node(1, Leaf, Leaf)
+    assert(testTree1.toSet() == Set(1))
+
+    val testTree2 = MyTree(1,2,-3, 4)
+    assert(testTree2.toSet() == Set(2, 1, -3, 4))
+  }
+
   "MyTree" should "be able to map over elements" in {
     val testTree = Node(4, Node(3, Leaf, Leaf), Node(5, Leaf, Leaf))
     val expectedTree1 = Node(-4, Node(-5, Leaf, Leaf), Node(-3, Leaf, Leaf))
 
-    assert(testTree.map(x => -1*x).contains(-4) )
-    // assert(testTree.map(x => -1*x) == expectedTree1)
+    assert(testTree.map(x => -1*x) == expectedTree1)
   }
 }
