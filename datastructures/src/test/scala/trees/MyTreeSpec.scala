@@ -36,4 +36,14 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
 
     assert(testTree.map(x => -1*x) == expectedTree1)
   }
+
+  "MyTree" should "be usable in a for comprehension" in {
+    val testTree = Node(10, Node(4, Node(3, Leaf, Leaf), Node(5, Leaf, Leaf)),  Node(12, Node(11, Leaf, Leaf), Node(13, Leaf, Leaf)))
+
+    val results = for{
+      a <- testTree
+    } yield a
+
+    assert(results.toSet() == testTree.toSet())
+  }
 }
