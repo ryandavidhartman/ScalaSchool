@@ -12,6 +12,7 @@ sealed trait MyTree[+T] {
 
   def foreach(f: T => Unit): Unit
   def map[U](f: T => U)(implicit ordering: Ordering[U]): MyTree[U]
+  def flatMap[U](f: T => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U]
 
   def toSet[U >: T](): Set[U]
 }
@@ -24,9 +25,11 @@ case object Leaf extends MyTree[Nothing] {
   override def contains[U >: Nothing](element: U)(implicit ordering: Ordering[U]): Boolean = false
 
   override def foreach(f: Nothing => Unit): Unit = ()
-  def map[U](f: Nothing => U)(implicit ordering: Ordering[U]): MyTree[U] = Leaf
+  override def map[U](f: Nothing => U)(implicit ordering: Ordering[U]): MyTree[U] = Leaf
+  override def flatMap[U](f: Nothing => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U] = Leaf
 
   override def toSet[U >: Nothing](): Set[U] = Set.empty[U]
+
 }
 
 case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T] {
@@ -58,6 +61,11 @@ case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T
 
   override def map[U](f: T => U)(implicit ordering: Ordering[U]): MyTree[U] =
     MyTree(this.toSet().map(f).toList)
+
+  override def flatMap[U](f: T => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U] = {
+    MyTree(this.toSet().map(n => f(n).toSet()).flatten.toList)
+  }
+
 
   override def toSet[U >: T](): Set[U] = {
     def list_helper(tree: MyTree[U], acc: Set[U]): Set[U] = tree match {
