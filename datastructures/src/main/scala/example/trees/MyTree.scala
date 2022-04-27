@@ -9,13 +9,15 @@ sealed trait MyTree[+T] {
 
   def isEmpty(): Boolean
   def contains[U >: T](element: U)(implicit ordering: Ordering[U]): Boolean
+  def depth(): Int
 
   def foreach(f: T => Unit): Unit
   def map[U](f: T => U)(implicit ordering: Ordering[U]): MyTree[U]
   def flatMap[U](f: T => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U]
 
   def toSet[U >: T](): Set[U]
-}
+
+  }
 
 case object Leaf extends MyTree[Nothing] {
   override def insert[U >: Nothing](data: U)(implicit ordering: Ordering[U]): MyTree[U] =
@@ -23,6 +25,7 @@ case object Leaf extends MyTree[Nothing] {
 
   override def isEmpty(): Boolean = true
   override def contains[U >: Nothing](element: U)(implicit ordering: Ordering[U]): Boolean = false
+  override def depth(): Int = 0
 
   override def foreach(f: Nothing => Unit): Unit = ()
   override def map[U](f: Nothing => U)(implicit ordering: Ordering[U]): MyTree[U] = Leaf
@@ -30,6 +33,7 @@ case object Leaf extends MyTree[Nothing] {
 
   override def toSet[U >: Nothing](): Set[U] = Set.empty[U]
 
+  override def toString: String = "()"
 }
 
 case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T] {
@@ -51,6 +55,9 @@ case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T
       left.contains(element)
     else
       right.contains(element)
+  }
+  override def depth(): Int = {
+    1 + Math.max(left.depth(), right.depth())
   }
 
   override def foreach(f: T => Unit): Unit = {
@@ -76,6 +83,18 @@ case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T
     }
     list_helper(this, Set.empty[U])
   }
+
+  override def toString: String = {
+
+    def string_helper(myTree: MyTree[T], acc: String, currentDepth: Int, max_depth: Int): String =  myTree match {
+      case Leaf => acc
+      case Node(n,l, r) => ""
+    }
+
+    string_helper(this, "", 0, this.depth())
+
+  }
+
 }
 
 case object MyTree {

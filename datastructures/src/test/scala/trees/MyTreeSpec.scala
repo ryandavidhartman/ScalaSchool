@@ -46,4 +46,26 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
 
     assert(results.toSet() == testTree.toSet())
   }
+
+  "MyTree" should "be return a depth" in {
+    assert(Leaf.depth() == 0)
+
+    val testTree1 = Node(10, Leaf, Leaf)
+    assert(testTree1.depth() == 1)
+
+    val  testTree2 = Node(10, Node(5, Leaf, Leaf), Node(12, Leaf, Leaf))
+    assert(testTree2.depth() == 2)
+
+    val testTree3 = Node(10, Node(4, Node(3, Leaf, Leaf), Node(5, Leaf, Leaf)),  Node(12, Node(11, Leaf, Leaf), Node(13, Leaf, Leaf)))
+    assert(testTree3.depth() == 3)
+  }
+
+
+  /*
+  "MyTree" should "be printable" in {
+    val testTree = Node(10, Leaf, Leaf)
+    val expectedString = ""
+    assert(testTree.toString == expectedString)
+  }*/
+
 }
