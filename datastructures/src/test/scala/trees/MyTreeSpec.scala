@@ -22,12 +22,12 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
     assert(!testTree2.contains(4))
   }
 
-  "MyTree" should "be convertible into a list" in {
+  "MyTree" should "be convertible to a list" in {
     val testTree1 = Node(1, Leaf, Leaf)
-    assert(testTree1.toSet() == Set(1))
+    assert(testTree1.toList() == List(1))
 
     val testTree2 = MyTree(1,2,-3, 4)
-    assert(testTree2.toSet() == Set(2, 1, -3, 4))
+    assert(testTree2.toList() == List(-3, 1, 2, 4))
   }
 
   "MyTree" should "be able to map over elements" in {
@@ -44,7 +44,7 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
       a <- testTree
     } yield a
 
-    assert(results.toSet() == testTree.toSet())
+    assert(results.toList() == testTree.toList())
   }
 
   "MyTree" should "be return a depth" in {
@@ -60,12 +60,5 @@ class MyTreeSpec  extends AnyFlatSpec with Matchers {
     assert(testTree3.depth() == 3)
   }
 
-
-  /*
-  "MyTree" should "be printable" in {
-    val testTree = Node(10, Leaf, Leaf)
-    val expectedString = ""
-    assert(testTree.toString == expectedString)
-  }*/
 
 }

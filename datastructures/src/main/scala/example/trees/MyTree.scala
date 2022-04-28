@@ -15,7 +15,7 @@ sealed trait MyTree[+T] {
   def map[U](f: T => U)(implicit ordering: Ordering[U]): MyTree[U]
   def flatMap[U](f: T => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U]
 
-  def toSet[U >: T](): Set[U]
+  def toList[U >: T](): List[U]
 
   }
 
@@ -31,9 +31,7 @@ case object Leaf extends MyTree[Nothing] {
   override def map[U](f: Nothing => U)(implicit ordering: Ordering[U]): MyTree[U] = Leaf
   override def flatMap[U](f: Nothing => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U] = Leaf
 
-  override def toSet[U >: Nothing](): Set[U] = Set.empty[U]
-
-  override def toString: String = "()"
+  override def toList[U >: Nothing](): List[U] = List.empty[U]
 }
 
 case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T] {
@@ -67,32 +65,19 @@ case class Node[+T](node: T, left: MyTree[T], right: MyTree[T]) extends MyTree[T
   }
 
   override def map[U](f: T => U)(implicit ordering: Ordering[U]): MyTree[U] =
-    MyTree(this.toSet().map(f).toList)
+    MyTree(this.toList().map(f).toList)
 
   override def flatMap[U](f: T => MyTree[U])(implicit ordering: Ordering[U]): MyTree[U] = {
-    MyTree(this.toSet().map(n => f(n).toSet()).flatten.toList)
+    MyTree(this.toList().map(n => f(n).toList()).flatten.toList)
   }
 
 
-  override def toSet[U >: T](): Set[U] = {
-    def list_helper(tree: MyTree[U], acc: Set[U]): Set[U] = tree match {
-      case Leaf => acc
-      case Node(n, l, Leaf) => list_helper(l, acc ++ Set(n))
-      case Node(n, Leaf, r) => list_helper(r, acc ++ Set(n))
-      case Node(n, l, r) =>  list_helper(l, acc ++ Set(n) ++ r.toSet())
+  override def toList[U >: T](): List[U] = {
+    def list_helper(tree: MyTree[U]): List[U] = tree match {
+      case Leaf => List.empty
+      case Node(n, l, r) => list_helper(l) ++ List(n) ++ list_helper(r)
     }
-    list_helper(this, Set.empty[U])
-  }
-
-  override def toString: String = {
-
-    def string_helper(myTree: MyTree[T], acc: String, currentDepth: Int, max_depth: Int): String =  myTree match {
-      case Leaf => acc
-      case Node(n,l, r) => ""
-    }
-
-    string_helper(this, "", 0, this.depth())
-
+    list_helper(this)
   }
 
 }
