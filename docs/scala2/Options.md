@@ -45,4 +45,39 @@ be null. But most importantly, that programming error described earlier of using
 be `null` without first checking it for `null` becomes a type error in Scala. If a variable is of
 type `Option[String]` and you try to use it as a `String`, your Scala program will not compile.
 
+## Options in for comprehensions
+
+```scala
+def makeInt(s: String): Option[Int] = {
+  try {
+    Some(s.trim.toInt)
+  } catch {
+    case e: Exception => None
+  }
+}
+
+val result = for {
+  x <- makeInt("1")
+  y <- makeInt("error")
+  z <- makeInt("3")
+} yield x + y + z
+result: Option[Int] = None
+```
+
+We see inside a [for comprehension](For-Comprehensions.md) Options will short-circle at the first None.  Recall this
+is because of the way for comprehension are semantic sugar for maps, and flatMaps.
+
+```scala
+val result = for {
+  x <- makeInt("1")
+  y <- makeInt("error")
+  z <- makeInt("3")
+} yield x + y + z
+
+// is equivalent to
+
+val result = makeInt("1").flatMap{ x => makeInt("error").flatMap{ y => { makeInt("3").map {z => x + y + z }}}}
+```
+This terminates on the makeInt("error").flatMap => None
+
 ![Options Review](imgs/rtjvmOptions2.png)
