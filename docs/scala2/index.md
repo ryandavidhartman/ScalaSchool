@@ -27,6 +27,8 @@
 * [Collections](./Collections.md)
 * [Currying](./Currying.md)
 * [Default Parameters](./Default-Parameters.md)
+* [Either](./Either.md)
+* [Error Handling](./Error-Handling.md)
 * [Evaluation Rules](./Evaluation-Rules.md)
 * [For Comprehensions](./For-Comprehensions.md)
 * [Functions](./Functions.md)  
