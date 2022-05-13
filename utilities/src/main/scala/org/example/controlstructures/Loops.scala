@@ -37,4 +37,15 @@ case object Loops {
     }
   }
 
+  /**
+   * a using block takes a resource that has a closing block, and a function.  The using
+   * block will call the function, and close the resource after.
+   */
+  def using[A <: {def close() }, B](resource: A)(f: A => B): B = {
+    try {
+      f(resource)
+    } finally {
+      resource.close()
+    }
+  }
 }

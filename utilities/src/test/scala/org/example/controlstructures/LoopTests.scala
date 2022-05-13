@@ -1,7 +1,7 @@
 package org.example.controlstructures
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.example.controlstructures.Loops.{break, breakable, whilst}
+import org.example.controlstructures.Loops.{break, breakable, using, whilst}
 
 class LoopTests extends AnyFunSuite{
 
@@ -28,6 +28,13 @@ class LoopTests extends AnyFunSuite{
       }
     }
     assert(counter == 5)
+  }
+
+  test("The using block") {
+    using(io.Source.fromFile("/home/ryandavidhartman/dev/source/ScalaSchool/utilities/build.sbt")){source =>
+      val lines = source.getLines()
+      assert(lines.contains("libraryDependencies"))
+    }
   }
 
 }
