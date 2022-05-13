@@ -31,10 +31,13 @@ class LoopTests extends AnyFunSuite{
   }
 
   test("The using block") {
-    using(io.Source.fromFile("/home/ryandavidhartman/dev/source/ScalaSchool/utilities/build.sbt")){source =>
-      val lines = source.getLines()
-      assert(lines.contains("libraryDependencies"))
+    using(io.Source.fromFile("/home/ryandavidhartman/dev/source/ScalaSchool/utilities/build.sbt")) { source =>
+      val doIHaveIt = for {
+        line <- source.getLines()
+        hadIt = line.contains("libraryDependencies")
+      } yield hadIt
+
+      assert(doIHaveIt.contains(true))
     }
   }
-
 }
