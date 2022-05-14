@@ -30,6 +30,7 @@
 * [Either](./Either.md)
 * [Error Handling](./Error-Handling.md)
 * [Evaluation Rules](./Evaluation-Rules.md)
+* [flatMap](./flatMap.md)
 * [For Comprehensions](./For-Comprehensions.md)
 * [Functions](./Functions.md)  
 * [Futures](./Futures.md)
