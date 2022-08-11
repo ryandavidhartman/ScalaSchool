@@ -34,3 +34,4 @@ This evaluates to Success(value = 3) (Type Try[Int])
 
 So we want to combine two vals of type _Try_ how naturally leads to using _flatMap_. Similarly when
 we just _Options_, _Either_, and _Future_ we'll find ourselves using _flatMap_.
+
