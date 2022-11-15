@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "betting.house.projection.proto";
+option java_outer_classname = "BetProjectionProto";
+
+
+message MarketIdsBet {
+	string marketId = 1;
+}
+message SumStakes {
+	repeated SumStake sumstakes = 1;
+}
+message SumStake{
+	double total = 1;
+	int32 result = 2;
+}
+
+service BetProjectionService {
+	rpc GetBetByMarket(MarketIdsBet) returns (SumStakes) {}
+}

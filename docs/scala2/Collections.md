@@ -1,4 +1,16 @@
-Scala defines several collection classes:
+# Scala Collections
+
+## Introduction
+
+All scala collections are defined in the following package:
+
+```scala
+scala.collection  // Collections may be mutable or immutable
+scala.collection.immutable // The immutable collections.  These are usually used by default
+scala.collection.mutable // The mutable collections.  Array and ArrayBuffer are the most popular of these
+```
+
+## Scala defines several collection classes:
 
 ### Sequences
 Two of the most popular collections `List` and `vector` are subtypes of `Seq` see [Sequences](./Sequences.md) for more details
@@ -38,7 +50,7 @@ Most of the behavior we will use is described in the the top-level collections c
 
 ![collection common_behavior](imgs/rtjvmCollections4.png)
 
-### Examples
+## Examples
 <!-- code -->
 ```scala
     val fruitList = List("apples", "oranges", "pears")

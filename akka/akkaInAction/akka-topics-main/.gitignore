@@ -1,0 +1,5 @@
+target
+*build.properties
+*.sublime-project
+.DS_Store
+
